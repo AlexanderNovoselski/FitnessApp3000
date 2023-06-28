@@ -10,6 +10,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
+using FitnessApp.Enums;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -94,6 +95,17 @@ namespace FitnessApp.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+
+            public string UserName { get; set; }
+
+            public int Age { get; set; }
+
+            public GenderType Gender { get; set; }
+
+            public int Height { get; set; }
+
+            public double Weight { get; set; }
         }
 
 
@@ -111,6 +123,11 @@ namespace FitnessApp.Web.Areas.Identity.Pages.Account
             {
                 var user = CreateUser();
 
+                user.Age = Input.Age;
+                user.UserName = Input.UserName;
+                user.Weight = Input.Weight;
+                user.Height = Input.Height;
+                user.Gender = Input.Gender;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
