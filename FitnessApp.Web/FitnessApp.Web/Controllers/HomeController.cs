@@ -1,4 +1,5 @@
 ﻿using FitnessApp.Web.ViewModels.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -6,14 +7,14 @@ namespace FitnessApp.Web.Controllers
 {
     public class HomeController : Controller
 	{
-		private readonly ILogger<HomeController> _logger;
 
-		public HomeController(ILogger<HomeController> logger)
-		{
-			_logger = logger;
-		}
+        private readonly UserManager<User> _userManager;
 
-		public IActionResult Index()
+        public HomeController(UserManager<User> userManager)
+        {
+            _userManager = userManager;
+        }
+        public IActionResult Index()
 		{
 			return View();
 		}
