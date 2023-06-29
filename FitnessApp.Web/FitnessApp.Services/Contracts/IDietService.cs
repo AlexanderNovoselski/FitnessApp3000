@@ -6,9 +6,23 @@ namespace FitnessApp.Services.Contracts
     {
         public Task<IEnumerable<DietsResultModel>> GetAllDietsAsync();
 
-        //public Task<IEnumerable<DietsResultModel>> GetMyDiet(string userId);
+        public Task<IEnumerable<DietsResultModel>> GetMyDiets(string userId);
+		
+		public Task AddToCollection(int DietId, string userId);
 
-        //public Task AddToCollection(int bookId, string userId);
+		public Task RemoveFromCollection(int DietId, string userId);
 
-	}
+		public Task Remove(int DietId);
+
+		public Task Edit(UpdateDietViewModel model);
+
+		public Task<UpdateDietViewModel> GetEditDiet(int DietId);
+
+        public Task CreateAsync(AddDietViewModel model);
+
+        public Task<AddDietViewModel> GetAddModel();
+
+
+
+    }
 }

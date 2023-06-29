@@ -4,6 +4,7 @@ using FitnessApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230629152456_DataToDiets")]
+    partial class DataToDiets
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,24 +80,6 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasKey("DietId");
 
                     b.ToTable("Diets");
-
-                    b.HasData(
-                        new
-                        {
-                            DietId = 1,
-                            CaloriesIntake = 2000,
-                            Description = "This is a sample diet plan.",
-                            ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-                            Name = "Sample Diet 1"
-                        },
-                        new
-                        {
-                            DietId = 2,
-                            CaloriesIntake = 1800,
-                            Description = "This is a sample diet plan.",
-                            ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-                            Name = "Sample Diet 2"
-                        });
                 });
 
             modelBuilder.Entity("Exercise", b =>
@@ -389,18 +373,6 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("UserDiets");
-
-                    b.HasData(
-                        new
-                        {
-                            DietId = 1,
-                            UserId = "fb4b829a-b532-4923-b2b2-c7b9819558ff"
-                        },
-                        new
-                        {
-                            DietId = 2,
-                            UserId = "fb4b829a-b532-4923-b2b2-c7b9819558ff"
-                        });
                 });
 
             modelBuilder.Entity("Workout", b =>

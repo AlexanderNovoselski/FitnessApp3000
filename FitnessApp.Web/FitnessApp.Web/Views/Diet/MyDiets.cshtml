@@ -1,0 +1,30 @@
+﻿@model List<DietsResultModel>
+
+@{
+	ViewBag.Title = "My Diets";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+	@foreach (var diet in Model)
+	{
+		<div class="card col-4" style="width: 20rem; ">
+			<img class="card-img-top" style="width: 18rem;"
+				 src="@diet.ImageUrl" alt="Book Image">
+			<div class="card-body">
+
+				<h5 class="card-title mt-1">@diet.Name</h5>
+				<p class="mb-0">Description: @diet.Description</p>
+				<p class="mb-0">Calories: @diet.CaloriesIntake</p>
+			</div>
+
+			@if (User.Identity.IsAuthenticated)
+			{
+				<form class="input-group-sm" asp-controller="Diet" asp-action="RemoveFromCollection" asp-route-id="@diet.DietId">
+					<input type="submit" style="width: 200px; height: 50px;" value="Remove from Collection" class="btn btn-danger" />
+				</form>
+			}
+		</div>
+	}
+</div>

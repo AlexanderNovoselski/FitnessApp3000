@@ -16,7 +16,7 @@ public class User : IdentityUser
 
 	public List<Goal> Goals { get; set; }
 
-	public List<Diet> Diets { get; set; }
+	public List<UserDiet> UserDiets { get; set; }
 
 	public List<Achievement> Achievements { get; set; }
 }

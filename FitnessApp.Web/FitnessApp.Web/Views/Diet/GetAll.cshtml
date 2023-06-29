@@ -1,8 +1,11 @@
-﻿@model List<DietsResultModel>
+﻿@model IEnumerable<DietsResultModel>
+@inject Microsoft.AspNetCore.Identity.UserManager<User> userManager
 
 @{
-	ViewBag.Title = "All Books";
+	ViewBag.Title = "All Diets";
 }
+
+@*TODO add search bar and*@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
@@ -13,7 +16,7 @@
 			<img class="card-img-top" style="width: 18rem;"
 				 src="@diet.ImageUrl" alt="Book Image">
 			<div class="card-body">
-
+				<p hidden>Id: @diet.DietId</p>
 				<h5 class="card-title mt-1">@diet.Name</h5>
 				<p class="mb-0">Description: @diet.Description</p>
 				<p class="mb-0">Calories: @diet.CaloriesIntake</p>
@@ -25,12 +28,15 @@
 					<input type="submit" style="width: 200px; height: 50px;" value="Add to my Diets" class="fs-6 btn btn-success mb-3 p-2" />
 				</form>
 			}
-	@*		@if (User.Identity.IsAuthenticated && User.Identity.Name == diet.UserId) TODO
+			@if (User.Identity.IsAuthenticated && diet.UserIds.Contains(userManager.GetUserId(User))) //TODO make it so only role admin can see and use them
 			{
 				<form class="input-group-sm" asp-controller="Diet" asp-action="Edit" asp-route-id="@diet.DietId">
-					<input type="submit" style="width: 200px; height: 50px;" value="Edit" class="fs-6 btn btn-success mb-3 p-2" />
+					<input type="submit" style="width: 200px; height: 50px;" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
 				</form>
-			}*@
+				<form class="input-group-sm" asp-controller="Diet" asp-action="Remove" asp-route-id="@diet.DietId">
+					<input type="submit" style="width: 200px; height: 50px;" value="Remove" class="fs-6 btn btn-danger mb-3 p-2" />
+				</form>
+			}
 
 
 

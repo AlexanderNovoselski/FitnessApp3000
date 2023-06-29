@@ -7,18 +7,16 @@ public class Diet
 	public int DietId { get; set; }
 
 	[Required]
-	public string UserId { get; set; }
-
-	[ForeignKey("UserId")]
-	public User User { get; set; }
-
-	[Required]
 	public string Name { get; set; }
 
     [Required]
     public string ImageUrl { get; set; }
 
-    public string Description { get; set; }
+	[Required]
+	public string Description { get; set; }
 
+	[Required]
 	public int CaloriesIntake { get; set; }
+
+	public List<UserDiet> UserDiets { get; set; }
 }
