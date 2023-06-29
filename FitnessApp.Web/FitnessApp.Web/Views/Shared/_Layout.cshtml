@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -24,12 +25,17 @@
 						</li>
 						@if (User.Identity.IsAuthenticated)
 						{
+							var isAdmin = await RoleHelper.IsUserInRoleAsync(UserManager, User, "Admin");
+
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetMyDiets">My Diets</a>
 							</li>
-							<li class="nav-item"> @*TODO make it that only admin can see this one*@
-								<a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetCreateModel">Add Diet</a>
-							</li>
+							if (isAdmin)
+							{
+								<li class="nav-item">
+									<a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetCreateModel">Add Diet</a>
+								</li>
+							}
 						}
 					</ul>
 					<partial name="_LoginPartial" />

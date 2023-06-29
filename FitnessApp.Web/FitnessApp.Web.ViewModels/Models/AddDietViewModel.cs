@@ -4,7 +4,6 @@ namespace FitnessApp.Web.ViewModels.Models
 {
     public class AddDietViewModel
     {
-        public int DietId { get; set; }
 
 		[Required]
 		[MaxLength(100)]

@@ -49,6 +49,7 @@ namespace FitnessApp.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int Id)
         {
             await dietService.Remove(Id);
@@ -57,6 +58,7 @@ namespace FitnessApp.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int Id)
         {
             UpdateDietViewModel diet = await dietService.GetEditDiet(Id);
@@ -70,6 +72,7 @@ namespace FitnessApp.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Update(UpdateDietViewModel model)
         {
 
@@ -84,6 +87,7 @@ namespace FitnessApp.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetCreateModel()
         {
             var model = await dietService.GetAddModel();
@@ -92,8 +96,9 @@ namespace FitnessApp.Web.Controllers
         }
 
         [HttpPost]
-
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(AddDietViewModel model)
+        
         {
             if (ModelState.IsValid == false)
             {
