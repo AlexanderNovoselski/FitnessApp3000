@@ -4,6 +4,7 @@ using FitnessApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,13 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230629063243_UserModificationsAddingHeightinMandCent")]
+    partial class UserModificationsAddingHeightinMandCent
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.18")
+                .HasAnnotation("ProductVersion", "6.0.19")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -49,7 +51,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Achievements", (string)null);
+                    b.ToTable("Achievements");
                 });
 
             modelBuilder.Entity("Diet", b =>
@@ -67,6 +69,10 @@ namespace FitnessApp.Web.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -79,7 +85,18 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Diets", (string)null);
+                    b.ToTable("Diets");
+
+                    b.HasData(
+                        new
+                        {
+                            DietId = 1,
+                            CaloriesIntake = 2000,
+                            Description = "This is a sample diet plan.",
+                            ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
+                            Name = "Sample Diet 1",
+                            UserId = "1b973072-066a-4e28-aa15-6d8fb38b0e58"
+                        });
                 });
 
             modelBuilder.Entity("Exercise", b =>
@@ -100,7 +117,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasKey("ExerciseId");
 
-                    b.ToTable("Exercises", (string)null);
+                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("ExerciseWorkout", b =>
@@ -115,7 +132,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("WorkoutsWorkoutId");
 
-                    b.ToTable("ExerciseWorkout", (string)null);
+                    b.ToTable("ExerciseWorkout");
                 });
 
             modelBuilder.Entity("Goal", b =>
@@ -144,7 +161,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Goals", (string)null);
+                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -227,12 +244,10 @@ namespace FitnessApp.Web.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -269,12 +284,10 @@ namespace FitnessApp.Web.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -309,7 +322,10 @@ namespace FitnessApp.Web.Data.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<int>("Height")
+                    b.Property<int>("HeightInCentimeters")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HeightInMeters")
                         .HasColumnType("int");
 
                     b.Property<bool>("LockoutEnabled")
@@ -391,7 +407,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Workouts", (string)null);
+                    b.ToTable("Workouts");
                 });
 
             modelBuilder.Entity("Achievement", b =>

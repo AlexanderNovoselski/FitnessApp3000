@@ -2,7 +2,7 @@
 
 namespace FitnessApp.Web.Controllers
 {
-    public class AchievementController : Controller
+    public class AchievementController : BaseController
     {
         public IActionResult Index()
         {

@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessApp.Web", "FitnessApp.Web\FitnessApp.Web.csproj", "{F6FA6500-B236-4B4A-A2CB-000DAC645BCC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessApp.Web", "FitnessApp.Web\FitnessApp.Web.csproj", "{F6FA6500-B236-4B4A-A2CB-000DAC645BCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessApp.Data", "FitnessApp.Data\FitnessApp.Data.csproj", "{4BD4102D-CF9A-47C4-B1FB-7A871A0B0A89}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessApp.DataLayer", "FitnessApp.Data\FitnessApp.DataLayer.csproj", "{4BD4102D-CF9A-47C4-B1FB-7A871A0B0A89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessApp.Web.ViewModels", "FitnessApp.Web.ViewModels\FitnessApp.Web.ViewModels.csproj", "{8952074D-4CFF-45F8-B0E3-CD19368DEA3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessApp.Web.ViewModels", "FitnessApp.Web.ViewModels\FitnessApp.Web.ViewModels.csproj", "{8952074D-4CFF-45F8-B0E3-CD19368DEA3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitnessApp.Services", "FitnessApp.Services\FitnessApp.Services.csproj", "{31F3CD4B-FDD9-4442-8FDC-1BD8D7027A0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FitnessApp.Services", "FitnessApp.Services\FitnessApp.Services.csproj", "{31F3CD4B-FDD9-4442-8FDC-1BD8D7027A0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

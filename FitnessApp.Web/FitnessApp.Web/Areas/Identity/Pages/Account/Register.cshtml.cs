@@ -96,15 +96,27 @@ namespace FitnessApp.Web.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
 
-
+			[Required]
+            [StringLength(35)]
             public string UserName { get; set; }
 
+			[Required]
+			[Range(1,100)]
             public int Age { get; set; }
 
-            public GenderType Gender { get; set; }
+			[Required]
+			public GenderType Gender { get; set; }
 
-            public int Height { get; set; }
+            [Range(1,3)]
+			[Required]
+			public int HeightInMeters { get; set; }
 
+            [Range(1,99)]
+			[Required]
+			public int HeightInCentimeters { get; set; }
+
+            [Range(1,300)]
+            [Required]
             public double Weight { get; set; }
         }
 
@@ -126,7 +138,8 @@ namespace FitnessApp.Web.Areas.Identity.Pages.Account
                 user.Age = Input.Age;
                 user.UserName = Input.UserName;
                 user.Weight = Input.Weight;
-                user.Height = Input.Height;
+                user.HeightInMeters = Input.HeightInMeters;
+                user.HeightInCentimeters = Input.HeightInCentimeters;
                 user.Gender = Input.Gender;
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

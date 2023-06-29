@@ -7,7 +7,8 @@ public class User : IdentityUser
 
 	public GenderType Gender { get; set; }
 
-	public int Height { get; set; }
+	public int HeightInMeters { get; set; }
+	public int HeightInCentimeters { get; set; }
 
 	public double Weight { get; set; }
 

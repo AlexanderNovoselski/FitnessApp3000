@@ -1,12 +1,13 @@
 ﻿using FitnessApp.Web.ViewModels.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace FitnessApp.Web.Controllers
 {
-    public class HomeController : Controller
-	{
+    public class HomeController : BaseController
+    {
 
         private readonly UserManager<User> _userManager;
 
@@ -14,18 +15,19 @@ namespace FitnessApp.Web.Controllers
         {
             _userManager = userManager;
         }
+        [AllowAnonymous]
         public IActionResult Index()
-		{
-			return View();
-		}
+        {
+            if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("GetAll", "Diet");
+            }
 
-		public IActionResult Privacy()
-		{
-			return View();
+            return RedirectToAction("GetAll", "Diet");
+        }
 
-		}
 
-		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
 		public IActionResult Error()
 		{
 			return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

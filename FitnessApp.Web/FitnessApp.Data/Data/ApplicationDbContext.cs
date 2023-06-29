@@ -19,6 +19,22 @@ namespace FitnessApp.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            SeedData(modelBuilder);
+        }
+        private void SeedData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Diet>().HasData(
+                new Diet
+                {
+                    DietId = 1,
+                    UserId = "1b973072-066a-4e28-aa15-6d8fb38b0e58",
+                    Name = "Sample Diet 1",
+                    ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
+                    Description = "This is a sample diet plan.",
+                    CaloriesIntake = 2000
+                });
+           
         }
     }
 }

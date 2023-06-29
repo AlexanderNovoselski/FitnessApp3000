@@ -15,7 +15,10 @@ public class Diet
 	[Required]
 	public string Name { get; set; }
 
-	public string Description { get; set; }
+    [Required]
+    public string ImageUrl { get; set; }
+
+    public string Description { get; set; }
 
 	public int CaloriesIntake { get; set; }
 }
