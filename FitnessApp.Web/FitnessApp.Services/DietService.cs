@@ -13,26 +13,27 @@ namespace FitnessApp.Services
 		{
 			this.dbContext = dbContext;
 		}
-		public async Task<IEnumerable<DietsResultModel>> GetAllDietsAsync()
-		{
-			var diets = await dbContext.Diets
-				  .Include(d => d.UserDiets)
-				  .ToListAsync();
+        public async Task<IEnumerable<DietsResultModel>> GetAllDietsAsync()
+        {
+            var diets = await dbContext.Diets
+                .Include(d => d.UserDiets)
+                .OrderByDescending(d => d.DietId)
+                .ToListAsync();
 
-			var dietsResult = diets.Select(d => new DietsResultModel
-			{
-				DietId = d.DietId,
-				Name = d.Name,
-				ImageUrl = d.ImageUrl,
-				Description = d.Description,
-				CaloriesIntake = d.CaloriesIntake,
-				UserIds = d.UserDiets.Select(ud => ud.UserId).ToList()
-			});
+            var dietsResult = diets.Select(d => new DietsResultModel
+            {
+                DietId = d.DietId,
+                Name = d.Name,
+                ImageUrl = d.ImageUrl,
+                Description = d.Description,
+                CaloriesIntake = d.CaloriesIntake,
+                UserIds = d.UserDiets.Select(ud => ud.UserId).ToList()
+            });
 
-			return dietsResult;
-		}
+            return dietsResult;
+        }
 
-		public async Task<IEnumerable<DietsResultModel>> GetMyDiets(string userId)
+        public async Task<IEnumerable<DietsResultModel>> GetMyDiets(string userId)
 		{
 			return await dbContext.UserDiets
 		.Where(userDiet => userDiet.UserId == userId)
@@ -136,7 +137,6 @@ namespace FitnessApp.Services
 				ImageUrl = model.ImageUrl,
 				Description = model.Description,
 				CaloriesIntake = model.CaloriesIntake,
-				UserDiets = model.UserDiets
 			};
 
 			dbContext.Diets.Add(diet);

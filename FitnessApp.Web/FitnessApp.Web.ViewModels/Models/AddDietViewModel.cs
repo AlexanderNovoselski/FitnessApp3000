@@ -20,6 +20,5 @@ namespace FitnessApp.Web.ViewModels.Models
         [Range(0,6000)]
         public int CaloriesIntake { get; set; }
 
-        public List<UserDiet> UserDiets { get; set; }
     }
 }

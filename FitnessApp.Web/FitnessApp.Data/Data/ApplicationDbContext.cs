@@ -24,6 +24,7 @@ namespace FitnessApp.Data
 		{
 			base.OnModelCreating(modelBuilder);
 
+
 			modelBuilder.Entity<ExerciseWorkout>()
 			.HasKey(ud => new { ud.ExerciseId, ud.WorkoutId });
 
