@@ -21,5 +21,5 @@ public class Workout
 
 	public double CaloriesBurned { get; set; }
 
-	public List<Exercise> Exercises { get; set; }
+	public List<ExerciseWorkout> ExerciseWorkouts { get; set; }
 }

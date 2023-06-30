@@ -4,6 +4,7 @@ using FitnessApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230630151700_Relation-Many-To-Many-Exercise-Workout")]
+    partial class RelationManyToManyExerciseWorkout
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Achievements", (string)null);
+                    b.ToTable("Achievements");
                 });
 
             modelBuilder.Entity("Diet", b =>
@@ -77,7 +79,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasKey("DietId");
 
-                    b.ToTable("Diets", (string)null);
+                    b.ToTable("Diets");
 
                     b.HasData(
                         new
@@ -116,7 +118,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasKey("ExerciseId");
 
-                    b.ToTable("Exercises", (string)null);
+                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("ExerciseWorkout", b =>
@@ -139,7 +141,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("ExerciseWorkouts", (string)null);
+                    b.ToTable("ExerciseWorkouts");
                 });
 
             modelBuilder.Entity("Goal", b =>
@@ -168,7 +170,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Goals", (string)null);
+                    b.ToTable("Goals");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -396,7 +398,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserDiets", (string)null);
+                    b.ToTable("UserDiets");
 
                     b.HasData(
                         new
@@ -441,7 +443,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Workouts", (string)null);
+                    b.ToTable("Workouts");
                 });
 
             modelBuilder.Entity("Achievement", b =>

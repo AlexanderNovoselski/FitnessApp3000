@@ -18,14 +18,27 @@ namespace FitnessApp.Data
 		public DbSet<Diet> Diets { get; set; }
 		public DbSet<UserDiet> UserDiets { get; set; }
 		public DbSet<Achievement> Achievements { get; set; }
+		public DbSet<ExerciseWorkout> ExerciseWorkouts { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-		
+
+			modelBuilder.Entity<ExerciseWorkout>()
+			.HasKey(ud => new { ud.ExerciseId, ud.WorkoutId });
 
 			modelBuilder.Entity<UserDiet>()
-	  .HasKey(ud => new { ud.DietId, ud.UserId });
+				 .HasKey(ud => new { ud.DietId, ud.UserId });
+
+			modelBuilder.Entity<ExerciseWorkout>()
+				.HasOne(ud => ud.Exercise)
+				.WithMany(d => d.ExerciseWorkouts)
+				.HasForeignKey(ud => ud.ExerciseId);
+
+			modelBuilder.Entity<ExerciseWorkout>()
+				.HasOne(ud => ud.Workout)
+				.WithMany(u => u.ExerciseWorkouts)
+				.HasForeignKey(ud => ud.WorkoutId);
 
 			modelBuilder.Entity<UserDiet>()
 				.HasOne(ud => ud.Diet)
@@ -57,6 +70,22 @@ namespace FitnessApp.Data
 				{
 					DietId = 2,
 					Name = "Sample Diet 2",
+					ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
+					Description = "This is a sample diet plan.",
+					CaloriesIntake = 1800
+				},
+				new Diet
+				{
+					DietId = 3,
+					Name = "Sample Diet 3",
+					ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
+					Description = "This is a sample diet plan.",
+					CaloriesIntake = 1800
+				},
+				new Diet
+				{
+					DietId = 4,
+					Name = "Sample Diet 4",
 					ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
 					Description = "This is a sample diet plan.",
 					CaloriesIntake = 1800

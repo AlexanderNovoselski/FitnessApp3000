@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class Exercise
 {
@@ -10,5 +11,5 @@ public class Exercise
 
 	public string Description { get; set; }
 
-	public List<Workout> Workouts { get; set; }
+	public List<ExerciseWorkout> ExerciseWorkouts { get; set; }
 }

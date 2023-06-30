@@ -12,7 +12,7 @@ public class User : IdentityUser
 
 	public double Weight { get; set; }
 
-	public List<Workout> Workouts { get; set; }
+	public List<ExerciseWorkout> ExerciseWorkouts { get; set; }
 
 	public List<Goal> Goals { get; set; }
 

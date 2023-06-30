@@ -25,12 +25,11 @@
 						</li>
 						@if (User.Identity.IsAuthenticated)
 						{
-							var isAdmin = await RoleHelper.IsUserInRoleAsync(UserManager, User, "Admin");
 
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetMyDiets">My Diets</a>
 							</li>
-							if (isAdmin)
+							if (User.IsInRole("Admin"))
 							{
 								<li class="nav-item">
 									<a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetCreateModel">Add Diet</a>
@@ -52,6 +51,12 @@
 	<footer class="border-top footer text-muted">
 		<div class="container">
 			&copy; @DateTime.UtcNow.Year - FitnessApp
+			<div class="text-end">
+				@if (User.IsInRole("Admin"))
+				{
+					<p>You shall have admin powers!</p>
+				}
+			</div>
 		</div>
 	</footer>
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>

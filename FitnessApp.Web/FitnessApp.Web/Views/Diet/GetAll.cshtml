@@ -24,13 +24,12 @@
 
 			@if (User.Identity.IsAuthenticated)
 			{
-				var isAdmin = await RoleHelper.IsUserInRoleAsync(UserManager, User, "Admin");
 
 				<form class="input-group-sm" asp-controller="Diet" asp-action="AddToCollection" asp-route-id="@diet.DietId">
 					<input type="submit" style="width: 200px; height: 50px;" value="Add to my Diets" class="fs-6 btn btn-success mb-3 p-2" />
 				</form>
 
-				@if (isAdmin)
+				@if (User.IsInRole("Admin"))
 				{
 					<form class="input-group-sm" asp-controller="Diet" asp-action="Edit" asp-route-id="@diet.DietId">
 						<input type="submit" style="width: 200px; height: 50px;" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
