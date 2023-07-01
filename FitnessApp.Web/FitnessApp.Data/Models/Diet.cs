@@ -18,5 +18,7 @@ public class Diet
 	[Required]
 	public int CaloriesIntake { get; set; }
 
+	public DateTime CreationDate { get; set; } = DateTime.Now;
+
 	public List<UserDiet> UserDiets { get; set; }
 }

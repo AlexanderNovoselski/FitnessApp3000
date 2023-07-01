@@ -1,45 +1,79 @@
 ﻿@using System.Security.Claims;
 @model IEnumerable<DietsResultModel>
 @inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
+@using FitnessApp.Web.ViewModels.Models.Enums;
 
 @{
-	ViewBag.Title = "All Diets";
+    ViewBag.Title = "All Diets";
 }
 
 @*TODO add search bar and*@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div class="text-center row">
-	@foreach (var diet in Model)
-	{
-		<div class="card col-4" style="width: 20rem; ">
-			<img class="card-img-top" style="width: 18rem;"
-				 src="@diet.ImageUrl" alt="Book Image">
-			<div class="card-body">
-				<p hidden>Id: @diet.DietId</p>
-				<h5 class="card-title mt-1">@diet.Name</h5>
-				<p class="mb-0">Description: @diet.Description</p>
-				<p class="mb-0">Calories: @diet.CaloriesIntake</p>
-			</div>
-
-			@if (User.Identity.IsAuthenticated)
-			{
-
-				<form class="input-group-sm" asp-controller="Diet" asp-action="AddToCollection" asp-route-id="@diet.DietId">
-					<input type="submit" style="width: 200px; height: 50px;" value="Add to my Diets" class="fs-6 btn btn-success mb-3 p-2" />
-				</form>
-
-				@if (User.IsInRole("Admin"))
-				{
-					<form class="input-group-sm" asp-controller="Diet" asp-action="Edit" asp-route-id="@diet.DietId">
-						<input type="submit" style="width: 200px; height: 50px;" value="Edit" class="fs-6 btn btn-warning mb-3 p-2" />
-					</form>
-					<form class="input-group-sm" asp-controller="Diet" asp-action="Remove" asp-route-id="@diet.DietId">
-						<input type="submit" style="width: 200px; height: 50px;" value="Remove" class="fs-6 btn btn-danger mb-3 p-2" />
-					</form>
-				}
-			}
-		</div>
-	}
+<div class="text-start mb-3">
+    <div class="d-inline-block">
+        <label for="SortingType" style="display: block;">Sort by:</label>
+        <select id="SortingType" class="form-select" style="width: 300px; height: 30px; padding: 0.25rem;" onchange="handleSortingChange(this)">
+            <option value="default">Default</option>
+            <option value="newest">Newest</option>
+            <option value="oldest">Oldest</option>
+        </select>
+    </div>
 </div>
+
+<div class="text-center row">
+    @foreach (var diet in Model)
+    {
+        <div class="card col-4" style="width: 20rem; margin-bottom: 20px;">
+            <img class="card-img-top img-fluid" src="@diet.ImageUrl" alt="Book Image">
+            <div class="card-body">
+                <p hidden>Id: @diet.DietId</p>
+                <h5 class="card-title mt-1">@diet.Name</h5>
+                <p class="mb-0">Description: @diet.Description</p>
+                <p class="mb-0">Calories: @diet.CaloriesIntake</p>
+            </div>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="AddToCollection" asp-route-id="@diet.DietId">
+                    <input type="submit" value="Add to my Favourites" class="btn btn-success btn-sm w-100" />
+                </form>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <div class="d-grid gap-2">
+                        <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Edit" asp-route-id="@diet.DietId">
+                            <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
+                        </form>
+                        <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Remove" asp-route-id="@diet.DietId">
+                            <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
+                        </form>
+                    </div>
+                }
+            }
+        </div>
+    }
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var selectElement = document.getElementById("SortingType");
+        var selectedValue = localStorage.getItem("sortingType");
+        if (selectedValue) {
+            selectElement.value = selectedValue;
+        }
+    });
+
+    function handleSortingChange(selectElement) {
+        var sortingType = selectElement.value;
+        var baseUrl = '@Url.Action("GetAll")';
+        var url = baseUrl + '?sortingType=' + sortingType;
+        location.href = url;
+
+        // Store the selected value in localStorage
+        localStorage.setItem("sortingType", sortingType);
+		// Store the selected value in localStorage
+		localStorage.setItem("sortingType", sortingType);
+	}
+</script>

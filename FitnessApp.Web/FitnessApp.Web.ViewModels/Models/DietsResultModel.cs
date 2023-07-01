@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using FitnessApp.Web.ViewModels.Models.Enums;
 
 namespace FitnessApp.Web.ViewModels.Models
 {
@@ -14,8 +14,9 @@ namespace FitnessApp.Web.ViewModels.Models
 
         public string Description { get; set; }
 
-        public int CaloriesIntake { get; set; }
+        public SortType SortingType { get; set; }
 
+        public int CaloriesIntake { get; set; }
 
 	}
 }

@@ -1,10 +1,11 @@
 ﻿using FitnessApp.Web.ViewModels.Models;
+using FitnessApp.Web.ViewModels.Models.Enums;
 
 namespace FitnessApp.Services.Contracts
 {
     public interface IDietService
     {
-        public Task<IEnumerable<DietsResultModel>> GetAllDietsAsync();
+        public Task<IEnumerable<DietsResultModel>> GetAllDietsAsync(SortType sortingType);
 
         public Task<IEnumerable<DietsResultModel>> GetMyDiets(string userId);
 		

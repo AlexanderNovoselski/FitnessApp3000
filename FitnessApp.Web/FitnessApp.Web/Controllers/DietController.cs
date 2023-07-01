@@ -1,5 +1,6 @@
 ﻿using FitnessApp.Services.Contracts;
 using FitnessApp.Web.ViewModels.Models;
+using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -15,16 +16,16 @@ namespace FitnessApp.Web.Controllers
             this.dietService = dietService;
         }
 
-        [AllowAnonymous]
-        [HttpGet]
+		[AllowAnonymous]
+		[HttpGet]
+		public async Task<IActionResult> GetAll(SortType sortingType = SortType.Default)
+		{
+			var model = await dietService.GetAllDietsAsync(sortingType);
+			ViewBag.SortingType = sortingType;
+			return View("GetAll", model);
+		}
 
-        public async Task<IActionResult> GetAll()
-        {
-            var model = await dietService.GetAllDietsAsync();
-            return View("GetAll", model);
-        }
-
-        [HttpGet]
+		[HttpGet]
 
         public async Task<IActionResult> GetMyDiets()
         {

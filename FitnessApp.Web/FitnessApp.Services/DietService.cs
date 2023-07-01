@@ -1,6 +1,7 @@
 ﻿using FitnessApp.Data;
 using FitnessApp.Services.Contracts;
 using FitnessApp.Web.ViewModels.Models;
+using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Services
@@ -13,27 +14,41 @@ namespace FitnessApp.Services
 		{
 			this.dbContext = dbContext;
 		}
-        public async Task<IEnumerable<DietsResultModel>> GetAllDietsAsync()
-        {
-            var diets = await dbContext.Diets
-                .Include(d => d.UserDiets)
-                .OrderByDescending(d => d.DietId)
-                .ToListAsync();
 
-            var dietsResult = diets.Select(d => new DietsResultModel
-            {
-                DietId = d.DietId,
-                Name = d.Name,
-                ImageUrl = d.ImageUrl,
-                Description = d.Description,
-                CaloriesIntake = d.CaloriesIntake,
-                UserIds = d.UserDiets.Select(ud => ud.UserId).ToList()
-            });
+		public async Task<IEnumerable<DietsResultModel>> GetAllDietsAsync(SortType sortingType)
+		{
+			IQueryable<Diet> query = dbContext.Diets.Include(d => d.UserDiets);
 
-            return dietsResult;
-        }
+			switch (sortingType)
+			{
+				case SortType.Newest:
+					query = query.OrderByDescending(d => d.CreationDate);
+					break;
+				case SortType.Oldest:
+					query = query.OrderBy(d => d.CreationDate);
+					break;
+				case SortType.Default:
+					break;
 
-        public async Task<IEnumerable<DietsResultModel>> GetMyDiets(string userId)
+			}
+
+			var diets = await query.ToListAsync();
+
+			var dietsResult = diets.Select(d => new DietsResultModel
+			{
+				DietId = d.DietId,
+				Name = d.Name,
+				ImageUrl = d.ImageUrl,
+				Description = d.Description,
+				CaloriesIntake = d.CaloriesIntake,
+				UserIds = d.UserDiets.Select(ud => ud.UserId).ToList(),
+				SortingType = sortingType
+			});
+
+			return dietsResult;
+		}
+
+		public async Task<IEnumerable<DietsResultModel>> GetMyDiets(string userId)
 		{
 			return await dbContext.UserDiets
 		.Where(userDiet => userDiet.UserId == userId)
