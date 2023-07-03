@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FitnessApp.DataLayer.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
@@ -19,6 +20,7 @@ namespace FitnessApp.Data
 		public DbSet<UserDiet> UserDiets { get; set; }
 		public DbSet<Achievement> Achievements { get; set; }
 		public DbSet<ExerciseWorkout> ExerciseWorkouts { get; set; }
+		public DbSet<UserWorkout> UserWorkouts { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -28,7 +30,10 @@ namespace FitnessApp.Data
 			modelBuilder.Entity<ExerciseWorkout>()
 			.HasKey(ud => new { ud.ExerciseId, ud.WorkoutId });
 
-			modelBuilder.Entity<UserDiet>()
+            modelBuilder.Entity<UserWorkout>()
+            .HasKey(ud => new { ud.UserId, ud.WorkoutId });
+
+            modelBuilder.Entity<UserDiet>()
 				 .HasKey(ud => new { ud.DietId, ud.UserId });
 
 			modelBuilder.Entity<ExerciseWorkout>()

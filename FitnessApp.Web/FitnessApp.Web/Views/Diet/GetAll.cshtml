@@ -22,38 +22,48 @@
     </div>
 </div>
 
+
 <div class="text-center row">
-    @foreach (var diet in Model)
+    @if (Model.Any())
     {
-        <div class="card col-4" style="width: 20rem; margin-bottom: 20px;">
-            <img class="card-img-top img-fluid" src="@diet.ImageUrl" alt="Book Image">
-            <div class="card-body">
-                <p hidden>Id: @diet.DietId</p>
-                <h5 class="card-title mt-1">@diet.Name</h5>
-                <p class="mb-0">Description: @diet.Description</p>
-                <p class="mb-0">Calories: @diet.CaloriesIntake</p>
-            </div>
+        @foreach (var diet in Model)
+        {
+            <div class="card col-4" style="width: 20rem; margin-bottom: 20px;">
+                <img class="card-img-top img-fluid" src="@diet.ImageUrl" alt="Book Image">
+                <div class="card-body">
+                    <p hidden>Id: @diet.DietId</p>
+                    <h5 class="card-title mt-1">@diet.Name</h5>
+                    <p class="mb-0">Description: @diet.Description</p>
+                    <p class="mb-0">Calories: @diet.CaloriesIntake</p>
+                </div>
 
-            @if (User.Identity.IsAuthenticated)
-            {
-                <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="AddToCollection" asp-route-id="@diet.DietId">
-                    <input type="submit" value="Add to my Favourites" class="btn btn-success btn-sm w-100" />
-                </form>
-
-                @if (User.IsInRole("Admin"))
+                @if (User.Identity.IsAuthenticated)
                 {
-                    <div class="d-grid gap-2">
-                        <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Edit" asp-route-id="@diet.DietId">
-                            <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
-                        </form>
-                        <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Remove" asp-route-id="@diet.DietId">
-                            <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
-                        </form>
-                    </div>
+                    <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="AddToCollection" asp-route-id="@diet.DietId">
+                        <input type="submit" value="Add to my Favourites" class="btn btn-success btn-sm w-100" />
+                    </form>
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="d-grid gap-2">
+                            <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Edit" asp-route-id="@diet.DietId">
+                                <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
+                            </form>
+                            <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Remove" asp-route-id="@diet.DietId">
+                                <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
+                            </form>
+                        </div>
+                    }
                 }
-            }
-        </div>
+            </div>
+        }
     }
+
+    else
+    {
+        <p>No diets available yet.</p>
+    }
+
 </div>
 
 <script>

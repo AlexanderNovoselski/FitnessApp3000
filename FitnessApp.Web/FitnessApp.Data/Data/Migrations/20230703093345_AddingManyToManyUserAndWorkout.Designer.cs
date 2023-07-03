@@ -4,6 +4,7 @@ using FitnessApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.Web.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230703093345_AddingManyToManyUserAndWorkout")]
+    partial class AddingManyToManyUserAndWorkout
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,7 +89,7 @@ namespace FitnessApp.Web.Data.Migrations
                         {
                             DietId = 1,
                             CaloriesIntake = 2000,
-                            CreationDate = new DateTime(2023, 7, 3, 12, 37, 40, 318, DateTimeKind.Local).AddTicks(7498),
+                            CreationDate = new DateTime(2023, 7, 3, 12, 33, 45, 625, DateTimeKind.Local).AddTicks(9371),
                             Description = "This is a sample diet plan.",
                             ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
                             Name = "Sample Diet 1"
@@ -96,7 +98,7 @@ namespace FitnessApp.Web.Data.Migrations
                         {
                             DietId = 2,
                             CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 3, 12, 37, 40, 318, DateTimeKind.Local).AddTicks(7528),
+                            CreationDate = new DateTime(2023, 7, 3, 12, 33, 45, 625, DateTimeKind.Local).AddTicks(9404),
                             Description = "This is a sample diet plan.",
                             ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
                             Name = "Sample Diet 2"
@@ -105,7 +107,7 @@ namespace FitnessApp.Web.Data.Migrations
                         {
                             DietId = 3,
                             CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 3, 12, 37, 40, 318, DateTimeKind.Local).AddTicks(7530),
+                            CreationDate = new DateTime(2023, 7, 3, 12, 33, 45, 625, DateTimeKind.Local).AddTicks(9407),
                             Description = "This is a sample diet plan.",
                             ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
                             Name = "Sample Diet 3"
@@ -114,7 +116,7 @@ namespace FitnessApp.Web.Data.Migrations
                         {
                             DietId = 4,
                             CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 3, 12, 37, 40, 318, DateTimeKind.Local).AddTicks(7532),
+                            CreationDate = new DateTime(2023, 7, 3, 12, 33, 45, 625, DateTimeKind.Local).AddTicks(9408),
                             Description = "This is a sample diet plan.",
                             ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
                             Name = "Sample Diet 4"
@@ -136,12 +138,6 @@ namespace FitnessApp.Web.Data.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Reps")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Sets")
-                        .HasColumnType("int");
 
                     b.HasKey("ExerciseId");
 
