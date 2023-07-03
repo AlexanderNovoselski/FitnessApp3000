@@ -2,11 +2,10 @@
 using FitnessApp.Services.Contracts;
 using FitnessApp.Web.ViewModels.Models;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace FitnessApp.Services
 {
-    public class WorkoutService : IWorkoutService
+	public class WorkoutService : IWorkoutService
     {
         public readonly ApplicationDbContext dbContext;
         public WorkoutService(ApplicationDbContext dbContext)
@@ -118,21 +117,30 @@ namespace FitnessApp.Services
                     }
                 }
 
-                // Remove exercise workouts that are not in the updated model
-                var exerciseWorkoutIds = model.ExerciseWorkouts.Select(ew => ew.ExerciseId).ToList();
-                var exerciseWorkoutsToRemove = workout.ExerciseWorkouts
-                    .Where(ew => !exerciseWorkoutIds.Contains(ew.ExerciseId))
-                    .ToList();
-
-                foreach (var exerciseWorkout in exerciseWorkoutsToRemove)
-                {
-                    workout.ExerciseWorkouts.Remove(exerciseWorkout);
-                }
-
-                dbContext.Update(workout);
-                await dbContext.SaveChangesAsync();
             }
         }
+		public async Task CreateAsync(AddWorkoutViewModel model)
+		{
+			var workout = new Workout
+			{
+				Name = model.Name,
+                Description = model.Description,
+                ImageUrl = model.ImageUrl,
+                Duration = model.Duration,
+                CaloriesBurned = model.CaloriesBurned,
+			};
 
-    }
+			dbContext.Workouts.Add(workout);
+			await dbContext.SaveChangesAsync();
+		}
+
+
+		public Task<AddWorkoutViewModel> GetAddModel()
+		{
+			var model = new AddWorkoutViewModel();
+			return Task.FromResult(model);
+		}
+
+
+	}
 }

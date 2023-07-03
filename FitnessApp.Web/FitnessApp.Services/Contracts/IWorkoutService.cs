@@ -11,5 +11,9 @@ namespace FitnessApp.Services.Contracts
         public Task<UpdateWorkoutViewModel> GetWorkoutEdit(int WorkoutId);
 
         public Task Update(UpdateWorkoutViewModel model);
-    }
+
+		public Task CreateAsync(AddWorkoutViewModel model);
+
+		public Task<AddWorkoutViewModel> GetAddModel();
+	}
 }

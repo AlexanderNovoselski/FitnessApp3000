@@ -65,5 +65,28 @@ namespace FitnessApp.Web.Controllers
             return RedirectToAction(nameof(GetAll));
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetCreateModel()
+        {
+            var model = await workoutService.GetAddModel();
+
+            return View("Add", model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(AddWorkoutViewModel model)
+
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View("Add", model);
+            }
+            await workoutService.CreateAsync(model);
+
+            return RedirectToAction(nameof(GetAll));
+        }
+
     }
 }
