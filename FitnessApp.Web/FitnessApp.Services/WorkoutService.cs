@@ -82,6 +82,7 @@ namespace FitnessApp.Services
 
             if (workout != null)
             {
+                workout.WorkoutId = model.WorkoutId;
                 workout.Duration = model.Duration;
                 workout.Name = model.Name;
                 workout.Description = model.Description;
@@ -102,22 +103,9 @@ namespace FitnessApp.Services
                         exerciseWorkout.Exercise.Sets = exerciseWorkoutModel.Sets;
                         exerciseWorkout.Exercise.Reps = exerciseWorkoutModel.Reps;
                     }
-                    else
-                    {
-                        // Add new exercise workout
-                        var exercise = await dbContext.Exercises.FindAsync(exerciseWorkoutModel.ExerciseId);
-
-                        if (exercise != null)
-                        {
-                            workout.ExerciseWorkouts.Add(new ExerciseWorkout
-                            {
-                                Exercise = exercise
-                            });
-                        }
-                    }
                 }
-
             }
+            await dbContext.SaveChangesAsync();
         }
 		public async Task CreateAsync(AddWorkoutViewModel model)
 		{
@@ -134,13 +122,27 @@ namespace FitnessApp.Services
 			await dbContext.SaveChangesAsync();
 		}
 
-
 		public Task<AddWorkoutViewModel> GetAddModel()
 		{
 			var model = new AddWorkoutViewModel();
 			return Task.FromResult(model);
 		}
+		public async Task<List<ExerciseWorkoutModel>> GetExerciseDetails(int WorkoutId)
+		{
+			var exerciseDetails = await dbContext.ExerciseWorkouts
+				.Where(ew => ew.WorkoutId == WorkoutId)
+				.Include(ew => ew.Exercise)
+				.Select(ew => new ExerciseWorkoutModel
+				{
+                    ExerciseId = ew.Exercise.ExerciseId,
+					ExerciseName = ew.Exercise.Name,
+                    ExerciseDescription = ew.Exercise.Description,
+					Sets = ew.Exercise.Sets,
+					Reps = ew.Exercise.Reps
+				})
+				.ToListAsync();
 
-
+			return exerciseDetails;
+		}
 	}
 }

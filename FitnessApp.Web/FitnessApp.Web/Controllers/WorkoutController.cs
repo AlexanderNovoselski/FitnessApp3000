@@ -4,6 +4,7 @@ using FitnessApp.Web.ViewModels.Models;
 using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Web.Controllers
 {
@@ -19,12 +20,12 @@ namespace FitnessApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-			//if (!User.Identity.IsAuthenticated) TODO return to login  
-			//{
-			//	return RedirectToAction("Login", "Account", new { area = "Identity" });
-			//}
+            //if (!User.Identity.IsAuthenticated) TODO return to login  
+            //{
+            //	return RedirectToAction("Login", "Account", new { area = "Identity" });
+            //}
 
-			var model = await workoutService.GetAllAsync();
+            var model = await workoutService.GetAllAsync();
             return View("GetAll", model);
         }
 
@@ -88,5 +89,12 @@ namespace FitnessApp.Web.Controllers
             return RedirectToAction(nameof(GetAll));
         }
 
-    }
+		[HttpGet]
+		public async Task<IActionResult> GetDetails(int Id)
+		{
+			var exerciseDetails = await workoutService.GetExerciseDetails(Id);
+            ViewData["IsPartial"] = true;
+			return PartialView("_ExerciseDetailsPartial", exerciseDetails);
+		}
+	}
 }

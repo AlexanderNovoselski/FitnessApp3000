@@ -1,60 +1,100 @@
 ﻿@model IEnumerable<WorkoutsResultModel>
 
 @{
-	ViewBag.Title = "All Workouts";
+    ViewBag.Title = "All Workouts";
 }
 
-<h2 class="text-center">Here you can choose a workout plan to follow </h2>
+<h2 id="mainViewHeading" class="text-center">Here you can choose a workout plan to follow</h2>
 <hr />
 
 <div class="text-center row">
-	@if (Model.Any())
-	{
-		@foreach (var workout in Model)
-		{
-			<div class="card col-4" style="width: 20rem; margin-bottom: 20px;">
-				<img class="card-img-top img-fluid" src="@workout.ImageUrl" alt="Book Image">
-				<div class="card-body">
-					<p hidden>Id: @workout.WorkoutId</p>
-					<h5 class="card-title mt-1">@workout.Name</h5>
-					<p class="mb-0">Description: @workout.Description</p>
-					<p class="mb-0">Calories Burned: @workout.CaloriesBurned</p>
-					<p class="mb-0">Duration: @workout.Duration</p>
-					<ul>
-						@foreach (var exerciseWorkout in workout.ExerciseWorkouts)
-						{
-							<li>
-								<strong>Exercise Name:</strong> @exerciseWorkout.ExerciseName<br />
-								<strong>Sets:</strong> @exerciseWorkout.Sets<br />
-								<strong>Reps:</strong> @exerciseWorkout.Reps
-							</li>
-						}
-					</ul>
-				</div>
-				@if (User.Identity.IsAuthenticated)
-				{
-
-					@if (User.IsInRole("Admin"))
-					{
-						<div class="d-grid gap-2">
-							<form class="input-group-sm mb-3" asp-controller="Workout" asp-action="AddExercise" asp-route-id="@workout.WorkoutId">
-								<input type="submit" value="Add Exercise" class="btn btn-primary btn-sm w-100" />
-							</form>
-							<form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Edit" asp-route-id="@workout.WorkoutId">
-								<input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
-							</form>
-							<form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Remove" asp-route-id="@workout.WorkoutId">
-								<input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
-							</form>
-						</div>
-					}
-				}
-
-			</div>
-		}
-	}
-	else
-	{
-		<p>No workouts available yet.</p>
-	}
+    @if (Model.Any())
+    {
+        @foreach (var workout in Model)
+        {
+            <div class="card col-4 workout-card" style="width: 20rem; margin-bottom: 20px;">
+                <img class="card-img-top img-fluid" src="@workout.ImageUrl" alt="Workout Image">
+                <div class="card-body">
+                    <p hidden>Id: @workout.WorkoutId</p>
+                    <h5 class="card-title mt-1">@workout.Name</h5>
+                    <p class="mb-0">Description: @workout.Description</p>
+                    <p class="mb-0">Calories Burned: @workout.CaloriesBurned</p>
+                    <p class="mb-0">Duration: @workout.Duration</p>
+               
+                </div>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="GetDetails" asp-route-id="@workout.WorkoutId">
+                        <input type="button" value="Info" class="btn btn-primary btn-sm w-100" onclick="showWorkoutDetails('@workout.WorkoutId')" />
+                    </form>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="d-grid gap-2">
+                            <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="AddExercise" asp-route-id="@workout.WorkoutId">
+                                <input type="submit" value="Add Exercise" class="btn btn-primary btn-sm w-100" />
+                            </form>
+                            <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Edit" asp-route-id="@workout.WorkoutId">
+                                <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
+                            </form>
+                            <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Remove" asp-route-id="@workout.WorkoutId">
+                                <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
+                            </form>
+                        </div>
+                    }
+                }
+            </div>
+        }
+    }
+    else
+    {
+        <p>No workouts available yet.</p>
+    }
 </div>
+
+<div id="workoutDetailsContainer" style="display: none;">
+    <div id="exerciseInfoContainer">
+    </div>
+</div>
+
+<script>
+    function showWorkoutDetails(workoutId) {
+        var workoutDetailsContainer = document.getElementById('workoutDetailsContainer');
+        var exerciseInfoContainer = document.getElementById('exerciseInfoContainer');
+        var workouts = document.getElementsByClassName('workout-card');
+
+        for (var i = 0; i < workouts.length; i++) {
+            workouts[i].style.display = 'none';
+        }
+
+        workoutDetailsContainer.style.display = 'block';
+
+        // Hide the main view's heading
+        var mainViewHeading = document.getElementById('mainViewHeading');
+        mainViewHeading.style.display = 'none';
+
+        fetch('/Workout/GetDetails?id=' + workoutId)
+            .then(response => response.text())
+            .then(data => {
+                exerciseInfoContainer.innerHTML = '';
+                exerciseInfoContainer.innerHTML = data;
+            });
+    }
+
+    function goBack() {
+        var workoutDetailsContainer = document.getElementById('workoutDetailsContainer');
+        var exerciseInfoContainer = document.getElementById('exerciseInfoContainer');
+        var workouts = document.getElementsByClassName('workout-card');
+
+        for (var i = 0; i < workouts.length; i++) {
+            workouts[i].style.display = 'block';
+        }
+
+        workoutDetailsContainer.style.display = 'none';
+
+        // Show the main view's heading again
+        var mainViewHeading = document.getElementById('mainViewHeading');
+        mainViewHeading.style.display = 'block';
+
+        exerciseInfoContainer.innerHTML = '';
+    }
+</script>
