@@ -89,7 +89,6 @@ namespace FitnessApp.Services
                 workout.ImageUrl = model.ImageUrl;
                 workout.CaloriesBurned = model.CaloriesBurned;
 
-                // Update existing exercise workouts or add new ones
                 foreach (var exerciseWorkoutModel in model.ExerciseWorkouts)
                 {
                     var exerciseWorkout = workout.ExerciseWorkouts
@@ -97,7 +96,6 @@ namespace FitnessApp.Services
 
                     if (exerciseWorkout != null)
                     {
-                        // Update sets and reps for existing exercise workout
                         exerciseWorkout.Exercise.Name = exerciseWorkoutModel.ExerciseName;
                         exerciseWorkout.Exercise.Description = exerciseWorkoutModel.ExerciseDescription;
                         exerciseWorkout.Exercise.Sets = exerciseWorkoutModel.Sets;

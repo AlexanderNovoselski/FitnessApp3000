@@ -1,10 +1,7 @@
-﻿using FitnessApp.Services;
-using FitnessApp.Services.Contracts;
+﻿using FitnessApp.Services.Contracts;
 using FitnessApp.Web.ViewModels.Models;
-using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Web.Controllers
 {
@@ -20,11 +17,7 @@ namespace FitnessApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            //if (!User.Identity.IsAuthenticated) TODO return to login  
-            //{
-            //	return RedirectToAction("Login", "Account", new { area = "Identity" });
-            //}
-
+            // TODO redirect to login
             var model = await workoutService.GetAllAsync();
             return View("GetAll", model);
         }

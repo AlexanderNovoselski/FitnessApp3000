@@ -1,6 +1,7 @@
 using FitnessApp.Data;
 using FitnessApp.Services;
 using FitnessApp.Services.Contracts;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,6 +30,25 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
+builder.Services.ConfigureApplicationCookie(options =>
+{
+	options.Events = new CookieAuthenticationEvents
+	{
+		OnRedirectToLogin = context =>
+		{
+			// Check if the request is for an API endpoint
+			bool isApiEndpoint = context.Request.Path.StartsWithSegments("/api");
+
+			// Redirect to login page for non-API requests
+			if (!isApiEndpoint)
+			{
+				context.Response.Redirect("/Identity/Account/Login");
+			}
+
+			return Task.CompletedTask;
+		}
+	};
+});
 
 
 builder.Services.AddControllersWithViews();
