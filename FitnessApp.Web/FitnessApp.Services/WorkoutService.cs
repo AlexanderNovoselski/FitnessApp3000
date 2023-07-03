@@ -22,6 +22,7 @@ namespace FitnessApp.Services
                     WorkoutId = d.WorkoutId,
                     Name = d.Name,
                     Description = d.Description,
+                    ImageUrl = d.ImageUrl,
                     CaloriesBurned = d.CaloriesBurned,
                     Duration = d.Duration,
                     UserIds = d.UserWorkouts.Select(ud => ud.UserId).ToList(),
@@ -46,6 +47,7 @@ namespace FitnessApp.Services
                 {
                     WorkoutId = b.WorkoutId,
                     Name = b.Name,
+                    ImageUrl = b.ImageUrl,
                     Description = b.Description,
                     Duration = b.Duration,
                     CaloriesBurned = b.CaloriesBurned,
@@ -84,6 +86,7 @@ namespace FitnessApp.Services
                 workout.Duration = model.Duration;
                 workout.Name = model.Name;
                 workout.Description = model.Description;
+                workout.ImageUrl = model.ImageUrl;
                 workout.CaloriesBurned = model.CaloriesBurned;
 
                 // Update existing exercise workouts or add new ones

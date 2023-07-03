@@ -10,13 +10,16 @@ namespace FitnessApp.Web.ViewModels.Models
         [MaxLength(50)]
         public string Name { get; set; }
 
-        public List<ExerciseWorkoutModel> ExerciseWorkouts { get; set; }
+		public List<ExerciseWorkoutModel> ExerciseWorkouts { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string Description { get; set; }
 
-        [Required]
+		[Required]
+		public string ImageUrl { get; set; }
+
+		[Required]
         [Range(1,120)]
         public int Duration { get; set; }
 

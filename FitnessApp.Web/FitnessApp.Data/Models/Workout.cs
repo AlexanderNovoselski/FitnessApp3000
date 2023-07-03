@@ -1,6 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using FitnessApp.DataLayer.Models;
 using System.ComponentModel.DataAnnotations;
-using FitnessApp.DataLayer.Models;
 
 public class Workout
 {
@@ -10,7 +9,10 @@ public class Workout
     [Required]
     public string Name { get; set; }
 
-    public string Description { get; set; }
+	[Required]
+	public string ImageUrl { get; set; }
+
+	public string Description { get; set; }
 
     public int Duration { get; set; }
 
