@@ -2,119 +2,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - FitnessApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/FitnessApp.Web.styles.css" asp-append-version="true" />
-    <style>
-        .dropdown:hover .dropdown-menu {
-            display: block;
-        }
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - FitnessApp</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link rel="stylesheet" href="~/FitnessApp.Web.styles.css" asp-append-version="true" />
 
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        main {
-            flex-grow: 1;
-            margin-bottom: 40px; /* Adjust this value based on your content height */
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 70px;
-            background-color: #f8f9fa;
-        }
-    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FitnessApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="dietDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Diet
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="dietDropdown">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetAll">Diets</a>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <a id="addDietOption" class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetCreateModel">Add Diet</a>
-                                }
-                                <a class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetMyDiets">My Diets</a>
-                            </div>
-                        </li>
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container-fluid">
+				<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FitnessApp</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+					<ul class="navbar-nav flex-grow-1">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle text-dark" href="#" id="dietDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Diet
+							</a>
+							<div class="dropdown-menu" aria-labelledby="dietDropdown">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetAll">Diets</a>
+								@if (User.IsInRole("Admin"))
+								{
+									<a id="addDietOption" class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetCreateModel">Add Diet</a>
+								}
+								<a class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetMyDiets">My Diets</a>
+							</div>
+						</li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="workoutDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Workout
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="workoutDropdown">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Workout" asp-action="GetAll">All Workouts</a>
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <a id="addWorkoutsOption" class="dropdown-item" asp-area="" asp-controller="Workout" asp-action="GetCreateModel">Add Workouts</a>
-                                }
-                            </div>
-                        </li>
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
-            </div>
-        </nav>
-    </header>
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle text-dark" href="#" id="workoutDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Workout
+							</a>
+							<div class="dropdown-menu" aria-labelledby="workoutDropdown">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Workout" asp-action="GetAll">All Workouts</a>
+								@if (User.IsInRole("Admin"))
+								{
+									<a id="addWorkoutsOption" class="dropdown-item" asp-area="" asp-controller="Workout" asp-action="GetCreateModel">Add Workouts</a>
+								}
+							</div>
+						</li>
+					</ul>
 
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+					@if (User.IsInRole("Admin"))
+					{
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link users" asp-area="" asp-controller="User" asp-action="GetAll">Users</a>
+							</li>
+						</ul>
+					}
 
-    <footer class="border-top footer text-muted">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col text-center">
-                    &copy; @DateTime.UtcNow.Year - FitnessApp
-                </div>
-                <div class="col text-end">
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <p>You shall have admin powers!</p> @*TODO add small yoda face*@
-                    }
-                </div>
-            </div>
-        </div>
-    </footer>
+					<partial name="_LoginPartial" />
+				</div>
+			</div>
+		</nav>
+	</header>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-    <script>
-        // Hide "Add Diet" option if the user is not in the "Admin" role
-        var addDietOption = document.getElementById('addDietOption');
-        if (addDietOption && !@User.IsInRole("Admin")) {
-            addDietOption.style.display = 'none';
-        }
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
 
-        // Hide "Add Workouts" option if the user is not in the "Admin" role
-        var addWorkoutsOption = document.getElementById('addWorkoutsOption');
-        if (addWorkoutsOption && !@User.IsInRole("Admin")) {
-            addWorkoutsOption.style.display = 'none';
-        }
-    </script>
+	<footer class="border-top footer text-muted">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col text-center">
+					&copy; @DateTime.UtcNow.Year - FitnessApp
+				</div>
+				<div class="col text-end">
+					@if (User.IsInRole("Admin"))
+					{
+						<p>You shall have admin powers!</p> @*TODO add small yoda face*@
+					}
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+	<script>
+		// Hide "Add Diet" option if the user is not in the "Admin" role
+		var addDietOption = document.getElementById('addDietOption');
+		if (addDietOption && !@User.IsInRole("Admin")) {
+			addDietOption.style.display = 'none';
+		}
+
+		// Hide "Add Workouts" option if the user is not in the "Admin" role
+		var addWorkoutsOption = document.getElementById('addWorkoutsOption');
+		if (addWorkoutsOption && !@User.IsInRole("Admin")) {
+			addWorkoutsOption.style.display = 'none';
+		}
+	</script>
 </body>
 </html>

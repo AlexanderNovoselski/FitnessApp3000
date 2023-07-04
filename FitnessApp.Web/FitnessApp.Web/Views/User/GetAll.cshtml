@@ -1,0 +1,62 @@
+﻿@model IEnumerable<UserViewModel>
+
+<table>
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Username</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.UserName</td>
+                <td>@user.Age</td>
+                <td>@user.Gender</td>
+                <td>@user.Height</td>
+                <td>@user.Weight</td>
+                <td>
+                    @if (user.Email != "admin@admin.com")
+                    {
+                        <button onclick="deleteUser('@user.Email')">Delete</button>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function deleteUser(email) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            fetch(`/User/Remove?email=${email}`, {
+                method: 'POST' // or 'DELETE' depending on your server-side configuration
+            })
+                .then(response => {
+                    if (response.ok) {
+                        console.log('User deleted successfully');
+                        // Remove the user from the UI
+                        const userRow = document.querySelector(`tr[data-email="${email}"]`);
+                        if (userRow) {
+                            userRow.remove();
+                        }
+                        location.reload();
+                    } else {
+                        console.log('Error deleting user');
+                        // Handle the error case if needed
+                    }
+                })
+                .catch(error => {
+                    console.log('Error:', error);
+                    // Handle the error case if needed
+                });
+        }
+    }
+</script>
