@@ -1,5 +1,5 @@
 ﻿using FitnessApp.Services.Contracts;
-using FitnessApp.Web.ViewModels.Models;
+using FitnessApp.Web.ViewModels.Models.Workout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

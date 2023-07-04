@@ -1,5 +1,5 @@
 ﻿using FitnessApp.Services.Contracts;
-using FitnessApp.Web.ViewModels.Models;
+using FitnessApp.Web.ViewModels.Models.Diet;
 using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

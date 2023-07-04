@@ -1,4 +1,4 @@
-﻿namespace FitnessApp.Web.ViewModels.Models
+﻿namespace FitnessApp.Web.ViewModels.Models.Workout
 {
     public class WorkoutDetailsViewModel
     {

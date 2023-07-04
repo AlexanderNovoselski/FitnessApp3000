@@ -1,4 +1,4 @@
-﻿using FitnessApp.Web.ViewModels.Models;
+﻿using FitnessApp.Web.ViewModels.Models.Diet;
 using FitnessApp.Web.ViewModels.Models.Enums;
 
 namespace FitnessApp.Services.Contracts

@@ -1,14 +1,14 @@
 ﻿using FitnessApp.Web.ViewModels.Models.Enums;
 
-namespace FitnessApp.Web.ViewModels.Models
+namespace FitnessApp.Web.ViewModels.Models.Diet
 {
     public class DietsResultModel
     {
         public int DietId { get; set; }
 
-		public List<string> UserIds { get; set; }
+        public List<string> UserIds { get; set; }
 
-		public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
         public string Name { get; set; }
 
@@ -18,5 +18,5 @@ namespace FitnessApp.Web.ViewModels.Models
 
         public int CaloriesIntake { get; set; }
 
-	}
+    }
 }

@@ -1,12 +1,12 @@
 ﻿using FitnessApp.Data;
 using FitnessApp.Services.Contracts;
-using FitnessApp.Web.ViewModels.Models;
+using FitnessApp.Web.ViewModels.Models.Diet;
 using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Services
 {
-	public class DietService : IDietService
+    public class DietService : IDietService
 	{
 
 		public readonly ApplicationDbContext dbContext;

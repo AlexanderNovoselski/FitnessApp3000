@@ -1,7 +1,7 @@
 ﻿using FitnessApp.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace FitnessApp.Web.ViewModels.Models
+namespace FitnessApp.Web.ViewModels.Models.User
 {
     public class UserViewModel
     {

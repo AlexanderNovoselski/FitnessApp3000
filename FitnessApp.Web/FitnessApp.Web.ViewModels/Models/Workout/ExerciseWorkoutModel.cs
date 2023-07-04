@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FitnessApp.Web.ViewModels.Models
+namespace FitnessApp.Web.ViewModels.Models.Workout
 {
     public class ExerciseWorkoutModel
     {
@@ -13,7 +13,7 @@ namespace FitnessApp.Web.ViewModels.Models
         public string ExerciseDescription { get; set; }
 
         [Required]
-        [Range(1,10)]
+        [Range(1, 10)]
         public int Sets { get; set; }
 
         [Required]

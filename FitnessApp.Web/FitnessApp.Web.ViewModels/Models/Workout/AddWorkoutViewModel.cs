@@ -1,30 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace FitnessApp.Web.ViewModels.Models
+namespace FitnessApp.Web.ViewModels.Models.Workout
 {
-    public class UpdateWorkoutViewModel
+    public class AddWorkoutViewModel
     {
-        public int WorkoutId { get; set; }
-
         [Required]
-        [MaxLength(50)]
+        [MaxLength(60)]
         public string Name { get; set; }
 
-		public List<ExerciseWorkoutModel> ExerciseWorkouts { get; set; }
+        [Required]
+        public string ImageUrl { get; set; }
 
         [Required]
         [MaxLength(100)]
         public string Description { get; set; }
 
-		[Required]
-		public string ImageUrl { get; set; }
-
-		[Required]
-        [Range(1,120)]
+        [Required]
+        [Range(0, 180)]
         public int Duration { get; set; }
 
         [Required]
-        [Range(1, 1000)]
+        [Range(0, 1000)]
         public double CaloriesBurned { get; set; }
+
     }
 }

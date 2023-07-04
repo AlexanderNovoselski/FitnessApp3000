@@ -1,11 +1,11 @@
 ﻿using FitnessApp.Data;
 using FitnessApp.Services.Contracts;
-using FitnessApp.Web.ViewModels.Models;
+using FitnessApp.Web.ViewModels.Models.Workout;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Services
 {
-	public class WorkoutService : IWorkoutService
+    public class WorkoutService : IWorkoutService
     {
         public readonly ApplicationDbContext dbContext;
         public WorkoutService(ApplicationDbContext dbContext)

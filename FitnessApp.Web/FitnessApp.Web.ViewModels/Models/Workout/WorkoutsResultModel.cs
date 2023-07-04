@@ -1,14 +1,14 @@
-﻿namespace FitnessApp.Web.ViewModels.Models
+﻿namespace FitnessApp.Web.ViewModels.Models.Workout
 {
-	public class WorkoutsResultModel
+    public class WorkoutsResultModel
     {
         public int WorkoutId { get; set; }
 
         public string Name { get; set; }
 
-		public string ImageUrl { get; set; }
+        public string ImageUrl { get; set; }
 
-		public List<string> UserIds { get; set; }
+        public List<string> UserIds { get; set; }
 
         public List<ExerciseWorkoutModel> ExerciseWorkouts { get; set; }
 

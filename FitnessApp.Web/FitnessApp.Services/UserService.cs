@@ -1,6 +1,6 @@
 ﻿using FitnessApp.Data;
 using FitnessApp.Services.Contracts;
-using FitnessApp.Web.ViewModels.Models;
+using FitnessApp.Web.ViewModels.Models.User;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Services

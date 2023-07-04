@@ -1,4 +1,4 @@
-﻿using FitnessApp.Web.ViewModels.Models;
+﻿using FitnessApp.Web.ViewModels.Models.Workout;
 
 namespace FitnessApp.Services.Contracts
 {
