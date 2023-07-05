@@ -47,6 +47,11 @@
 								}
 							</div>
 						</li>
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a class="nav-link users" asp-area="" asp-controller="Exercise" asp-action="GetAll">Exercises</a>
+							</li>
+						</ul>
 					</ul>
 
 					@if (User.IsInRole("Admin"))

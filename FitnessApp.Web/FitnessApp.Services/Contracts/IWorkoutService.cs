@@ -4,7 +4,7 @@ namespace FitnessApp.Services.Contracts
 {
     public interface IWorkoutService
     {
-        public Task<IEnumerable<WorkoutsResultModel>> GetAllAsync();
+        public Task<IEnumerable<WorkoutsViewModel>> GetAllAsync();
 
         public Task Remove(int id);
 
@@ -17,6 +17,8 @@ namespace FitnessApp.Services.Contracts
 		public Task<AddWorkoutViewModel> GetAddModel();
 
         public Task<List<ExerciseWorkoutModel>> GetExerciseDetails(int WorkoutId);
+
+        public Task RemoveExerciseFromWorkout(int workoutId, int exerciseId);
 
     }
 }

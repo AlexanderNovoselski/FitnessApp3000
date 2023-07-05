@@ -20,7 +20,6 @@ namespace FitnessApp.Web.Controllers
         {
             var users = await userService.GetUsersAsync();
 
-            // Create a PagedList from the list of users
             var pagedUsers = new PagedList<UserViewModel>(users, page, pageSize);
 
             return View("GetAll", pagedUsers);

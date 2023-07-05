@@ -1,9 +1,10 @@
 ﻿@model List<ExerciseWorkoutModel>
 
 <h4>Exercise Details</h4>
-<ul>
-    @if (Model.Any())
-    {
+
+@if (Model.Any())
+{
+    <ul>
         @foreach (var exercise in Model)
         {
             <li>
@@ -12,12 +13,14 @@
                 <strong>Sets:</strong> @exercise.Sets<br />
                 <strong>Reps:</strong> @exercise.Reps
             </li>
+            <br />
+
         }
-    }
-    else
-    {
-        <p>No Exercises yet</p>
-    }
-   
-</ul>
+    </ul>
+}
+else
+{
+    <p>No Exercises yet</p>
+}
+
 <button class="btn btn-primary" onclick="goBack()">Back</button>

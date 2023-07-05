@@ -1,6 +1,6 @@
 ﻿namespace FitnessApp.Web.ViewModels.Models.Workout
 {
-    public class WorkoutsResultModel
+    public class WorkoutsViewModel
     {
         public int WorkoutId { get; set; }
 

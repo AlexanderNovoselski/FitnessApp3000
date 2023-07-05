@@ -1,4 +1,4 @@
-﻿@model PagedList.IPagedList<WorkoutsResultModel>
+﻿@model PagedList.IPagedList<WorkoutsViewModel>
 
 @{
     ViewBag.Title = "All Workouts";
@@ -19,7 +19,7 @@
                     <h5 class="card-title mt-1">@workout.Name</h5>
                     <p class="mb-0">Description: @workout.Description</p>
                     <p class="mb-0">Calories Burned: @workout.CaloriesBurned</p>
-                    <p class="mb-0">Duration: @workout.Duration</p>
+                    <p class="mb-0">Duration in minutes: @workout.Duration</p>
                
                 </div>
                 @if (User.Identity.IsAuthenticated)
@@ -30,8 +30,9 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <div class="d-grid gap-2">
-                            <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="AddExercise" asp-route-id="@workout.WorkoutId">
-                                <input type="submit" value="Add Exercise" class="btn btn-primary btn-sm w-100" />
+                            <form class="input-group-sm mb-3" method="get" action="@Url.Action("GetAll", "Exercise")">
+                                <input type="hidden" name="workoutId" value="@workout.WorkoutId" />
+                                <input type="submit" value="Add Exercises" class="btn btn-primary btn-sm w-100" />
                             </form>
                             <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Edit" asp-route-id="@workout.WorkoutId">
                                 <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />

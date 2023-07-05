@@ -18,7 +18,6 @@ namespace FitnessApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll(int page = 1, int pageSize = 3)
         {
-            // TODO redirect to login
             var model = await workoutService.GetAllAsync();
             var pagedModel = model.ToPagedList(page, pageSize);
 
@@ -37,14 +36,14 @@ namespace FitnessApp.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int Id)
         {
-            var diet = await workoutService.GetWorkoutEdit(Id);
+            var workout = await workoutService.GetWorkoutEdit(Id);
 
-            if (diet == null)
+            if (workout == null)
             {
                 return RedirectToAction(nameof(Edit));
             }
 
-            return View("Edit", diet);
+            return View("Edit", workout);
         }
 
         [HttpPost]
@@ -62,7 +61,16 @@ namespace FitnessApp.Web.Controllers
             return RedirectToAction(nameof(GetAll));
         }
 
-        [HttpGet]
+		[HttpPost]
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> RemoveExercise(int workoutId, int exerciseId)
+		{
+			await workoutService.RemoveExerciseFromWorkout(workoutId, exerciseId);
+			return Ok();
+		}
+
+
+		[HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetCreateModel()
         {
@@ -85,12 +93,12 @@ namespace FitnessApp.Web.Controllers
             return RedirectToAction(nameof(GetAll));
         }
 
-		[HttpGet]
-		public async Task<IActionResult> GetDetails(int Id)
-		{
-			var exerciseDetails = await workoutService.GetExerciseDetails(Id);
+        [HttpGet]
+        public async Task<IActionResult> GetDetails(int Id)
+        {
+            var exerciseDetails = await workoutService.GetExerciseDetails(Id);
             ViewData["IsPartial"] = true;
-			return PartialView("_ExerciseDetailsPartial", exerciseDetails);
-		}
-	}
+            return PartialView("_ExerciseDetailsPartial", exerciseDetails);
+        }
+    }
 }

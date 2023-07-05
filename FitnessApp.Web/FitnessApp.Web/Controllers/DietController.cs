@@ -16,13 +16,13 @@ namespace FitnessApp.Web.Controllers
         {
             this.dietService = dietService;
         }
+
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll(SortType sortingType = SortType.Default, int page = 1, int pageSize = 3)
         {
             var model = await dietService.GetAllDietsAsync(sortingType);
 
-            // Paginate the model using the provided page and pageSize
             var pagedModel = model.ToPagedList(page, pageSize);
 
             ViewBag.SortingType = sortingType;

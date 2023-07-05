@@ -109,7 +109,7 @@ namespace FitnessApp.Services
 
 			if (diet != null)
 			{
-				dbContext.Remove(diet);
+				dbContext.Diets.Remove(diet);
 				await dbContext.SaveChangesAsync();
 			}
 		}

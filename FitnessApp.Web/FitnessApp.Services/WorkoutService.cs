@@ -5,115 +5,137 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Services
 {
-    public class WorkoutService : IWorkoutService
-    {
-        public readonly ApplicationDbContext dbContext;
-        public WorkoutService(ApplicationDbContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+	public class WorkoutService : IWorkoutService
+	{
+		public readonly ApplicationDbContext dbContext;
+		public WorkoutService(ApplicationDbContext dbContext)
+		{
+			this.dbContext = dbContext;
+		}
 
-        public async Task<IEnumerable<WorkoutsResultModel>> GetAllAsync()
-        {
-            var workoutResult = await dbContext.Workouts
-                .Select(d => new WorkoutsResultModel
-                {
-                    WorkoutId = d.WorkoutId,
-                    Name = d.Name,
-                    Description = d.Description,
-                    ImageUrl = d.ImageUrl,
-                    CaloriesBurned = d.CaloriesBurned,
-                    Duration = d.Duration,
-                    UserIds = d.UserWorkouts.Select(ud => ud.UserId).ToList(),
-                    ExerciseWorkouts = d.ExerciseWorkouts.Select(ew => new ExerciseWorkoutModel
-                    {
-                        ExerciseId = ew.ExerciseId,
-                        ExerciseName = ew.Exercise.Name,
-                        Sets = ew.Exercise.Sets,
-                        Reps = ew.Exercise.Reps
-                    }).ToList()
-                }).ToListAsync();
+		public async Task<IEnumerable<WorkoutsViewModel>> GetAllAsync()
+		{
+			var workoutResult = await dbContext.Workouts
+				.Select(d => new WorkoutsViewModel
+				{
+					WorkoutId = d.WorkoutId,
+					Name = d.Name,
+					Description = d.Description,
+					ImageUrl = d.ImageUrl,
+					CaloriesBurned = d.CaloriesBurned,
+					Duration = d.Duration,
+					UserIds = d.UserWorkouts.Select(ud => ud.UserId).ToList(),
+					ExerciseWorkouts = d.ExerciseWorkouts.Select(ew => new ExerciseWorkoutModel
+					{
+						ExerciseId = ew.ExerciseId,
+						ExerciseName = ew.Exercise.Name,
+						Sets = ew.Exercise.Sets,
+						Reps = ew.Exercise.Reps
+					}).ToList()
+				}).ToListAsync();
 
 
-            return workoutResult;
-        }
+			return workoutResult;
+		}
 
-        public async Task<UpdateWorkoutViewModel> GetWorkoutEdit(int id)
-        {
-            var model = await dbContext.Workouts
-                .Where(d => d.WorkoutId == id)
-                .Select(b => new UpdateWorkoutViewModel
-                {
-                    WorkoutId = b.WorkoutId,
-                    Name = b.Name,
-                    ImageUrl = b.ImageUrl,
-                    Description = b.Description,
-                    Duration = b.Duration,
-                    CaloriesBurned = b.CaloriesBurned,
-                    ExerciseWorkouts = b.ExerciseWorkouts.Select(ew => new ExerciseWorkoutModel
-                    {
-                        ExerciseId = ew.ExerciseId,
-                        ExerciseName = ew.Exercise.Name,
-                        ExerciseDescription = ew.Exercise.Description,
-                        Sets = ew.Exercise.Sets,
-                        Reps = ew.Exercise.Reps
-                    }).ToList()
-                }).FirstOrDefaultAsync();
+		public async Task<UpdateWorkoutViewModel> GetWorkoutEdit(int id)
+		{
+			var model = await dbContext.Workouts
+				.Where(d => d.WorkoutId == id)
+				.Select(b => new UpdateWorkoutViewModel
+				{
+					WorkoutId = b.WorkoutId,
+					Name = b.Name,
+					ImageUrl = b.ImageUrl,
+					Description = b.Description,
+					Duration = b.Duration,
+					CaloriesBurned = b.CaloriesBurned,
+					ExerciseWorkouts = b.ExerciseWorkouts.Select(ew => new ExerciseWorkoutModel
+					{
+						ExerciseId = ew.ExerciseId,
+						ExerciseName = ew.Exercise.Name,
+						ExerciseDescription = ew.Exercise.Description,
+						Sets = ew.Exercise.Sets,
+						Reps = ew.Exercise.Reps
+					}).ToList()
+				}).FirstOrDefaultAsync();
 
-            return model;
-        }
+			return model;
+		}
 
-        public async Task Remove(int WorkoutId)
-        {
-            var workout = await dbContext.Workouts.FindAsync(WorkoutId);
+		public async Task Remove(int WorkoutId)
+		{
+			var workout = await dbContext.Workouts.FindAsync(WorkoutId);
 
-            if (workout != null)
-            {
-                dbContext.Remove(workout);
-                await dbContext.SaveChangesAsync();
-            }
-        }
-        public async Task Update(UpdateWorkoutViewModel model)
-        {
-            var workout = await dbContext.Workouts
-                .Include(w => w.ExerciseWorkouts)
-                    .ThenInclude(ew => ew.Exercise)
-                .FirstOrDefaultAsync(x => x.WorkoutId == model.WorkoutId);
+			if (workout != null)
+			{
+				dbContext.Workouts.Remove(workout);
+				await dbContext.SaveChangesAsync();
+			}
+		}
+		public async Task Update(UpdateWorkoutViewModel model)
+		{
+			var workout = await dbContext.Workouts
+				.Include(w => w.ExerciseWorkouts)
+					.ThenInclude(ew => ew.Exercise)
+				.FirstOrDefaultAsync(x => x.WorkoutId == model.WorkoutId);
 
-            if (workout != null)
-            {
-                workout.WorkoutId = model.WorkoutId;
-                workout.Duration = model.Duration;
-                workout.Name = model.Name;
-                workout.Description = model.Description;
-                workout.ImageUrl = model.ImageUrl;
-                workout.CaloriesBurned = model.CaloriesBurned;
+			if (workout != null)
+			{
+				workout.WorkoutId = model.WorkoutId;
+				workout.Duration = model.Duration;
+				workout.Name = model.Name;
+				workout.Description = model.Description;
+				workout.ImageUrl = model.ImageUrl;
+				workout.CaloriesBurned = model.CaloriesBurned;
 
-                foreach (var exerciseWorkoutModel in model.ExerciseWorkouts)
-                {
-                    var exerciseWorkout = workout.ExerciseWorkouts
-                        .FirstOrDefault(ew => ew.ExerciseId == exerciseWorkoutModel.ExerciseId);
+				if (model.ExerciseWorkouts != null && model.ExerciseWorkouts.Any())
+				{
+					foreach (var exerciseWorkoutModel in model.ExerciseWorkouts)
+					{
+						var exerciseWorkout = workout.ExerciseWorkouts
+							.FirstOrDefault(ew => ew.ExerciseId == exerciseWorkoutModel.ExerciseId);
 
-                    if (exerciseWorkout != null)
-                    {
-                        exerciseWorkout.Exercise.Name = exerciseWorkoutModel.ExerciseName;
-                        exerciseWorkout.Exercise.Description = exerciseWorkoutModel.ExerciseDescription;
-                        exerciseWorkout.Exercise.Sets = exerciseWorkoutModel.Sets;
-                        exerciseWorkout.Exercise.Reps = exerciseWorkoutModel.Reps;
-                    }
-                }
-            }
-            await dbContext.SaveChangesAsync();
-        }
+						if (exerciseWorkout != null)
+						{
+							exerciseWorkout.Exercise.Name = exerciseWorkoutModel.ExerciseName;
+							exerciseWorkout.Exercise.Description = exerciseWorkoutModel.ExerciseDescription;
+							exerciseWorkout.Exercise.Sets = exerciseWorkoutModel.Sets;
+							exerciseWorkout.Exercise.Reps = exerciseWorkoutModel.Reps;
+						}
+					}
+				}
+			}
+
+			await dbContext.SaveChangesAsync();
+		}
+
+		public async Task RemoveExerciseFromWorkout(int workoutId, int exerciseId)
+		{
+			var workout = await dbContext.Workouts
+		 .Include(w => w.ExerciseWorkouts)
+		 .FirstOrDefaultAsync(w => w.WorkoutId == workoutId);
+
+			if (workout != null)
+			{
+				var exerciseWorkout = workout.ExerciseWorkouts.FirstOrDefault(ew => ew.ExerciseId == exerciseId);
+
+				if (exerciseWorkout != null)
+				{
+					workout.ExerciseWorkouts.Remove(exerciseWorkout);
+					await dbContext.SaveChangesAsync();
+				}
+			}
+		}
 		public async Task CreateAsync(AddWorkoutViewModel model)
 		{
 			var workout = new Workout
 			{
 				Name = model.Name,
-                Description = model.Description,
-                ImageUrl = model.ImageUrl,
-                Duration = model.Duration,
-                CaloriesBurned = model.CaloriesBurned,
+				Description = model.Description,
+				ImageUrl = model.ImageUrl,
+				Duration = model.Duration,
+				CaloriesBurned = model.CaloriesBurned,
 			};
 
 			dbContext.Workouts.Add(workout);
@@ -132,9 +154,9 @@ namespace FitnessApp.Services
 				.Include(ew => ew.Exercise)
 				.Select(ew => new ExerciseWorkoutModel
 				{
-                    ExerciseId = ew.Exercise.ExerciseId,
+					ExerciseId = ew.Exercise.ExerciseId,
 					ExerciseName = ew.Exercise.Name,
-                    ExerciseDescription = ew.Exercise.Description,
+					ExerciseDescription = ew.Exercise.Description,
 					Sets = ew.Exercise.Sets,
 					Reps = ew.Exercise.Reps
 				})
