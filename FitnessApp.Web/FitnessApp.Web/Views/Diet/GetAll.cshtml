@@ -1,7 +1,8 @@
 ﻿@using System.Security.Claims;
-@model IEnumerable<DietsResultModel>
-@inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
 @using FitnessApp.Web.ViewModels.Models.Enums;
+@model PagedList.IPagedList<DietsResultModel>
+@inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
+
 
 @{
     ViewBag.Title = "All Diets";
@@ -66,6 +67,32 @@
 
 </div>
 
+@if (Model.PageCount > 1)
+{
+    <div class="text-center">
+        <ul class="pagination">
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber - 1, sortingType = ViewBag.SortingType })">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = i, sortingType = ViewBag.SortingType })">@i</a>
+                </li>
+            }
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber + 1, sortingType = ViewBag.SortingType })">Next</a>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         var selectElement = document.getElementById("SortingType");
@@ -81,9 +108,8 @@
         var url = baseUrl + '?sortingType=' + sortingType;
         location.href = url;
 
-        // Store the selected value in localStorage
         localStorage.setItem("sortingType", sortingType);
-		// Store the selected value in localStorage
+
 		localStorage.setItem("sortingType", sortingType);
 	}
 </script>

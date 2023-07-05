@@ -1,7 +1,8 @@
 ﻿using FitnessApp.Services.Contracts;
+using FitnessApp.Web.ViewModels.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
+using PagedList;
 
 namespace FitnessApp.Web.Controllers
 {
@@ -15,11 +16,14 @@ namespace FitnessApp.Web.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int page = 1, int pageSize = 10)
         {
             var users = await userService.GetUsersAsync();
 
-            return View(users);
+            // Create a PagedList from the list of users
+            var pagedUsers = new PagedList<UserViewModel>(users, page, pageSize);
+
+            return View("GetAll", pagedUsers);
         }
 
         [Authorize(Roles = "Admin")]

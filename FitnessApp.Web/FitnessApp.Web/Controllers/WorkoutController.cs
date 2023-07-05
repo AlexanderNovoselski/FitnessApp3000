@@ -2,6 +2,7 @@
 using FitnessApp.Web.ViewModels.Models.Workout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PagedList;
 
 namespace FitnessApp.Web.Controllers
 {
@@ -15,11 +16,13 @@ namespace FitnessApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(int page = 1, int pageSize = 3)
         {
             // TODO redirect to login
             var model = await workoutService.GetAllAsync();
-            return View("GetAll", model);
+            var pagedModel = model.ToPagedList(page, pageSize);
+
+            return View("GetAll", pagedModel);
         }
 
         [Authorize(Roles = "Admin")]

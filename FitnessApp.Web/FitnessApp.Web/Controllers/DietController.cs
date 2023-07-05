@@ -4,6 +4,7 @@ using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using PagedList;
 
 namespace FitnessApp.Web.Controllers
 {
@@ -15,17 +16,20 @@ namespace FitnessApp.Web.Controllers
         {
             this.dietService = dietService;
         }
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> GetAll(SortType sortingType = SortType.Default, int page = 1, int pageSize = 3)
+        {
+            var model = await dietService.GetAllDietsAsync(sortingType);
 
-		[AllowAnonymous]
-		[HttpGet]
-		public async Task<IActionResult> GetAll(SortType sortingType = SortType.Default)
-		{
-			var model = await dietService.GetAllDietsAsync(sortingType);
-			ViewBag.SortingType = sortingType;
-			return View("GetAll", model);
-		}
+            // Paginate the model using the provided page and pageSize
+            var pagedModel = model.ToPagedList(page, pageSize);
 
-		[HttpGet]
+            ViewBag.SortingType = sortingType;
+            return View("GetAll", pagedModel);
+        }
+
+        [HttpGet]
 
         public async Task<IActionResult> GetMyDiets()
         {
