@@ -14,7 +14,6 @@ namespace FitnessApp.Web.Controllers
             this.exerciseService = exerciseService;
         }
 
-        [Authorize(Roles = "Admin")]
 
         public async Task<IActionResult> GetAll(int workoutId, int page = 1, int pageSize = 10)
         {
