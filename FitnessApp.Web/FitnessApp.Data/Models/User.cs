@@ -20,5 +20,4 @@ public class User : IdentityUser
 
     public List<UserDiet> UserDiets { get; set; }
 
-    public List<Achievement> Achievements { get; set; }
 }
