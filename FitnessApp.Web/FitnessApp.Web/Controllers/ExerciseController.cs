@@ -1,4 +1,7 @@
-﻿using FitnessApp.Services.Contracts;
+﻿using FitnessApp.Services;
+using FitnessApp.Services.Contracts;
+using FitnessApp.Web.ViewModels.Models.Diet;
+using FitnessApp.Web.ViewModels.Models.Exercise;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PagedList;
@@ -43,5 +46,28 @@ namespace FitnessApp.Web.Controllers
 
             return RedirectToAction(nameof(GetAll));
         }
-    }
+
+		[HttpGet]
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> GetCreateModel()
+		{
+			var model = await exerciseService.GetAddModel();
+
+			return View("Add", model);
+		}
+
+		[HttpPost]
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> Create(AddExerciseViewModel model)
+
+		{
+			if (ModelState.IsValid == false)
+			{
+				return View("Add", model);
+			}
+			await exerciseService.CreateAsync(model);
+
+			return RedirectToAction(nameof(GetAll));
+		}
+	}
 }

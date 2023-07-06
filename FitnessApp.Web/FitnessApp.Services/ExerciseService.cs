@@ -1,5 +1,6 @@
 ﻿using FitnessApp.Data;
 using FitnessApp.Services.Contracts;
+using FitnessApp.Web.ViewModels.Models.Diet;
 using FitnessApp.Web.ViewModels.Models.Exercise;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,15 +57,25 @@ namespace FitnessApp.Services
             return exerciseViewModel;
         }
 
-        public Task CreateAsync(ExerciseViewModel model)
+        public async Task CreateAsync(AddExerciseViewModel model)
         {
-            throw new NotImplementedException();
-        }
+			var exercise = new Exercise
+			{
+				Name = model.Name,
+                Description= model.Description,
+                Sets = model.Sets,
+                Reps = model.Reps
+			};
 
-        public Task<ExerciseViewModel> GetAddModel()
+			dbContext.Exercises.Add(exercise);
+			await dbContext.SaveChangesAsync();
+		}
+
+        public Task<AddExerciseViewModel> GetAddModel()
         {
-            throw new NotImplementedException();
-        }
+			var model = new AddExerciseViewModel();
+			return Task.FromResult(model);
+		}
 
         public async Task<IEnumerable<ExerciseViewModel>> GetAll(int workoutId)
         {

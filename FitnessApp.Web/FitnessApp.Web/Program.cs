@@ -31,6 +31,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddRoles<IdentityRole>()
     .AddDefaultTokenProviders()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddRazorPages();
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -99,6 +100,7 @@ using (var scope = app.Services.CreateScope())
 {
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
+    //This admin user is auto generated. Use this email and password to have admin access
     var email = "admin@admin.com";
     var password = "Admin123.";
     if (await userManager.FindByEmailAsync(email) == null)

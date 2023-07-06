@@ -11,8 +11,8 @@ namespace FitnessApp.Services.Contracts
 
         public Task<ExerciseViewModel> AddToWorkout(int ExerciseId, int WorkoutId);
 
-        public Task CreateAsync(ExerciseViewModel model);
+        public Task CreateAsync(AddExerciseViewModel model);
 
-        public Task<ExerciseViewModel> GetAddModel();
+        public Task<AddExerciseViewModel> GetAddModel();
     }
 }
