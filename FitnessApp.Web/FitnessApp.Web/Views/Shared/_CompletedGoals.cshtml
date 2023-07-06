@@ -1,0 +1,35 @@
+﻿@model IEnumerable<CompletedViewModel>
+
+@if (Model.Any())
+{
+    <h4>Completed Goals:</h4>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Goal Type</th>
+                <th>Description</th>
+                <th>Target Weight</th>
+                <th>Target Date</th>
+                <th>Completed Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var goal in Model)
+            {
+                <tr>
+                    <td>@goal.GoalType</td>
+                    <td>@goal.Description</td>
+                    <td>@goal.TargetWeight</td>
+                    <td>@goal.TargetDate.ToString("yyyy-MM-dd")</td>
+                    <td>@goal.CompletedDate.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <p>No completed goals found.</p>
+}

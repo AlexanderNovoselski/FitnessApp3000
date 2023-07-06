@@ -49,6 +49,7 @@ namespace FitnessApp.Web.Controllers
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
+		
 		public async Task<IActionResult> GetCreateModel()
 		{
 			var model = await exerciseService.GetAddModel();

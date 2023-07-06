@@ -1,0 +1,50 @@
+﻿@model UpdateGoalViewModel
+
+@{
+    ViewBag.Title = "Edit Goal";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-controller="Goal" asp-action="Edit" method="post">
+            <input type="hidden" asp-for="GoalId" />
+
+            <div class="form-group">
+                <label for="GoalType">Goal Type:</label>
+                <select id="GoalType" class="form-select" asp-for="GoalType">
+                    <option value="0">Weight Loss</option>
+                    <option value="1">Weight Gain</option>
+                    <option value="2">Muscle Gain</option>
+                    <option value="3">Endurance</option>
+                    <option value="4">Other</option>
+                </select>
+                <span asp-validation-for="GoalType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="Description">Description:</label>
+                <input type="text" class="form-control" id="Description" asp-for="Description">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="TargetWeight">Target Weight:</label>
+                <input type="number" class="form-control" id="TargetWeight" asp-for="TargetWeight">
+                <span asp-validation-for="TargetWeight" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="TargetDate">Target Date:</label>
+                <input type="date" class="form-control" id="TargetDate" asp-for="TargetDate">
+                <span asp-validation-for="TargetDate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <input class="btn btn-primary" type="submit" value="Save" asp-action="Update" asp-route-id="@Model.GoalId" />
+            </div>
+        </form>
+    </div>
+</div>

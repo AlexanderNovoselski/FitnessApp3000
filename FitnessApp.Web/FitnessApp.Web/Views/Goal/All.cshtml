@@ -1,0 +1,79 @@
+﻿@model IEnumerable<GoalsViewModel>
+@{
+    ViewBag.Title = "All Goals";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @if (Model.Any())
+    {
+        @foreach (var goal in Model)
+        {
+            <div class="card col-4 @(!goal.isCompleted ? "non-completed" : "")" style="width: 20rem; margin-bottom: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title mt-1">@goal.Description</h5>
+                    <p class="mb-0">Goal Type: @goal.GoalType</p>
+                    <p class="mb-0">Target Weight: @goal.TargetWeight</p>
+                    <p class="mb-0">Target Date: @goal.TargetDate.ToString("yyyy-MM-dd")</p>
+                </div>
+
+                <div class="d-grid gap-2">
+                    @if (!goal.isCompleted)
+                    {
+                        <form class="input-group-sm mb-3" asp-controller="Goal" asp-action="Complete" asp-route-id="@goal.GoalId">
+                            <input type="submit" value="Complete" class="btn btn-success btn-sm w-100" />
+                        </form>
+                    }
+
+                    <form class="input-group-sm mb-3" asp-controller="Goal" asp-action="Edit" asp-route-id="@goal.GoalId">
+                        <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
+                    </form>
+
+                    <form class="input-group-sm mb-3" asp-controller="Goal" asp-action="RemoveGoal" asp-route-id="@goal.GoalId">
+                        <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
+                    </form>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>You don't have goals yet.</p>
+    }
+</div>
+
+<div class="text-center">
+    <button id="btnCompletedGoals" class="btn btn-primary">Go to Completed Goals</button>
+</div>
+
+<div id="completedGoalsContainer"></div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("#btnCompletedGoals").on("click", function () {
+                $("#btnCompletedGoals").hide(); // Hide the button
+                $(".non-completed").hide(); // Hide non-completed goals
+                $.ajax({
+                    url: "@Url.Action("CompletedGoals")",
+                    type: "GET",
+                    success: function (data) {
+                        $("#completedGoalsContainer").html(data);
+                        $("#completedGoalsContainer").append('<button id="btnBack" class="btn btn-secondary">Back</button>');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+
+            $(document).on("click", "#btnBack", function () {
+                $("#completedGoalsContainer").empty();
+                $(".non-completed").show(); // Show non-completed goals
+                $("#btnCompletedGoals").show(); // Show the button
+            });
+        });
+    </script>
+}

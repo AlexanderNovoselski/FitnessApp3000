@@ -70,7 +70,7 @@ namespace FitnessApp.Web.Controllers
 
             if (diet == null)
             {
-                return RedirectToAction(nameof(Edit));
+                return RedirectToAction(nameof(GetAll));
             }
 
             return View("Edit", diet);
