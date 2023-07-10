@@ -5,15 +5,15 @@ namespace FitnessApp.Web.ViewModels.Models.Workout
     public class AddWorkoutViewModel
     {
         [Required]
-        [MaxLength(60)]
-        public string Name { get; set; }
+		[StringLength(60, MinimumLength = 3)]
+		public string Name { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }
 
         [Required]
-        [MaxLength(100)]
-        public string Description { get; set; }
+		[StringLength(100, MinimumLength = 5)]
+		public string Description { get; set; }
 
         [Required]
         [Range(1, 180)]

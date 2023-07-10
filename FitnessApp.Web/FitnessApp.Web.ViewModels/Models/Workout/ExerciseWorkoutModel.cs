@@ -7,10 +7,12 @@ namespace FitnessApp.Web.ViewModels.Models.Workout
         public int ExerciseId { get; set; }
 
         [Required]
-        public string ExerciseName { get; set; }
+		[StringLength(50, MinimumLength = 3)]
+		public string ExerciseName { get; set; }
 
         [Required]
-        public string ExerciseDescription { get; set; }
+		[StringLength(50, MinimumLength = 3)]
+		public string ExerciseDescription { get; set; }
 
         [Required]
         [Range(1, 10)]

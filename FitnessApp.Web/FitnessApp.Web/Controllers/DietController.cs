@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PagedList;
+using System.Net;
 
 namespace FitnessApp.Web.Controllers
 {
@@ -85,8 +86,8 @@ namespace FitnessApp.Web.Controllers
             {
                 return View("Edit", model);
             }
-
-            await dietService.Edit(model);
+			model.Name = WebUtility.HtmlEncode(model.Name);
+			await dietService.Edit(model);
 
             return RedirectToAction(nameof(GetAll));
         }

@@ -15,7 +15,7 @@ namespace FitnessApp.Web.ViewModels.Models.Goal
 		public string Description { get; set; }
 
 		[Required]
-		[Range(25, 250)]
+		[Range(25, 350)]
 		public int TargetWeight { get; set; }
 
 		[Required]

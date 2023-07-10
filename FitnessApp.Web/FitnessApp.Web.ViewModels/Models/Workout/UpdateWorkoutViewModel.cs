@@ -7,20 +7,20 @@ namespace FitnessApp.Web.ViewModels.Models.Workout
         public int WorkoutId { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string Name { get; set; }
+		[StringLength(50, MinimumLength = 3)]
+		public string Name { get; set; }
 
         public List<ExerciseWorkoutModel>? ExerciseWorkouts { get; set; }
 
         [Required]
-        [MaxLength(100)]
-        public string Description { get; set; }
+		[StringLength(100, MinimumLength = 5)]
+		public string Description { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }
 
         [Required]
-        [Range(1, 120)]
+        [Range(1, 180)]
         public int Duration { get; set; }
 
         [Required]
