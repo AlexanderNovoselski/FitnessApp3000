@@ -20,14 +20,14 @@ namespace FitnessApp.Web.Controllers
 
         public async Task<IActionResult> GetAll(int workoutId, int page = 1, int pageSize = 10)
         {
-            var model = await exerciseService.GetAll(workoutId);
-
-            var pagedModel = model.ToPagedList(page, pageSize);
+			var model = await exerciseService.GetAll(workoutId);
+			var pagedModel = model.ToPagedList(page, pageSize);
             ViewBag.WorkoutId = workoutId;
 
             return View(nameof(GetAll), pagedModel);
         }
 
+ 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddToWorkout(int id, int workoutId)

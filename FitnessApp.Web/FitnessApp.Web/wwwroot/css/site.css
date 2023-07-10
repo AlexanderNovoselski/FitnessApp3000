@@ -67,3 +67,9 @@ footer {
     color: inherit; /* Use the default text color */
 }
 
+.goal-card { /*adjusting the positioning of the goals*/
+    display: inline-block;
+    vertical-align: top;
+    width: 20rem;
+    margin-bottom: 20px;
+}

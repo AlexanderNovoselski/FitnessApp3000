@@ -1,0 +1,42 @@
+﻿@model IEnumerable<GoalsViewModel>
+
+@{
+    Layout = null;
+}
+
+
+@if (Model.Any())
+{
+    foreach (var goal in Model)
+    {
+        <div class="goal-card card col-4 @(!goal.isCompleted ? "non-completed" : "")">
+            <div class="card-body">
+                <h5 class="card-title mt-1">@goal.Description</h5>
+                <p class="mb-0">Goal Type: @goal.GoalType</p>
+                <p class="mb-0">Target Weight: @goal.TargetWeight</p>
+                <p class="mb-0">Target Date: @goal.TargetDate.ToString("yyyy-MM-dd")</p>
+            </div>
+
+            <div class="d-grid gap-2">
+                @if (!goal.isCompleted)
+                {
+                    <form class="input-group-sm mb-3" asp-controller="Goal" asp-action="Complete" asp-route-id="@goal.GoalId">
+                        <input type="submit" value="Complete" class="btn btn-success btn-sm w-100" />
+                    </form>
+                }
+
+                <form class="input-group-sm mb-3" asp-controller="Goal" asp-action="Edit" asp-route-id="@goal.GoalId">
+                    <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
+                </form>
+
+                <form class="input-group-sm mb-3" asp-controller="Goal" asp-action="RemoveGoal" asp-route-id="@goal.GoalId">
+                    <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
+                </form>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <p>No goals found.</p>
+}

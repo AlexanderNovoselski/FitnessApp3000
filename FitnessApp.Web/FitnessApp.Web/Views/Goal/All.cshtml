@@ -6,7 +6,14 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div class="text-center row">
+<div class="text-center">
+    <div class="input-group mb-3">
+        <input type="text" id="searchInput" class="form-control" placeholder="Search goals">
+        <button id="searchButton" class="btn btn-primary" type="button">Search</button>
+    </div>
+</div>
+
+<div class="text-center row" id="mainView">
     @if (Model.Any())
     {
         @foreach (var goal in Model)
@@ -48,32 +55,96 @@
     <button id="btnCompletedGoals" class="btn btn-primary">Go to Completed Goals</button>
 </div>
 
-<div id="completedGoalsContainer"></div>
+<div id="completedGoalsContainer" class="mt-4"></div>
 
 @section scripts {
     <script>
         $(document).ready(function () {
-            $("#btnCompletedGoals").on("click", function () {
-                $("#btnCompletedGoals").hide(); // Hide the button
-                $(".non-completed").hide(); // Hide non-completed goals
+            var mainView = $("#mainView"); // Store mainView element for easier access
+            var btnCompletedGoals = $("#btnCompletedGoals"); // Store the "Go to Completed Goals" button element
+
+            // Search button click event
+            $("#searchButton").on("click", function () {
+                executeSearch();
+            });
+
+            // Search input enter key press event
+            $("#searchInput").on("keypress", function (event) {
+                if (event.which === 13) { // Enter key
+                    executeSearch();
+                }
+            });
+
+            // Back button click event
+            $(document).on("click", "#btnBack", function () {
+                showSearchBar();
+                loadAllGoals();
+            });
+
+            // Completed goals button click event
+            btnCompletedGoals.on("click", function () {
+                // Hide the search bar
+                $(".input-group").hide();
+
+                loadCompletedGoals();
+                btnCompletedGoals.hide(); // Hide the "Go to Completed Goals" button
+            });
+
+            // Function to show the search bar
+            function showSearchBar() {
+                $(".input-group").show();
+            }
+
+            // Function to execute the search
+            function executeSearch() {
+                var searchWords = $("#searchInput").val().trim().toLowerCase();
+
+                if (searchWords === "") {
+                    return; // ne pravim nishto ako nqma duma
+                }
+
                 $.ajax({
-                    url: "@Url.Action("CompletedGoals")",
+                    url: "@Url.Action("SearchGoals")",
                     type: "GET",
+                    data: { searchWords: searchWords },
                     success: function (data) {
+                        mainView.hide(); // Hide the main view
                         $("#completedGoalsContainer").html(data);
-                        $("#completedGoalsContainer").append('<button id="btnBack" class="btn btn-secondary">Back</button>');
+                        $("#completedGoalsContainer").append('<button id="btnBack" class="btn btn-secondary mt-4">Back</button>'); // Position the back button at the bottom
+                        // Hide the "Go to Completed Goals" button
+                        btnCompletedGoals.hide();
                     },
                     error: function (xhr, status, error) {
                         console.log(error);
                     }
                 });
-            });
+            }
 
-            $(document).on("click", "#btnBack", function () {
+            // Function to load all goals
+            function loadAllGoals() {
+                mainView.show(); // Show the main view
                 $("#completedGoalsContainer").empty();
-                $(".non-completed").show(); // Show non-completed goals
-                $("#btnCompletedGoals").show(); // Show the button
-            });
+                btnCompletedGoals.show(); // Show the "Go to Completed Goals" button
+            }
+
+            // Function to load completed goals
+            function loadCompletedGoals() {
+                $.ajax({
+                    url: "@Url.Action("CompletedGoals")",
+                    type: "GET",
+                    success: function (data) {
+                        mainView.hide(); // Hide the main view
+                        $("#completedGoalsContainer").html(data);
+                        $("#completedGoalsContainer").append('<button id="btnBack" class="btn btn-secondary mt-4">Back</button>'); // Position the back button at the bottom
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            }
+
+            // Initial load of all goals
+            loadAllGoals();
         });
     </script>
 }

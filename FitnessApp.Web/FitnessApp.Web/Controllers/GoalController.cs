@@ -14,11 +14,20 @@ namespace FitnessApp.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(string searchWords = null)
         {
-            var model = await goalService.GetMyAsync(GetUserId());
+            var model = await goalService.GetMyAsync(GetUserId(), searchWords);
 
             return View("All", model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchGoals(string searchWords)
+        {
+            var userId = GetUserId();
+            var model = await goalService.GetMyAsync(userId, searchWords);
+
+            return PartialView("_SearchGoals", model);
         }
 
         [HttpPost]

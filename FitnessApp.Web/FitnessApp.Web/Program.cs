@@ -60,6 +60,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddControllersWithViews();
 
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -82,7 +84,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapControllerRoute(
+app.MapControllerRoute( 
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();

@@ -4,7 +4,7 @@ namespace FitnessApp.Services.Contracts
 {
 	public interface IGoalService
 	{
-		public Task<IEnumerable<GoalsViewModel>> GetMyAsync(string userId);
+		public Task<IEnumerable<GoalsViewModel>> GetMyAsync(string userId, string searchWords = null);
 
 		public Task Remove(int id);
 

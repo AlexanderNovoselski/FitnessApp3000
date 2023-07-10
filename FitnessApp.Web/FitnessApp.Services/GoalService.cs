@@ -38,24 +38,29 @@ namespace FitnessApp.Services
 		}
 
 
-		public async Task<IEnumerable<GoalsViewModel>> GetMyAsync(string userId)
-		{
-			var model = await dbContext.Goals
-				.Where(x => x.UserId == userId && x.isCompleted == false)
-				.Select(g => new GoalsViewModel
-				{
-					GoalId = g.GoalId,
-					Description = g.Description,
-					GoalType = g.GoalType,
-					TargetDate = g.TargetDate,
-					isCompleted = g.isCompleted,
-					TargetWeight = g.TargetWeight,
-				}).ToListAsync();
+        public async Task<IEnumerable<GoalsViewModel>> GetMyAsync(string userId, string searchWords = null)
+        {
+            IQueryable<Goal> query = dbContext.Goals.Where(x => x.UserId == userId && x.isCompleted == false);
 
-			return model;
-		}
+            if (!string.IsNullOrEmpty(searchWords))
+            {
+                query = query.Where(g => g.Description.Contains(searchWords));
+            }
 
-		public async Task<UpdateGoalViewModel> GetGoalEdit(int GoalId)
+            var model = await query.Select(g => new GoalsViewModel
+            {
+                GoalId = g.GoalId,
+                Description = g.Description,
+                GoalType = g.GoalType,
+                TargetDate = g.TargetDate,
+                isCompleted = g.isCompleted,
+                TargetWeight = g.TargetWeight,
+            }).ToListAsync();
+
+            return model;
+        }
+
+        public async Task<UpdateGoalViewModel> GetGoalEdit(int GoalId)
 		{
 			var model = await dbContext.Goals
 				.Where(x => x.GoalId == GoalId)
