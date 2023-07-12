@@ -132,7 +132,7 @@ namespace FitnessApp.Test.Services
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.Count()); // Assuming there are 2 exercises not associated with the workout
+            Assert.AreEqual(3, result.Count()); // Assuming there are 3 exercises not associated with the workout
         }
 
         [TestMethod]
@@ -145,6 +145,7 @@ namespace FitnessApp.Test.Services
             await exerciseService.Remove(exerciseId);
 
             // Assert
+
             var removedExercise = await context.Exercises.FindAsync(exerciseId);
             Assert.IsNull(removedExercise);
         }
@@ -155,12 +156,11 @@ namespace FitnessApp.Test.Services
             // Arrange
             int invalidExerciseId = -1000; // Non-existing exerciseId
 
-            // Act
-            await exerciseService.Remove(invalidExerciseId);
-
-            // Assert
-            var exercises = await context.Exercises.ToListAsync();
-            Assert.AreEqual(3, exercises.Count); // Assuming there are 3 exercises in the database
+            //Act and Assert
+            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(async () =>
+            {
+                await exerciseService.Remove(invalidExerciseId);
+            });
         }
 
         private void SeedDatabase()

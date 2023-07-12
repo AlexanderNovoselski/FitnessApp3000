@@ -103,11 +103,12 @@ namespace FitnessApp.Services
             var exercise = await dbContext.Exercises
                 .FindAsync(ExerciseId);
 
-            if (exercise != null)
+            if (exercise == null)
             {
-                dbContext.Exercises.Remove(exercise);
-                await dbContext.SaveChangesAsync();
+                throw new KeyNotFoundException($"Exercise does not exist.");
             }
+            dbContext.Exercises.Remove(exercise);
+            await dbContext.SaveChangesAsync();
         }
     }
 }
