@@ -67,12 +67,13 @@ namespace FitnessApp.Services
 		{
 			var workout = await dbContext.Workouts.FindAsync(WorkoutId);
 
-			if (workout != null)
+			if (workout == null)
 			{
-				dbContext.Workouts.Remove(workout);
-				await dbContext.SaveChangesAsync();
+                throw new KeyNotFoundException($"WorkoutId does not exist.");
 			}
-		}
+            dbContext.Workouts.Remove(workout);
+            await dbContext.SaveChangesAsync();
+        }
 		public async Task Update(UpdateWorkoutViewModel model)
 		{
 			var workout = await dbContext.Workouts
@@ -125,7 +126,15 @@ namespace FitnessApp.Services
 					workout.ExerciseWorkouts.Remove(exerciseWorkout);
 					await dbContext.SaveChangesAsync();
 				}
+				else
+				{
+                    throw new KeyNotFoundException($"ExerciseId does not exist.");
+                }
 			}
+			else
+			{
+                throw new KeyNotFoundException($"WorkoutId does not exist.");
+            }
 		}
 		public async Task CreateAsync(AddWorkoutViewModel model)
 		{
