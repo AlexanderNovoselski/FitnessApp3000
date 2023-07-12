@@ -80,12 +80,13 @@ namespace FitnessApp.Services
 		{
 			var goal = await dbContext.Goals.FirstOrDefaultAsync(x => x.GoalId == id);
 
-			if (goal != null)
+			if (goal == null)
 			{
-				dbContext.Goals.Remove(goal);
-				await dbContext.SaveChangesAsync();
+                throw new KeyNotFoundException($"Goal does not exist.");
 			}
-		}
+            dbContext.Goals.Remove(goal);
+            await dbContext.SaveChangesAsync();
+        }
 
 		public async Task Update(UpdateGoalViewModel model)
 		{

@@ -32,6 +32,7 @@ namespace FitnessApp.Test.Services
         public void TearDown()
         {
             context.Database.EnsureDeleted();
+            context.Dispose();
         }
 
         [TestMethod]
