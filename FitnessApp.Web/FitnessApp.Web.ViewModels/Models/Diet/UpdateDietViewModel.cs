@@ -7,14 +7,14 @@ namespace FitnessApp.Web.ViewModels.Models.Diet
         public int DietId { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [StringLength(50, MinimumLength = 3)]
         public string Name { get; set; }
 
         [Required]
         public string ImageUrl { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [StringLength(100, MinimumLength = 5)]
         public string Description { get; set; }
 
         [Required]
