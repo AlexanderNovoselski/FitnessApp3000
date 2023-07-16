@@ -74,3 +74,52 @@ footer {
     margin-bottom: 20px;
 }
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.register-form {
+    max-width: 400px;
+}
+
+.form-heading {
+    margin-bottom: 10px;
+    margin-top: -150px;
+}
+
+.form-floating input,
+.form-floating select {
+    margin-bottom: 10px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login-form {
+    max-width: 400px;
+}
+
+.form-heading {
+    margin-bottom: 20px;
+    margin-top: -250px;
+}
+
+.form-floating input,
+.form-floating select {
+    margin-bottom: 10px;
+}
+
+.visible-password-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}

@@ -1,14 +1,11 @@
 ﻿using FitnessApp.DataLayer.Enums;
 using FitnessApp.DataLayer.Models;
-using FitnessApp.Enums;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace FitnessApp.Data
 {
-	public class ApplicationDbContext : IdentityDbContext<User>
+    public class ApplicationDbContext : IdentityDbContext<User>
 	{
 	
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
