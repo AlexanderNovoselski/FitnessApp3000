@@ -1,4 +1,6 @@
-﻿using FitnessApp.DataLayer.Models;
+﻿using FitnessApp.DataLayer.Enums;
+using FitnessApp.DataLayer.Models;
+using FitnessApp.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -59,49 +61,174 @@ namespace FitnessApp.Data
 
 			SeedData(modelBuilder);
 		}
-		private void SeedData(ModelBuilder modelBuilder)
-		{
-			var adminUserId = "fb4b829a-b532-4923-b2b2-c7b9819558ff"; // Replace with the ID of the admin user
+        private void SeedData(ModelBuilder modelBuilder)
+        {
+            // Seed Diets
+            modelBuilder.Entity<Diet>().HasData(
+                new Diet
+                {
+                    DietId = 1,
+                    Name = "Ketogenic diet",
+                    ImageUrl = "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png",
+                    Description = "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy" +
+                    " that in conventional medicine is used mainly to treat hard-to-control epilepsy in children." +
+                    " The diet forces the body to burn fats rather than carbohydrates.",
+                    CaloriesIntake = 2000,
+                    CreationDate = DateTime.Now,
+                    UserDiets = new List<UserDiet>(),
+                },
+                new Diet
+                {
+                    DietId = 2,
+                    Name = "Vegan Diet",
+                    ImageUrl = "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg",
+                    Description = "Vegan diets are made up of only plant-based foods. This type of diet includes fruits," +
+                    " vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented " +
+                    "plant foods and whole grains. Vegan diets don't include animal foods like eggs, dairy, meat, poultry " +
+                    "or seafood.",
+                    CaloriesIntake = 1800,
+                    CreationDate = DateTime.Now,
+                    UserDiets = new List<UserDiet>()
+                },
+                new Diet
+                {
+                    DietId = 3,
+                    Name = "Carnivore diet",
+                    ImageUrl = "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png",
+                    Description = "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and " +
+                    "dairy are consumed. The carnivore diet is associated with pseudoscientific health claims. Such a diet " +
+                    "can lead to deficiencies of vitamins and dietary fiber, and increase the risk of chronic diseases.",
+                    CaloriesIntake = 2300,
+                    CreationDate = DateTime.Now,
+                    UserDiets = new List<UserDiet>()
+                }
+            );
 
-			modelBuilder.Entity<Diet>().HasData(
-				new Diet
-				{
-					DietId = 1,
-					Name = "Sample Diet 1",
-					ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-					Description = "This is a sample diet plan.",
-					CaloriesIntake = 2000
-				},
-				new Diet
-				{
-					DietId = 2,
-					Name = "Sample Diet 2",
-					ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-					Description = "This is a sample diet plan.",
-					CaloriesIntake = 1800
-				},
-				new Diet
-				{
-					DietId = 3,
-					Name = "Sample Diet 3",
-					ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-					Description = "This is a sample diet plan.",
-					CaloriesIntake = 1800
-				},
-				new Diet
-				{
-					DietId = 4,
-					Name = "Sample Diet 4",
-					ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-					Description = "This is a sample diet plan.",
-					CaloriesIntake = 1800
-				});
+            // Seed Exercises
+            modelBuilder.Entity<Exercise>().HasData(
+                new Exercise
+                {
+                    ExerciseId = 1,
+                    Name = "Push ups",
+                    Description = "Strong exercsise for developing strong chest",
+                    Sets = 3,
+                    Reps = 10,
+                    ExerciseWorkouts = new List<ExerciseWorkout>()
+                },
+                new Exercise
+                {
+                    ExerciseId = 2,
+                    Name = "Pull ups",
+                    Description = "Strong exercsise for developing back muscles",
+                    Sets = 4,
+                    Reps = 12,
+                    ExerciseWorkouts = new List<ExerciseWorkout>()
+                },
+                new Exercise
+                {
+                    ExerciseId = 3,
+                    Name = "Squats",
+                    Description = "Strong exercsise for developing strong leg",
+                    Sets = 3,
+                    Reps = 8,
+                    ExerciseWorkouts = new List<ExerciseWorkout>()
+                }
+            );
 
-			modelBuilder.Entity<UserDiet>().HasData(
-				 new UserDiet { DietId = 1, UserId = "fb4b829a-b532-4923-b2b2-c7b9819558ff" },
-				 new UserDiet { DietId = 2, UserId = "fb4b829a-b532-4923-b2b2-c7b9819558ff" }
-			 );
+            // Seed Goals
+            modelBuilder.Entity<Goal>().HasData(
+                new Goal
+                {
+                    GoalId = 1,
+                    UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                    Description = "Gaining muscle for 30 days",
+                    GoalType = GoalType.MuscleGain,
+                    TargetWeight = 80,
+                    isCompleted = false,
+                    TargetDate = DateTime.Now.AddDays(30),
+                },
+                new Goal
+                {
+                    GoalId = 2,
+                    UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                    Description = "Losing weight for the summer",
+                    GoalType = GoalType.WeightLoss,
+                    TargetWeight = 80,
+                    isCompleted = false,
+                    TargetDate = DateTime.Now.AddDays(45),
+                },
+                new Goal
+                {
+                    GoalId = 3,
+                    UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                    Description = "Building muscle endurance and stamina",
+                    GoalType = GoalType.Endurance,
+                    TargetWeight = 80,
+                    isCompleted = false,
+                    TargetDate = DateTime.Now.AddDays(45),
+                }
+            );
 
-		}
-	}
+            // Seed ExerciseWorkouts
+            modelBuilder.Entity<ExerciseWorkout>().HasData(
+                new ExerciseWorkout { ExerciseWorkoutId = 1, ExerciseId = 1, WorkoutId = 1 },
+                new ExerciseWorkout { ExerciseWorkoutId = 2, ExerciseId = 2, WorkoutId = 2 },
+                new ExerciseWorkout { ExerciseWorkoutId = 3, ExerciseId = 3, WorkoutId = 3 }
+            );
+
+           
+
+
+            // Seed Workouts
+            modelBuilder.Entity<Workout>().HasData(
+                new Workout
+                {
+                    WorkoutId = 1,
+                    Name = "Push Workout",
+                    ImageUrl = "https://weighteasyloss.com/wp-content/uploads/2018/01/4-13.jpg",
+                    Description = "n the “push” workout you train all the upper body pushing muscles, i.e. the chest, shoulders and triceps.",
+                    Duration = 60,
+                    CaloriesBurned = 300,
+                    ExerciseWorkouts = new List<ExerciseWorkout>(),
+                    UserWorkouts = new List<UserWorkout>()
+                },
+                new Workout
+                {
+                    WorkoutId = 2,
+                    Name = "Pull Workout",
+                    ImageUrl = "https://i.pinimg.com/originals/a3/2a/79/a32a795d8ff0811e9d3e840a88437f03.jpg",
+                    Description = "“Push” workouts train the chest, shoulders, and triceps, while “pull” workouts train the back, biceps, and forearms.",
+                    Duration = 60,
+                    CaloriesBurned = 250,
+                    ExerciseWorkouts = new List<ExerciseWorkout>(),
+                    UserWorkouts = new List<UserWorkout>()
+                },
+                new Workout
+                {
+                    WorkoutId = 3,
+                    Name = "Workout 3",
+                    ImageUrl = "https://i.pinimg.com/originals/ae/e6/e0/aee6e07be64c900166a750ed850d430f.jpg",
+                    Description = "Leg day is the commonly used term for any day that you exercise, and your workout focuses on lower body moves instead of upper body ones.",
+                    Duration = 60,
+                    CaloriesBurned = 350,
+                    ExerciseWorkouts = new List<ExerciseWorkout>(),
+                    UserWorkouts = new List<UserWorkout>()
+                }
+            );
+
+            // Seed UserDiets
+            modelBuilder.Entity<UserDiet>().HasData(
+                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 1 },
+                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 2 },
+                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 3 }
+            );
+
+            // Seed UserWorkouts
+            modelBuilder.Entity<UserWorkout>().HasData(
+                new UserWorkout { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", WorkoutId = 1 },
+                new UserWorkout { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", WorkoutId = 2 },
+                new UserWorkout { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", WorkoutId = 3 }
+            );
+        }
+    }
 }

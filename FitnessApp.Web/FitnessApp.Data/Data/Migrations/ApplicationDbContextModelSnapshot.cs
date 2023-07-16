@@ -50,7 +50,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasKey("DietId");
 
-                    b.ToTable("Diets");
+                    b.ToTable("Diets", (string)null);
 
                     b.HasData(
                         new
@@ -115,7 +115,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasKey("ExerciseId");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Exercises", (string)null);
                 });
 
             modelBuilder.Entity("ExerciseWorkout", b =>
@@ -133,7 +133,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("ExerciseWorkouts");
+                    b.ToTable("ExerciseWorkouts", (string)null);
                 });
 
             modelBuilder.Entity("FitnessApp.DataLayer.Models.UserWorkout", b =>
@@ -148,7 +148,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("WorkoutId");
 
-                    b.ToTable("UserWorkouts");
+                    b.ToTable("UserWorkouts", (string)null);
                 });
 
             modelBuilder.Entity("Goal", b =>
@@ -186,7 +186,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Goals");
+                    b.ToTable("Goals", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -414,7 +414,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserDiets");
+                    b.ToTable("UserDiets", (string)null);
 
                     b.HasData(
                         new
@@ -457,7 +457,7 @@ namespace FitnessApp.Web.Data.Migrations
 
                     b.HasKey("WorkoutId");
 
-                    b.ToTable("Workouts");
+                    b.ToTable("Workouts", (string)null);
                 });
 
             modelBuilder.Entity("ExerciseWorkout", b =>

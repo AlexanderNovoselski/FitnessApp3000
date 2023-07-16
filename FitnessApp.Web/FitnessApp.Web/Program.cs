@@ -132,12 +132,15 @@ using (var scope = app.Services.CreateScope())
     {
         var user = new User();
 
+        user.Id = "4f115243-ce00-43f3-a0e8-85df5d8d28cf";
         user.UserName = email;
         user.Email = email;
 
         await userManager.CreateAsync(user, password);
 
         await userManager.AddToRoleAsync(user, "Admin");
+
+
     }
 }
 
