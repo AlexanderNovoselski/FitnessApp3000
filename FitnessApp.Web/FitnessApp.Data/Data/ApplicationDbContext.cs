@@ -67,37 +67,34 @@ namespace FitnessApp.Data
             modelBuilder.Entity<Diet>().HasData(
                 new Diet
                 {
-                    DietId = 1,
+                    DietId = 3014,
                     Name = "Ketogenic diet",
                     ImageUrl = "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png",
                     Description = "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy" +
-                    " that in conventional medicine is used mainly to treat hard-to-control epilepsy in children." +
-                    " The diet forces the body to burn fats rather than carbohydrates.",
+                    " that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.",
                     CaloriesIntake = 2000,
                     CreationDate = DateTime.Now,
                     UserDiets = new List<UserDiet>(),
                 },
                 new Diet
                 {
-                    DietId = 2,
+                    DietId = 3015,
                     Name = "Vegan Diet",
                     ImageUrl = "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg",
                     Description = "Vegan diets are made up of only plant-based foods. This type of diet includes fruits," +
                     " vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented " +
-                    "plant foods and whole grains. Vegan diets don't include animal foods like eggs, dairy, meat, poultry " +
-                    "or seafood.",
+                    "plant foods and whole grains. Vegan diets don't include animal foods",
                     CaloriesIntake = 1800,
                     CreationDate = DateTime.Now,
                     UserDiets = new List<UserDiet>()
                 },
                 new Diet
                 {
-                    DietId = 3,
+                    DietId = 3016,
                     Name = "Carnivore diet",
                     ImageUrl = "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png",
                     Description = "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and " +
-                    "dairy are consumed. The carnivore diet is associated with pseudoscientific health claims. Such a diet " +
-                    "can lead to deficiencies of vitamins and dietary fiber, and increase the risk of chronic diseases.",
+                    "dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.",
                     CaloriesIntake = 2300,
                     CreationDate = DateTime.Now,
                     UserDiets = new List<UserDiet>()
@@ -218,9 +215,9 @@ namespace FitnessApp.Data
 
             // Seed UserDiets
             modelBuilder.Entity<UserDiet>().HasData(
-                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 1 },
-                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 2 },
-                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 3 }
+                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 3014 },
+                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 3015 },
+                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 3016 }
             );
 
             // Seed UserWorkouts
