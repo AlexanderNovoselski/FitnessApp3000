@@ -18,7 +18,6 @@ namespace FitnessApp.Services.Contracts
 
         public Task<List<ExerciseWorkoutModel>> GetExerciseDetails(int WorkoutId);
 
-        public Task RemoveExerciseFromWorkout(int workoutId, int exerciseId);
 
     }
 }

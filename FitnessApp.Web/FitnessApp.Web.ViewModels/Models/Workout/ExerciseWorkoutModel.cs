@@ -11,7 +11,7 @@ namespace FitnessApp.Web.ViewModels.Models.Workout
 		public string ExerciseName { get; set; }
 
         [Required]
-		[StringLength(50, MinimumLength = 3)]
+		[StringLength(250, MinimumLength = 3)]
 		public string ExerciseDescription { get; set; }
 
         [Required]

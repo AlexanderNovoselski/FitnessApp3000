@@ -123,7 +123,7 @@ namespace FitnessApp.Test.Services
             var workouts = await workoutService.GetAllAsync();
 
             // Assert
-            Assert.AreEqual(2, workouts.Count());
+            Assert.AreEqual(context.Workouts.Count(), workouts.Count());
         }
 
         [TestMethod]

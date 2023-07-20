@@ -1,6 +1,5 @@
 ﻿using FitnessApp.Data;
 using FitnessApp.Services.Contracts;
-using FitnessApp.Web.ViewModels.Models.Diet;
 using FitnessApp.Web.ViewModels.Models.Exercise;
 using Microsoft.EntityFrameworkCore;
 
@@ -96,6 +95,53 @@ namespace FitnessApp.Services
                 }).ToListAsync();
 
             return model;
+        }
+
+        public async Task<IEnumerable<ExerciseViewModel>> GetAllRemove(int workoutId)
+        {
+            var mappedExerciseIds = await dbContext.ExerciseWorkouts
+          .Where(we => we.WorkoutId == workoutId)
+          .Select(we => we.ExerciseId)
+          .ToListAsync();
+
+            var model = await dbContext.Exercises
+                .Where(e => mappedExerciseIds.Contains(e.ExerciseId))
+                .Select(m => new ExerciseViewModel
+                {
+                    Id = m.ExerciseId,
+                    Name = m.Name,
+                    Description = m.Description,
+                    Reps = m.Reps,
+                    Sets = m.Sets,
+                }).ToListAsync();
+
+            return model;
+        }
+
+        public async Task RemoveExerciseFromWorkout(int workoutId, int exerciseId)
+        {
+            var workout = await dbContext.Workouts
+                .Include(w => w.ExerciseWorkouts)
+                .FirstOrDefaultAsync(w => w.WorkoutId == workoutId);
+
+            if (workout != null)
+            {
+                var exerciseWorkout = workout.ExerciseWorkouts.FirstOrDefault(ew => ew.ExerciseId == exerciseId);
+
+                if (exerciseWorkout != null)
+                {
+                    workout.ExerciseWorkouts.Remove(exerciseWorkout);
+                    await dbContext.SaveChangesAsync();
+                }
+                else
+                {
+                    throw new KeyNotFoundException($"ExerciseId does not exist.");
+                }
+            }
+            else
+            {
+                throw new KeyNotFoundException($"WorkoutId does not exist.");
+            }
         }
 
         public async Task Remove(int ExerciseId)

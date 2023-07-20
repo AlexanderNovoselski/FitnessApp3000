@@ -12,15 +12,14 @@
     {
         @foreach (var workout in Model)
         {
-            <div class="card col-4 workout-card" style="width: 20rem; margin-bottom: 20px;">
-                <img class="card-img-top img-fluid" src="@workout.ImageUrl" alt="Workout Image">
+            <div class="card col-4 mb-3 workout-card" style="width: 30%;">
+                <img class="card-img-top img-fluid" src="@workout.ImageUrl" alt="Workout Image" style="height: 200px; object-fit: cover;">
                 <div class="card-body">
                     <p hidden>Id: @workout.WorkoutId</p>
                     <h5 class="card-title mt-1">@workout.Name</h5>
                     <p class="mb-0">Description: @workout.Description</p>
                     <p class="mb-0">Calories Burned: @workout.CaloriesBurned</p>
                     <p class="mb-0">Duration in minutes: @workout.Duration</p>
-               
                 </div>
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -33,6 +32,10 @@
                             <form class="input-group-sm mb-3" method="get" action="@Url.Action("GetAll", "Exercise")">
                                 <input type="hidden" name="workoutId" value="@workout.WorkoutId" />
                                 <input type="submit" value="Add Exercises" class="btn btn-primary btn-sm w-100" />
+                            </form>
+                            <form class="input-group-sm mb-3" method="get" action="@Url.Action("GetAllRemove", "Exercise")">
+                                <input type="hidden" name="workoutId" value="@workout.WorkoutId" />
+                                <input type="submit" value="Remove Exercises" class="btn btn-danger btn-sm w-100" />
                             </form>
                             <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Edit" asp-route-id="@workout.WorkoutId">
                                 <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />

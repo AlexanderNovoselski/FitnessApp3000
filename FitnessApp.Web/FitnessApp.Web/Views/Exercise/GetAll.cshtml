@@ -6,79 +6,82 @@
 
 @if (Model.Any())
 {
-	<table>
-		<thead>
-			<tr>
-				<th>Name</th>
-				<th>Description</th>
-				<th>Sets</th>
-				<th>Reps</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach (var exercise in Model)
-			{
-				<tr>
-					<td hidden>@exercise.Id</td>
-					<td>@exercise.Name</td>
-					<td>@exercise.Description</td>
-					<td>@exercise.Sets</td>
-					<td>@exercise.Reps</td>
-					<td>
-						@if (ViewBag.WorkoutId != 0)
-						{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exercise in Model)
+            {
+                <tr>
+                    <td hidden>@exercise.Id</td>
+                    <td>@exercise.Name</td>
+                    <td>@exercise.Description</td>
+                    <td>@exercise.Sets</td>
+                    <td>@exercise.Reps</td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @if (ViewBag.WorkoutId != 0)
+                            {
+                                <form class="input-group-sm mb-3" method="post" asp-controller="Exercise" asp-action="AddToWorkout">
+                                    <input type="hidden" name="id" value="@exercise.Id" />
+                                    <input type="hidden" name="workoutId" value="@ViewBag.WorkoutId" />
+                                    <input type="submit" value="Add to workout" class="btn btn-success btn-sm w-100" />
+                                </form>
+                            }
+                        }
 
-							<form class="input-group-sm mb-3" method="post" action="@Url.Action("AddToWorkout", "Exercise")">
-								<input type="hidden" name="id" value="@exercise.Id" />
-								<input type="hidden" name="workoutId" value="@ViewBag.WorkoutId" />
-								<input type="submit" value="Add to workout" class="btn btn-success btn-sm w-100" />
-							</form>
-						}
 
-					</td>
+                    </td>
 
-					<td>
-						@if (User.IsInRole("Admin"))
-						{
-							<form class="input-group-sm mb-3" asp-controller="Exercise" asp-action="Remove" asp-route-id="@exercise.Id">
-								<input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
-							</form>
-						}
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <form class="input-group-sm mb-3" asp-controller="Exercise" asp-action="Remove" asp-route-id="@exercise.Id">
+                                <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
+                            </form>
+                        }
 
-					</td>
-				</tr>
-			}
-		</tbody>
-	</table>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {
-	<p>No exercises available.</p>
+    <p>No exercises available.</p>
 }
 
 @if (Model.PageCount > 1)
 {
-	<div class="text-center">
-		<ul class="pagination">
-			@if (Model.HasPreviousPage)
-			{
-				<li class="page-item">
-					<a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber - 1, pageSize = Model.PageSize })">Previous</a>
-				</li>
-			}
-			@for (int i = 1; i <= Model.PageCount; i++)
-			{
-				<li class="page-item @(i == Model.PageNumber ? "active" : "")">
-					<a class="page-link" href="@Url.Action("GetAll", new { page = i, pageSize = Model.PageSize })">@i</a>
-				</li>
-			}
-			@if (Model.HasNextPage)
-			{
-				<li class="page-item">
-					<a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber + 1, pageSize = Model.PageSize })">Next</a>
-				</li>
-			}
-		</ul>
-	</div>
+    <div class="text-center">
+        <ul class="pagination">
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber - 1, pageSize = Model.PageSize })">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.PageCount; i++)
+            {
+                <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = i, pageSize = Model.PageSize })">@i</a>
+                </li>
+            }
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber + 1, pageSize = Model.PageSize })">Next</a>
+                </li>
+            }
+        </ul>
+    </div>
 }

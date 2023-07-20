@@ -111,31 +111,8 @@ namespace FitnessApp.Services
 			await dbContext.SaveChangesAsync();
 		}
 
-		public async Task RemoveExerciseFromWorkout(int workoutId, int exerciseId)
-		{
-			var workout = await dbContext.Workouts
-		 .Include(w => w.ExerciseWorkouts)
-		 .FirstOrDefaultAsync(w => w.WorkoutId == workoutId);
 
-			if (workout != null)
-			{
-				var exerciseWorkout = workout.ExerciseWorkouts.FirstOrDefault(ew => ew.ExerciseId == exerciseId);
 
-				if (exerciseWorkout != null)
-				{
-					workout.ExerciseWorkouts.Remove(exerciseWorkout);
-					await dbContext.SaveChangesAsync();
-				}
-				else
-				{
-                    throw new KeyNotFoundException($"ExerciseId does not exist.");
-                }
-			}
-			else
-			{
-                throw new KeyNotFoundException($"WorkoutId does not exist.");
-            }
-		}
 		public async Task CreateAsync(AddWorkoutViewModel model)
 		{
 			var workout = new Workout

@@ -1,108 +1,86 @@
 ﻿@model UpdateWorkoutViewModel
 
 @{
-	ViewBag.Title = "Edit Workout";
+    ViewBag.Title = "Edit Workout";
 }
 
 <h2>Edit Workout</h2>
 
 <form asp-controller="Workout" asp-action="Update" method="post">
-	<input type="hidden" asp-for="WorkoutId" />
+    <input type="hidden" asp-for="WorkoutId" />
 
-	<div class="form-group">
-		<label asp-for="Name">Name</label>
-		<input class="form-control" asp-for="Name" />
-		<span asp-validation-for="Name" class="text-danger"></span>
-	</div>
+    <div class="form-group">
+        <label asp-for="Name">Name</label>
+        <input class="form-control" asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
 
-	<div class="form-group">
-		<label asp-for="Description">Description</label>
-		<textarea class="form-control" asp-for="Description"></textarea>
-		<span asp-validation-for="Description" class="text-danger"></span>
-	</div>
+    <div class="form-group">
+        <label asp-for="Description">Description</label>
+        <textarea class="form-control" asp-for="Description"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
 
-	<div class="form-group">
-		<label asp-for="ImageUrl">Image URL</label>
-		<input class="form-control" asp-for="ImageUrl" />
-		<span asp-validation-for="ImageUrl" class="text-danger"></span>
-	</div>
+    <div class="form-group">
+        <label asp-for="ImageUrl">Image URL</label>
+        <input class="form-control" asp-for="ImageUrl" />
+        <span asp-validation-for="ImageUrl" class="text-danger"></span>
+    </div>
 
-	<div class="form-group">
-		<label asp-for="Duration">Duration</label>
-		<input type="number" class="form-control" asp-for="Duration" />
-		<span asp-validation-for="Duration" class="text-danger"></span>
-	</div>
+    <div class="form-group">
+        <label asp-for="Duration">Duration</label>
+        <input type="number" class="form-control" asp-for="Duration" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+    </div>
 
-	<div class="form-group">
-		<label asp-for="CaloriesBurned">Calories Burned</label>
-		<input type="number" class="form-control" asp-for="CaloriesBurned" />
-		<span asp-validation-for="CaloriesBurned" class="text-danger"></span>
-	</div>
+    <div class="form-group">
+        <label asp-for="CaloriesBurned">Calories Burned</label>
+        <input type="number" class="form-control" asp-for="CaloriesBurned" />
+        <span asp-validation-for="CaloriesBurned" class="text-danger"></span>
+    </div>
 
-	<h4>Exercise Workouts</h4>
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Exercise</th>
-				<th>Description</th>
-				<th>Sets</th>
-				<th>Reps</th>
-			</tr>
-		</thead>
-		<tbody>
-			@if (Model.ExerciseWorkouts.Count > 0)
-			{
-				@for (var i = 0; i < Model.ExerciseWorkouts.Count; i++)
-				{
-					<tr>
-						<td>
-							<input type="hidden" asp-for="ExerciseWorkouts[i].ExerciseId" />
-							<input class="form-control" asp-for="ExerciseWorkouts[i].ExerciseName" />
-							<span asp-validation-for="ExerciseWorkouts[i].ExerciseName" class="text-danger"></span>
-						</td>
-						<td>
-							<input class="form-control" asp-for="ExerciseWorkouts[i].ExerciseDescription" />
-							<span asp-validation-for="ExerciseWorkouts[i].ExerciseDescription" class="text-danger"></span>
-						</td>
-						<td>
-							<input type="number" class="form-control" asp-for="ExerciseWorkouts[i].Sets" />
-							<span asp-validation-for="ExerciseWorkouts[i].Sets" class="text-danger"></span>
-						</td>
-						<td>
-							<input type="number" class="form-control" asp-for="ExerciseWorkouts[i].Reps" />
-							<span asp-validation-for="ExerciseWorkouts[i].Reps" class="text-danger"></span>
-						</td>
+    <h4>Exercise Workouts</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Exercise</th>
+                <th>Description</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.ExerciseWorkouts.Count > 0)
+            {
+                @for (var i = 0; i < Model.ExerciseWorkouts.Count; i++)
+                {
+                    <tr>
+                        <td>
+                            <input type="hidden" asp-for="ExerciseWorkouts[i].ExerciseId" />
+                            <input class="form-control" asp-for="ExerciseWorkouts[i].ExerciseName" />
+                            <span asp-validation-for="ExerciseWorkouts[i].ExerciseName" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input class="form-control" asp-for="ExerciseWorkouts[i].ExerciseDescription" />
+                            <span asp-validation-for="ExerciseWorkouts[i].ExerciseDescription" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" asp-for="ExerciseWorkouts[i].Sets" />
+                            <span asp-validation-for="ExerciseWorkouts[i].Sets" class="text-danger"></span>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" asp-for="ExerciseWorkouts[i].Reps" />
+                            <span asp-validation-for="ExerciseWorkouts[i].Reps" class="text-danger"></span>
+                        </td>
 
-						<td>
-							<button class="btn btn-danger btn-sm" onclick="removeExercise(@Model.WorkoutId, @Model.ExerciseWorkouts[i].ExerciseId)">Remove</button>
-						</td>
-					</tr>
-				}
-			}
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
 
-		</tbody>
-	</table>
-
-	<div class="mb-3">
-		<input class="btn btn-primary" type="submit" value="Save" asp-action="Update" asp-route-id="@Model.WorkoutId" />
-	</div>
+    <div class="mb-3">
+        <input class="btn btn-primary" type="submit" value="Save" />
+    </div>
 </form>
-
-
-<script>
-	function removeExercise(workoutId, exerciseId) {
-		// Make an AJAX request to the server to remove the exercise
-		$.ajax({
-			url: '@Url.Action("RemoveExercise", "Workout")',
-			type: 'POST',
-			data: { workoutId: workoutId, exerciseId: exerciseId },
-			success: function () {
-				// Reload the page to reflect the changes
-				location.reload();
-			},
-			error: function (xhr, status, error) {
-				console.log(error);
-			}
-		});
-	}
-</script>

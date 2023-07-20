@@ -4,16 +4,18 @@ using FitnessApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FitnessApp.Web.Data.Migrations
+namespace FitnessApp.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230718165455_InitSetUp")]
+    partial class InitSetUp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,28 +57,28 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasData(
                         new
                         {
-                            DietId = 3014,
+                            DietId = 1,
                             CaloriesIntake = 2000,
-                            CreationDate = new DateTime(2023, 7, 16, 17, 39, 16, 843, DateTimeKind.Local).AddTicks(5906),
-                            Description = "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children. The diet forces the body to burn fats rather than carbohydrates.",
+                            CreationDate = new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6516),
+                            Description = "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.",
                             ImageUrl = "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png",
                             Name = "Ketogenic diet"
                         },
                         new
                         {
-                            DietId = 3015,
+                            DietId = 2,
                             CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 16, 17, 39, 16, 843, DateTimeKind.Local).AddTicks(5911),
-                            Description = "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods like eggs, dairy, meat, poultry or seafood.",
+                            CreationDate = new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6518),
+                            Description = "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods",
                             ImageUrl = "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg",
                             Name = "Vegan Diet"
                         },
                         new
                         {
-                            DietId = 3016,
+                            DietId = 3,
                             CaloriesIntake = 2300,
-                            CreationDate = new DateTime(2023, 7, 16, 17, 39, 16, 843, DateTimeKind.Local).AddTicks(5915),
-                            Description = "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims. Such a diet can lead to deficiencies of vitamins and dietary fiber, and increase the risk of chronic diseases.",
+                            CreationDate = new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6520),
+                            Description = "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.",
                             ImageUrl = "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png",
                             Name = "Carnivore diet"
                         });
@@ -190,17 +192,17 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             WorkoutId = 1
                         },
                         new
                         {
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             WorkoutId = 2
                         },
                         new
                         {
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             WorkoutId = 3
                         });
                 });
@@ -249,9 +251,9 @@ namespace FitnessApp.Web.Data.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Gaining muscle for 30 days",
                             GoalType = 2,
-                            TargetDate = new DateTime(2023, 8, 15, 17, 39, 16, 843, DateTimeKind.Local).AddTicks(6023),
+                            TargetDate = new DateTime(2023, 8, 17, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6554),
                             TargetWeight = 80,
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
                         },
                         new
@@ -260,9 +262,9 @@ namespace FitnessApp.Web.Data.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Losing weight for the summer",
                             GoalType = 0,
-                            TargetDate = new DateTime(2023, 8, 30, 17, 39, 16, 843, DateTimeKind.Local).AddTicks(6028),
+                            TargetDate = new DateTime(2023, 9, 1, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6562),
                             TargetWeight = 80,
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
                         },
                         new
@@ -271,9 +273,9 @@ namespace FitnessApp.Web.Data.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Building muscle endurance and stamina",
                             GoalType = 3,
-                            TargetDate = new DateTime(2023, 8, 30, 17, 39, 16, 843, DateTimeKind.Local).AddTicks(6030),
+                            TargetDate = new DateTime(2023, 9, 1, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6564),
                             TargetWeight = 80,
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
                         });
                 });
@@ -489,6 +491,27 @@ namespace FitnessApp.Web.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                            AccessFailedCount = 0,
+                            Age = 30,
+                            Email = "testuser@abv.com",
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            HeightInCentimeters = 80,
+                            HeightInMeters = 1,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTUSER@ABV.COM",
+                            NormalizedUserName = "TESTUSER@ABV.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOJxxYw1u0w+3p1p2F8ubJsB3XvdxpeCiMiKzqsTaiyUaAmneMOmtVFxmLOYboQgTQ==",
+                            PhoneNumberConfirmed = false,
+                            TwoFactorEnabled = false,
+                            UserName = "testuser@abv.com",
+                            Weight = 70.0
+                        });
                 });
 
             modelBuilder.Entity("UserDiet", b =>
@@ -508,18 +531,18 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasData(
                         new
                         {
-                            DietId = 3014,
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf"
+                            DietId = 1,
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608"
                         },
                         new
                         {
-                            DietId = 3015,
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf"
+                            DietId = 2,
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608"
                         },
                         new
                         {
-                            DietId = 3016,
-                            UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf"
+                            DietId = 3,
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608"
                         });
                 });
 

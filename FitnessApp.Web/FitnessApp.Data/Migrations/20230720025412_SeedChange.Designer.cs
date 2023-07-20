@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace FitnessApp.Web.Data.Migrations
+namespace FitnessApp.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230706142000_RemovingAchievementTable")]
-    partial class RemovingAchievementTable
+    [Migration("20230720025412_SeedChange")]
+    partial class SeedChange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,37 +59,28 @@ namespace FitnessApp.Web.Data.Migrations
                         {
                             DietId = 1,
                             CaloriesIntake = 2000,
-                            CreationDate = new DateTime(2023, 7, 6, 17, 20, 0, 538, DateTimeKind.Local).AddTicks(8928),
-                            Description = "This is a sample diet plan.",
-                            ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-                            Name = "Sample Diet 1"
+                            CreationDate = new DateTime(2023, 7, 19, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8477),
+                            Description = "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.",
+                            ImageUrl = "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png",
+                            Name = "Ketogenic diet"
                         },
                         new
                         {
                             DietId = 2,
                             CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 6, 17, 20, 0, 538, DateTimeKind.Local).AddTicks(8957),
-                            Description = "This is a sample diet plan.",
-                            ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-                            Name = "Sample Diet 2"
+                            CreationDate = new DateTime(2023, 7, 19, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8486),
+                            Description = "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods",
+                            ImageUrl = "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg",
+                            Name = "Vegan Diet"
                         },
                         new
                         {
                             DietId = 3,
-                            CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 6, 17, 20, 0, 538, DateTimeKind.Local).AddTicks(8960),
-                            Description = "This is a sample diet plan.",
-                            ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-                            Name = "Sample Diet 3"
-                        },
-                        new
-                        {
-                            DietId = 4,
-                            CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 6, 17, 20, 0, 538, DateTimeKind.Local).AddTicks(8962),
-                            Description = "This is a sample diet plan.",
-                            ImageUrl = "https://www.shutterstock.com/image-photo/balanced-diet-healthy-food-on-260nw-590825882.jpg",
-                            Name = "Sample Diet 4"
+                            CaloriesIntake = 2300,
+                            CreationDate = new DateTime(2023, 7, 19, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8488),
+                            Description = "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.",
+                            ImageUrl = "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png",
+                            Name = "Carnivore diet"
                         });
                 });
 
@@ -118,6 +109,32 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasKey("ExerciseId");
 
                     b.ToTable("Exercises");
+
+                    b.HasData(
+                        new
+                        {
+                            ExerciseId = 1,
+                            Description = "Strong exercsise for developing strong chest",
+                            Name = "Push ups",
+                            Reps = 10,
+                            Sets = 3
+                        },
+                        new
+                        {
+                            ExerciseId = 2,
+                            Description = "Strong exercsise for developing back muscles",
+                            Name = "Pull ups",
+                            Reps = 12,
+                            Sets = 4
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            Description = "Strong exercsise for developing strong leg",
+                            Name = "Squats",
+                            Reps = 8,
+                            Sets = 3
+                        });
                 });
 
             modelBuilder.Entity("ExerciseWorkout", b =>
@@ -136,6 +153,26 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasIndex("WorkoutId");
 
                     b.ToTable("ExerciseWorkouts");
+
+                    b.HasData(
+                        new
+                        {
+                            ExerciseId = 1,
+                            WorkoutId = 1,
+                            ExerciseWorkoutId = 1
+                        },
+                        new
+                        {
+                            ExerciseId = 2,
+                            WorkoutId = 2,
+                            ExerciseWorkoutId = 2
+                        },
+                        new
+                        {
+                            ExerciseId = 3,
+                            WorkoutId = 3,
+                            ExerciseWorkoutId = 3
+                        });
                 });
 
             modelBuilder.Entity("FitnessApp.DataLayer.Models.UserWorkout", b =>
@@ -151,6 +188,23 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasIndex("WorkoutId");
 
                     b.ToTable("UserWorkouts");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                            WorkoutId = 1
+                        },
+                        new
+                        {
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                            WorkoutId = 2
+                        },
+                        new
+                        {
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                            WorkoutId = 3
+                        });
                 });
 
             modelBuilder.Entity("Goal", b =>
@@ -189,6 +243,41 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Goals");
+
+                    b.HasData(
+                        new
+                        {
+                            GoalId = 1,
+                            CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Gaining muscle for 30 days",
+                            GoalType = 2,
+                            TargetDate = new DateTime(2023, 8, 18, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8534),
+                            TargetWeight = 80,
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                            isCompleted = false
+                        },
+                        new
+                        {
+                            GoalId = 2,
+                            CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Losing weight for the summer",
+                            GoalType = 0,
+                            TargetDate = new DateTime(2023, 9, 2, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8545),
+                            TargetWeight = 80,
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                            isCompleted = false
+                        },
+                        new
+                        {
+                            GoalId = 3,
+                            CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Building muscle endurance and stamina",
+                            GoalType = 3,
+                            TargetDate = new DateTime(2023, 9, 2, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8547),
+                            TargetWeight = 80,
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                            isCompleted = false
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -402,6 +491,30 @@ namespace FitnessApp.Web.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                            AccessFailedCount = 0,
+                            Age = 30,
+                            ConcurrencyStamp = "e76526dc-e6c4-4733-9536-cedee66599d0",
+                            Email = "testuser@abv.com",
+                            EmailConfirmed = false,
+                            Gender = 0,
+                            HeightInCentimeters = 80,
+                            HeightInMeters = 1,
+                            LockoutEnabled = true,
+                            NormalizedEmail = "TESTUSER@ABV.COM",
+                            NormalizedUserName = "TESTUSER@ABV.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAyh4Uf0R2kqpA1zXYjsPuBB9votaaFWBOTLgqmfyUl9soRVg77uKr+lFWUZXEwrbw==",
+                            PhoneNumber = "0988766888",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "2f2a3659-8621-442a-8866-09334a764599",
+                            TwoFactorEnabled = false,
+                            UserName = "testuser@abv.com",
+                            Weight = 70.0
+                        });
                 });
 
             modelBuilder.Entity("UserDiet", b =>
@@ -422,12 +535,17 @@ namespace FitnessApp.Web.Data.Migrations
                         new
                         {
                             DietId = 1,
-                            UserId = "fb4b829a-b532-4923-b2b2-c7b9819558ff"
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608"
                         },
                         new
                         {
                             DietId = 2,
-                            UserId = "fb4b829a-b532-4923-b2b2-c7b9819558ff"
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608"
+                        },
+                        new
+                        {
+                            DietId = 3,
+                            UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608"
                         });
                 });
 
@@ -460,6 +578,35 @@ namespace FitnessApp.Web.Data.Migrations
                     b.HasKey("WorkoutId");
 
                     b.ToTable("Workouts");
+
+                    b.HasData(
+                        new
+                        {
+                            WorkoutId = 1,
+                            CaloriesBurned = 300.0,
+                            Description = "n the “push” workout you train all the upper body pushing muscles, i.e. the chest, shoulders and triceps.",
+                            Duration = 60,
+                            ImageUrl = "https://weighteasyloss.com/wp-content/uploads/2018/01/4-13.jpg",
+                            Name = "Push Workout"
+                        },
+                        new
+                        {
+                            WorkoutId = 2,
+                            CaloriesBurned = 250.0,
+                            Description = "In the “pull” workout you train all the upper body pulling muscles, i.e. the back and biceps.",
+                            Duration = 60,
+                            ImageUrl = "https://i.pinimg.com/originals/a3/2a/79/a32a795d8ff0811e9d3e840a88437f03.jpg",
+                            Name = "Pull Workout"
+                        },
+                        new
+                        {
+                            WorkoutId = 3,
+                            CaloriesBurned = 350.0,
+                            Description = "Leg day is the commonly used term for any day that you exercise, and your workout focuses on lower body moves instead of upper body ones.",
+                            Duration = 60,
+                            ImageUrl = "https://i.pinimg.com/originals/ae/e6/e0/aee6e07be64c900166a750ed850d430f.jpg",
+                            Name = "Leg Workout"
+                        });
                 });
 
             modelBuilder.Entity("ExerciseWorkout", b =>

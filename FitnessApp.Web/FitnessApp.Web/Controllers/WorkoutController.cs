@@ -60,17 +60,9 @@ namespace FitnessApp.Web.Controllers
 
             return RedirectToAction(nameof(GetAll));
         }
+ 
 
-		[HttpPost]
-		[Authorize(Roles = "Admin")]
-		public async Task<IActionResult> RemoveExercise(int workoutId, int exerciseId)
-		{
-			await workoutService.RemoveExerciseFromWorkout(workoutId, exerciseId);
-			return Ok();
-		}
-
-
-		[HttpGet]
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetCreateModel()
         {

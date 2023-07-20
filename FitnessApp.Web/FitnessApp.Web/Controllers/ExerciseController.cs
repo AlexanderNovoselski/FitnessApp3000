@@ -27,18 +27,34 @@ namespace FitnessApp.Web.Controllers
             return View(nameof(GetAll), pagedModel);
         }
 
- 
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> AddToWorkout(int id, int workoutId)
+		[HttpGet]
+		[Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GetAllRemove(int workoutId)
         {
-          
-            var exercise = await exerciseService.AddToWorkout(id, workoutId);
-
-            return RedirectToAction("GetAll", new { workoutId = workoutId });
+			var model = await exerciseService.GetAllRemove(workoutId);
+            ViewBag.WorkoutId = workoutId;
+            return View(nameof(GetAllRemove), model);
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RemoveFromWorkout(int workoutId, int id)
+        {
+            await exerciseService.RemoveExerciseFromWorkout(workoutId, id);
+            return RedirectToAction(nameof(GetAll), "Workout");
+        }
+
+        [HttpPost]
+		[Authorize(Roles = "Admin")]
+		public async Task<IActionResult> AddToWorkout(int id, int workoutId)
+		{
+			var exercise = await exerciseService.AddToWorkout(id, workoutId);
+
+			// Redirect to the GetAll action with the workoutId parameter
+			return RedirectToAction(nameof(GetAll), "Exercise", new { workoutId });
+		}
+
+		[HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {

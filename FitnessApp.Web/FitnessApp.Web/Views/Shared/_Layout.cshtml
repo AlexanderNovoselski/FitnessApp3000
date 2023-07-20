@@ -67,7 +67,10 @@
 							</a>
 							<div class="dropdown-menu" aria-labelledby="exerciseDropdown">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Goal" asp-action="GetAll">My Goals</a>
+								@if(User.Identity.IsAuthenticated)
+								{
 								<a id="addExerciseOption" class="dropdown-item" asp-area="" asp-controller="Goal" asp-action="GetCreateModel">Add Goal</a>
+								}
 							</div>
 						</li>
 					</ul>

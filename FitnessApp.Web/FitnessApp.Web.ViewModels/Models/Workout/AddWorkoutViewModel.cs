@@ -12,7 +12,7 @@ namespace FitnessApp.Web.ViewModels.Models.Workout
         public string ImageUrl { get; set; }
 
         [Required]
-		[StringLength(100, MinimumLength = 5)]
+		[StringLength(250, MinimumLength = 5)]
 		public string Description { get; set; }
 
         [Required]

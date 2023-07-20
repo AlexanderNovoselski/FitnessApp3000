@@ -1,4 +1,4 @@
-﻿@model List<DietsResultModel>
+﻿@model PagedList.IPagedList<DietsResultModel>
 
 @{
     ViewBag.Title = "My Favourite Diets";
@@ -9,15 +9,13 @@
 <div class="text-center row">
     @foreach (var diet in Model)
     {
-        <div class="card col-4" style="width: 20rem; ">
-            <img class="card-img-top img-fluid" src="@diet.ImageUrl" alt="Book Image">
+        <div class="card col-4 mb-3" style="width: 30%;">
+            <img class="card-img-top img-fluid" src="@diet.ImageUrl" alt="Diet Image" style="height: 200px; object-fit: cover;">
             <div class="card-body">
-
                 <h5 class="card-title mt-1">@diet.Name</h5>
                 <p class="mb-0">Description: @diet.Description</p>
                 <p class="mb-0">Calories: @diet.CaloriesIntake</p>
             </div>
-
             @if (User.Identity.IsAuthenticated)
             {
                 <form class="input-group-sm" asp-controller="Diet" asp-action="RemoveFromCollection" asp-route-id="@diet.DietId">
@@ -26,4 +24,27 @@
             }
         </div>
     }
+</div>
+
+<div class="text-center">
+    <ul class="pagination">
+        @if (Model.HasPreviousPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("GetMyDiets", new { page = Model.PageNumber - 1 })">Previous</a>
+            </li>
+        }
+        @for (int i = 1; i <= Model.PageCount; i++)
+        {
+            <li class="page-item @(i == Model.PageNumber ? "active" : "")">
+                <a class="page-link" href="@Url.Action("GetMyDiets", new { page = i })">@i</a>
+            </li>
+        }
+        @if (Model.HasNextPage)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("GetMyDiets", new { page = Model.PageNumber + 1 })">Next</a>
+            </li>
+        }
+    </ul>
 </div>

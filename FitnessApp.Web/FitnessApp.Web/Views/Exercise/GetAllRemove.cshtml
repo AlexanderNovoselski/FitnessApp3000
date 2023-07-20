@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ExerciseViewModel>
+
+<h2>Remove exercise from workout</h2>
+
+@if (Model == null || !Model.Any())
+{
+    <p>No exercises available.</p>
+}
+else
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Sets</th>
+                <th>Reps</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exercise in Model)
+            {
+                <tr>
+                    <td hidden>@exercise.Id</td>
+                    <td>@exercise.Name</td>
+                    <td>@exercise.Description</td>
+                    <td>@exercise.Sets</td>
+                    <td>@exercise.Reps</td>
+                    <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            @if (ViewBag.WorkoutId != 0)
+                            {
+                                <form class="input-group-sm mb-3" method="post" asp-controller="Exercise" asp-action="RemoveFromWorkout">
+                                    <input type="hidden" name="id" value="@exercise.Id" />
+                                    <input type="hidden" name="workoutId" value="@ViewBag.WorkoutId" />
+                                    <input type="submit" value="Remove from workout" class="btn btn-danger btn-sm w-100" />
+                                </form>
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

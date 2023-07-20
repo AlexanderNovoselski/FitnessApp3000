@@ -39,8 +39,8 @@ namespace FitnessApp.Test.Services
         public async Task AddToWorkout_ValidIds_ReturnsExerciseViewModel()
         {
             // Arrange
-            int exerciseId = -1;
-            int workoutId = -1;
+            int exerciseId = -4;
+            int workoutId = -4;
 
             // Act
             var result = await exerciseService.AddToWorkout(exerciseId, workoutId);
@@ -58,7 +58,7 @@ namespace FitnessApp.Test.Services
         {
             // Arrange
             int invalidExerciseId = -1000; // Invalid exerciseId
-            int workoutId = -1;
+            int workoutId = -4;
 
             // Act and Assert
             await Assert.ThrowsExceptionAsync<ArgumentException>(() => exerciseService.AddToWorkout(invalidExerciseId, workoutId));
@@ -67,7 +67,7 @@ namespace FitnessApp.Test.Services
         public async Task AddToWorkout_InvalidWorkoutId_ThrowsArgumentException()
         {
             // Arrange
-            int exerciseId = -1;
+            int exerciseId = -4;
             int invalidWorkoutId = -1000; // Invalid workoutId
 
             // Act and Assert
@@ -78,8 +78,8 @@ namespace FitnessApp.Test.Services
         public async Task AddToWorkout_ExerciseAlreadyAssociated_ThrowsInvalidOperationException()
         {
             // Arrange
-            int exerciseId = -1;
-            int workoutId = -1;
+            int exerciseId = -4;
+            int workoutId = -4;
 
             // Add the exercise to the workout
             await exerciseService.AddToWorkout(exerciseId, workoutId);
@@ -126,21 +126,21 @@ namespace FitnessApp.Test.Services
         public async Task GetAll_ValidWorkoutId_ReturnsExerciseViewModels()
         {
             // Arrange
-            int workoutId = -1;
+            int workoutId = -4;
 
             // Act
             var result = await exerciseService.GetAll(workoutId);
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(3, result.Count()); // Assuming there are 3 exercises not associated with the workout
+            Assert.AreEqual(6, result.Count()); // Assuming there are 3 exercises not associated with the workout
         }
 
         [TestMethod]
         public async Task Remove_ExistingExerciseId_RemovesExerciseFromDatabase()
         {
             // Arrange
-            int exerciseId = -1;
+            int exerciseId = -4;
 
             // Act
             await exerciseService.Remove(exerciseId);
@@ -168,13 +168,13 @@ namespace FitnessApp.Test.Services
         {
             var exercises = new List<Exercise>
         {
-            new Exercise {ExerciseId = -1, Name = "Exercise 1", Description = "Description 1", Sets = 3, Reps = 10 },
-            new Exercise {ExerciseId = -2, Name = "Exercise 2", Description = "Description 2", Sets = 4, Reps = 12 },
-            new Exercise {ExerciseId = -3, Name = "Exercise 3", Description = "Description 3", Sets = 2, Reps = 8 }
+            new Exercise {ExerciseId = -4, Name = "Exercise 1", Description = "Description 1", Sets = 3, Reps = 10 },
+            new Exercise {ExerciseId = -5, Name = "Exercise 2", Description = "Description 2", Sets = 4, Reps = 12 },
+            new Exercise {ExerciseId = -6, Name = "Exercise 3", Description = "Description 3", Sets = 2, Reps = 8 }
         };
             var workout = new Workout
             {
-                WorkoutId = -1,
+                WorkoutId = -4,
                 Name = "Workout",
                 Description = "Burnout",
                 CaloriesBurned = 1000,

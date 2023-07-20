@@ -9,7 +9,7 @@ namespace FitnessApp.Web.ViewModels.Models.Exercise
 		[StringLength(50, MinimumLength = 3)]
 		public string Name { get; set; }
 
-		[StringLength(100, MinimumLength = 3)]
+		[StringLength(250, MinimumLength = 3)]
 		public string Description { get; set; }
 
 		[Required]

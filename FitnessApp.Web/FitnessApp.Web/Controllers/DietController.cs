@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PagedList;
+using System.Drawing.Printing;
 using System.Net;
 
 namespace FitnessApp.Web.Controllers
@@ -31,11 +32,11 @@ namespace FitnessApp.Web.Controllers
         }
 
         [HttpGet]
-
-        public async Task<IActionResult> GetMyDiets()
+        public async Task<IActionResult> GetMyDiets(int page = 1, int pageSize = 3)
         {
             var model = await dietService.GetMyDiets(GetUserId());
-            return View("MyDiets", model);
+            var pagedModel = model.ToPagedList(page, pageSize);
+            return View("MyDiets", pagedModel);
         }
 
         [HttpPost]

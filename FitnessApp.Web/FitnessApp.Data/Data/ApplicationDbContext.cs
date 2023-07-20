@@ -1,5 +1,7 @@
 ﻿using FitnessApp.DataLayer.Enums;
 using FitnessApp.DataLayer.Models;
+using FitnessApp.Enums;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,6 +22,7 @@ namespace FitnessApp.Data
 		public DbSet<UserDiet> UserDiets { get; set; }
 		public DbSet<ExerciseWorkout> ExerciseWorkouts { get; set; }
 		public DbSet<UserWorkout> UserWorkouts { get; set; }
+		public DbSet<User> User { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -60,11 +63,45 @@ namespace FitnessApp.Data
 		}
         private void SeedData(ModelBuilder modelBuilder)
         {
+            // Seed the user
+            var user = new User
+            {
+                Id = "b35ad7b1-5004-4f8e-8bed-99660a297608",
+                UserName = "testuser@abv.com",
+                NormalizedUserName = "TESTUSER@ABV.COM",
+                Email = "testuser@abv.com",
+                NormalizedEmail = "TESTUSER@ABV.COM",
+                EmailConfirmed = false,
+                SecurityStamp = Guid.NewGuid().ToString(),
+                ConcurrencyStamp = Guid.NewGuid().ToString(),
+                PhoneNumber = "0988766888",
+                PhoneNumberConfirmed = false,
+                TwoFactorEnabled = false,
+                LockoutEnd = null,
+                LockoutEnabled = true,
+                AccessFailedCount = 0,
+                Age = 30,
+                Gender = GenderType.Male,
+                HeightInMeters = 1,
+                HeightInCentimeters = 80,
+                Weight = 70,
+                Goals = new List<Goal>(),
+                UserDiets = new List<UserDiet>(),
+                UserWorkouts = new List<UserWorkout>()
+            };
+
+            var passwordHasher = new PasswordHasher<User>();
+            var hashedPassword = passwordHasher.HashPassword(user, "TestUser123");
+
+            user.PasswordHash = hashedPassword;
+
+
+            modelBuilder.Entity<User>().HasData(user);
             // Seed Diets
             modelBuilder.Entity<Diet>().HasData(
                 new Diet
                 {
-                    DietId = 3014,
+                    DietId = 1,
                     Name = "Ketogenic diet",
                     ImageUrl = "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png",
                     Description = "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy" +
@@ -75,7 +112,7 @@ namespace FitnessApp.Data
                 },
                 new Diet
                 {
-                    DietId = 3015,
+                    DietId = 2,
                     Name = "Vegan Diet",
                     ImageUrl = "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg",
                     Description = "Vegan diets are made up of only plant-based foods. This type of diet includes fruits," +
@@ -87,7 +124,7 @@ namespace FitnessApp.Data
                 },
                 new Diet
                 {
-                    DietId = 3016,
+                    DietId = 3,
                     Name = "Carnivore diet",
                     ImageUrl = "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png",
                     Description = "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and " +
@@ -134,7 +171,7 @@ namespace FitnessApp.Data
                 new Goal
                 {
                     GoalId = 1,
-                    UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                    UserId = user.Id,
                     Description = "Gaining muscle for 30 days",
                     GoalType = GoalType.MuscleGain,
                     TargetWeight = 80,
@@ -144,7 +181,7 @@ namespace FitnessApp.Data
                 new Goal
                 {
                     GoalId = 2,
-                    UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                    UserId = user.Id,
                     Description = "Losing weight for the summer",
                     GoalType = GoalType.WeightLoss,
                     TargetWeight = 80,
@@ -154,7 +191,7 @@ namespace FitnessApp.Data
                 new Goal
                 {
                     GoalId = 3,
-                    UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf",
+                    UserId = user.Id,
                     Description = "Building muscle endurance and stamina",
                     GoalType = GoalType.Endurance,
                     TargetWeight = 80,
@@ -191,7 +228,7 @@ namespace FitnessApp.Data
                     WorkoutId = 2,
                     Name = "Pull Workout",
                     ImageUrl = "https://i.pinimg.com/originals/a3/2a/79/a32a795d8ff0811e9d3e840a88437f03.jpg",
-                    Description = "“Push” workouts train the chest, shoulders, and triceps, while “pull” workouts train the back, biceps, and forearms.",
+                    Description = "In the “pull” workout you train all the upper body pulling muscles, i.e. the back and biceps.",
                     Duration = 60,
                     CaloriesBurned = 250,
                     ExerciseWorkouts = new List<ExerciseWorkout>(),
@@ -200,7 +237,7 @@ namespace FitnessApp.Data
                 new Workout
                 {
                     WorkoutId = 3,
-                    Name = "Workout 3",
+                    Name = "Leg Workout",
                     ImageUrl = "https://i.pinimg.com/originals/ae/e6/e0/aee6e07be64c900166a750ed850d430f.jpg",
                     Description = "Leg day is the commonly used term for any day that you exercise, and your workout focuses on lower body moves instead of upper body ones.",
                     Duration = 60,
@@ -212,16 +249,16 @@ namespace FitnessApp.Data
 
             // Seed UserDiets
             modelBuilder.Entity<UserDiet>().HasData(
-                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 3014 },
-                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 3015 },
-                new UserDiet { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", DietId = 3016 }
+                new UserDiet { UserId = user.Id, DietId = 1 },
+                new UserDiet { UserId = user.Id, DietId = 2 },
+                new UserDiet { UserId = user.Id, DietId = 3 }
             );
 
             // Seed UserWorkouts
             modelBuilder.Entity<UserWorkout>().HasData(
-                new UserWorkout { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", WorkoutId = 1 },
-                new UserWorkout { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", WorkoutId = 2 },
-                new UserWorkout { UserId = "4f115243-ce00-43f3-a0e8-85df5d8d28cf", WorkoutId = 3 }
+                new UserWorkout { UserId = user.Id, WorkoutId = 1 },
+                new UserWorkout { UserId = user.Id, WorkoutId = 2 },
+                new UserWorkout { UserId = user.Id, WorkoutId = 3 }
             );
         }
     }
