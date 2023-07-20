@@ -3,6 +3,7 @@ using FitnessApp.Web.ViewModels.Models.Diet;
 using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PagedList;
 using System.Drawing.Printing;
@@ -59,9 +60,8 @@ namespace FitnessApp.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int Id)
         {
-            await dietService.Remove(Id);
-
-            return RedirectToAction(nameof(GetAll));
+                await dietService.Remove(Id);
+                return RedirectToAction(nameof(GetAll));
         }
 
         [HttpPost]
@@ -95,6 +95,7 @@ namespace FitnessApp.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
+        [Route("Diet/Add")]
         public async Task<IActionResult> GetCreateModel()
         {
             var model = await dietService.GetAddModel();

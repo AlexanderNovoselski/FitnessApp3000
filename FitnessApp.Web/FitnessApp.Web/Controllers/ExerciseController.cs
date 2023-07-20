@@ -29,6 +29,7 @@ namespace FitnessApp.Web.Controllers
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
+        [Route("Exercise/GetRemove")]
         public async Task<IActionResult> GetAllRemove(int workoutId)
         {
 			var model = await exerciseService.GetAllRemove(workoutId);
@@ -65,8 +66,9 @@ namespace FitnessApp.Web.Controllers
 
 		[HttpGet]
 		[Authorize(Roles = "Admin")]
-		
-		public async Task<IActionResult> GetCreateModel()
+        [Route("Exercise/Add")]
+
+        public async Task<IActionResult> GetCreateModel()
 		{
 			var model = await exerciseService.GetAddModel();
 
