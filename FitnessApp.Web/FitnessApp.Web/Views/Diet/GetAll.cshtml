@@ -7,7 +7,6 @@
     ViewBag.Title = "All Diets";
 }
 
-@* TODO: Add search bar *@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
@@ -65,29 +64,31 @@
 
 @if (Model.PageCount > 1)
 {
-    <div class="text-center">
+    <div class="pagination-container">
         <ul class="pagination">
             @if (Model.HasPreviousPage)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber - 1, sortingType = ViewBag.SortingType })">Previous</a>
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber - 1, sortingType = Model.FirstOrDefault().SortingType })">Previous</a>
                 </li>
             }
             @for (int i = 1; i <= Model.PageCount; i++)
             {
                 <li class="page-item @(i == Model.PageNumber ? "active" : "")">
-                    <a class="page-link" href="@Url.Action("GetAll", new { page = i, sortingType = ViewBag.SortingType })">@i</a>
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = i, sortingType = Model.FirstOrDefault().SortingType })">@i</a>
                 </li>
             }
             @if (Model.HasNextPage)
             {
                 <li class="page-item">
-                    <a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber + 1, sortingType = ViewBag.SortingType })">Next</a>
+                    <a class="page-link" href="@Url.Action("GetAll", new { page = Model.PageNumber + 1, sortingType = Model.FirstOrDefault().SortingType })">Next</a>
                 </li>
             }
         </ul>
     </div>
 }
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -102,6 +103,7 @@
         var sortingType = selectElement.value;
         var baseUrl = '@Url.Action("GetAll")';
         var url = baseUrl + '?sortingType=' + sortingType;
+        console.log(url); 
         location.href = url;
 
         localStorage.setItem("sortingType", sortingType);

@@ -123,3 +123,8 @@ footer {
     transform: translateY(-50%);
     cursor: pointer;
 }
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+}

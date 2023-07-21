@@ -29,7 +29,8 @@ namespace FitnessApp.Services
                     break;
                 case SortType.Default:
                     break;
-
+                default:
+                    break;
             }
 
             var diets = await query.ToListAsync();
