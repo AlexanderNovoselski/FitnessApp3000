@@ -6,6 +6,7 @@
 
 <h2>Edit Diet</h2>
 
+
 <form asp-controller="Diet" asp-action="Update" method="post">
     <input type="hidden" asp-for="DietId" />
 
@@ -35,5 +36,9 @@
 
     <div class="mb-3">
         <input class="btn btn-primary" type="submit" value="Save" asp-action="Update" asp-route-id="@Model.DietId" />
+
+        <a class="btn btn-secondary" asp-action="GetAll" asp-controller="Diet">Back</a>
     </div>
+
+
 </form>

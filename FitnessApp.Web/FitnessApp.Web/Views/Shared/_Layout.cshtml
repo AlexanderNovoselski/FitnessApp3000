@@ -31,7 +31,10 @@
 								{
 									<a id="addDietOption" class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetCreateModel">Add Diet</a>
 								}
-								<a class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetMyDiets">My Diets</a>
+								@if (User.Identity.IsAuthenticated)
+								{
+									<a class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetMyDiets">My Diets</a>
+								}
 							</div>
 						</li>
 
@@ -105,7 +108,7 @@
 				<div class="col text-end">
 					@if (User.IsInRole("Admin"))
 					{
-						<p>You shall have admin powers!</p> @*TODO add small yoda face*@
+						<p>You shall have admin powers!</p>
 					}
 				</div>
 			</div>
