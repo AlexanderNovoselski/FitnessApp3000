@@ -3,10 +3,7 @@ using FitnessApp.Web.ViewModels.Models.Diet;
 using FitnessApp.Web.ViewModels.Models.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using PagedList;
-using System.Drawing.Printing;
 using System.Net;
 
 namespace FitnessApp.Web.Controllers
@@ -19,16 +16,14 @@ namespace FitnessApp.Web.Controllers
         {
             this.dietService = dietService;
         }
-
         [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll(SortType sortingType = SortType.Default, int page = 1, int pageSize = 3)
         {
             var model = await dietService.GetAllDietsAsync(sortingType);
-
             var pagedModel = model.ToPagedList(page, pageSize);
-
             ViewBag.SortingType = sortingType;
+
             return View("GetAll", pagedModel);
         }
 

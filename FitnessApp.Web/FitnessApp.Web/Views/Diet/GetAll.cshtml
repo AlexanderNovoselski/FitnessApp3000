@@ -13,15 +13,15 @@
 <div class="text-start mb-3">
     <div class="d-inline-block" style="width: 30%;">
         <label for="SortingType" style="display: block;">Sort by:</label>
-        <select id="SortingType" class="form-select" style="width: 100%;">
-            <option value="default">Default</option>
-            <option value="newest">Newest</option>
-            <option value="oldest">Oldest</option>
+        <select id="SortingType" class="form-select" style="width: 100%;" onchange="handleSortingChange(this)">
+            <option value="Default">Default</option>
+            <option value="Newest">Newest</option>
+            <option value="Oldest">Oldest</option>
         </select>
     </div>
 </div>
 
-<div class="text-center row">
+<div id="dietsContainer" class="text-center row" data-sorting-type="@ViewBag.SortingType">
     @if (Model.Any())
     {
         @foreach (var diet in Model)
@@ -88,24 +88,45 @@
     </div>
 }
 
-
-
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        var selectElement = document.getElementById("SortingType");
-        var selectedValue = localStorage.getItem("sortingType");
-        if (selectedValue) {
-            selectElement.value = selectedValue;
-        }
+    // Use event delegation for sorting
+    $(document).on('click', '.pagination-container .page-link', function (e) {
+        e.preventDefault();
+        var sortingType = $('#SortingType').val();
+        var url = $(this).attr('href') + '&sortingType=' + sortingType;
+
+        loadDiets(url, sortingType); // Pass the sortingType to the loadDiets function
     });
 
+    // Handle the sorting change event using the handleSortingChange function
     function handleSortingChange(selectElement) {
         var sortingType = selectElement.value;
         var baseUrl = '@Url.Action("GetAll")';
         var url = baseUrl + '?sortingType=' + sortingType;
-        console.log(url); 
-        location.href = url;
 
-        localStorage.setItem("sortingType", sortingType);
+        loadDiets(url, sortingType); // Pass the sortingType to the loadDiets function
     }
+
+    function loadDiets(url, sortingType) {
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (result) {
+                $('#dietsContainer').html($(result).find('#dietsContainer').html()); // Update the diets list with the new data returned from the controller
+                $('#SortingType').val(sortingType); // Update the sorting type in the select element
+                localStorage.setItem("sortingType", sortingType); // Update the sorting type in local storage
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+
+    // On page load, restore the selected sorting type if it exists in local storage
+    $(document).ready(function () {
+        var storedSortingType = localStorage.getItem("sortingType");
+        if (storedSortingType) {
+            $('#SortingType').val(storedSortingType);
+        }
+    });
 </script>
