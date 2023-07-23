@@ -40,7 +40,7 @@
                     <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="AddToCollection" asp-route-id="@diet.DietId">
                         <input type="submit" value="Add to my Favourites" class="btn btn-success btn-sm w-100" />
                     </form>
-
+                     
                     @if (User.IsInRole("Admin"))
                     {
                         <div class="d-grid gap-2">
