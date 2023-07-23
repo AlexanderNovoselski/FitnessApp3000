@@ -41,6 +41,7 @@ namespace FitnessApp.Web.Controllers
             if (workout == null)
             {
                 return RedirectToAction(nameof(GetAll));
+
             }
 
             return View("Edit", workout);
