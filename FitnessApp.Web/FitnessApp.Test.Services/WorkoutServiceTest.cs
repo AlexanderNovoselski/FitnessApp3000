@@ -197,7 +197,7 @@ namespace FitnessApp.Test.Services
                         Sets = 5,
                         Reps = 12
                     }
-                }
+                } 
             };
 
             // Act
