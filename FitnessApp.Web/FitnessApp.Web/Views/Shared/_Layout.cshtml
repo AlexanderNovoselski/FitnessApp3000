@@ -1,4 +1,6 @@
 ﻿@inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -86,7 +88,7 @@
                             </li>
                         </ul>
                     }
-
+         
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -120,17 +122,17 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
     <script>
-        //// Hide "Add Diet" option if the user is not in the "Admin" role
-        //var addDietOption = document.getElementById('addDietOption');
-        //if (addDietOption && !@User.IsInRole("Admin")) {
-        //    addDietOption.style.display = 'none';
-        //}
+        // Hide "Add Diet" option if the user is not in the "Admin" role
+        var addDietOption = document.getElementById('addDietOption');
+        if (addDietOption && !@User.IsInRole("Admin")) {
+            addDietOption.style.display = 'none';
+        }
 
-        //// Hide "Add Workouts" option if the user is not in the "Admin" role
-        //var addWorkoutsOption = document.getElementById('addWorkoutsOption');
-        //if (addWorkoutsOption && !@User.IsInRole("Admin")) {
-        //    addWorkoutsOption.style.display = 'none';
-        //}
+        // Hide "Add Workouts" option if the user is not in the "Admin" role
+        var addWorkoutsOption = document.getElementById('addWorkoutsOption');
+        if (addWorkoutsOption && !@User.IsInRole("Admin")) {
+            addWorkoutsOption.style.display = 'none';
+        }
 
         function goBack() {
             window.history.back();

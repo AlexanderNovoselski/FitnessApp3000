@@ -15,6 +15,7 @@ namespace FitnessApp.Services
 			this.dbContext = dbContext;
 		}
 
+		
 		public async Task CreateAsync(AddGoalViewModel model, string userId)
 		{
 			var goal = new Goal
@@ -30,6 +31,7 @@ namespace FitnessApp.Services
 			dbContext.Goals.Add(goal);
 			await dbContext.SaveChangesAsync();
 		}
+
 
 		public Task<AddGoalViewModel> GetAddModel()
 		{

@@ -55,8 +55,8 @@ namespace FitnessApp.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int Id)
         {
-                await dietService.Remove(Id);
-                return RedirectToAction(nameof(GetAll));
+            await dietService.Remove(Id);
+            return RedirectToAction(nameof(GetAll));
         }
 
         [HttpPost]
@@ -82,8 +82,8 @@ namespace FitnessApp.Web.Controllers
             {
                 return View("Edit", model);
             }
-			model.Name = WebUtility.HtmlEncode(model.Name);
-			await dietService.Edit(model);
+            model.Name = WebUtility.HtmlEncode(model.Name);
+            await dietService.Edit(model);
 
             return RedirectToAction(nameof(GetAll));
         }
@@ -101,7 +101,7 @@ namespace FitnessApp.Web.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(AddDietViewModel model)
-        
+
         {
             if (ModelState.IsValid == false)
             {

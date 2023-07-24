@@ -8,6 +8,7 @@ namespace FitnessApp.Web.Controllers
     [Authorize]
     public class BaseController : Controller
     {
+
         protected string GetUserId()
         {
             string id = string.Empty;

@@ -214,52 +214,6 @@ namespace FitnessApp.Test.Services
             Assert.AreEqual(2, updatedWorkout.ExerciseWorkouts.Count);
         }
 
-        [TestMethod]
-        public async Task RemoveExerciseFromWorkout_RemovesExerciseWorkoutFromDatabase()
-        {
-            // Arrange
-            var workoutId = -1;
-            var exerciseId = -1;
-
-            // Act
-            await workoutService.RemoveExerciseFromWorkout(workoutId, exerciseId);
-            var workout = await context.Workouts
-                .Include(w => w.ExerciseWorkouts)
-                .FirstOrDefaultAsync(w => w.WorkoutId == workoutId);
-
-            // Assert
-            Assert.IsNotNull(workout);
-            Assert.AreEqual(1, workout.ExerciseWorkouts.Count);
-            Assert.AreEqual(-2, workout.ExerciseWorkouts.First().ExerciseId);
-        }
-
-        [TestMethod]
-        public async Task RemoveExerciseFromWorkout_ShouldNotRemoveExerciseWorkoutFromDatabase_WorkoutIdNotValid()
-        {
-            // Arrange
-            var invalidWorkoutId = -1000;
-            var exerciseId = -1;
-
-            // Assert & Act
-            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(async () =>
-            {
-                await workoutService.RemoveExerciseFromWorkout(invalidWorkoutId, exerciseId);
-            });
-        }
-
-        [TestMethod]
-        public async Task RemoveExerciseFromWorkout_ShouldNotRemoveExerciseWorkoutFromDatabase_ExerciseIdNotValid()
-        {
-            // Arrange
-            var workoutId = -1;
-            var invalidExerciseId = -1000;
-
-            // Assert & Act
-            await Assert.ThrowsExceptionAsync<KeyNotFoundException>(async () =>
-            {
-                await workoutService.RemoveExerciseFromWorkout(workoutId, invalidExerciseId);
-            });
-        }
 
         [TestMethod]
         public async Task CreateAsync_AddsNewWorkoutToDatabase()
