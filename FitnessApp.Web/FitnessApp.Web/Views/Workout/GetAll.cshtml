@@ -40,7 +40,7 @@
                             <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Edit" asp-route-id="@workout.WorkoutId">
                                 <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
                             </form>
-                            <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Remove" asp-route-id="@workout.WorkoutId">
+                            <form class="input-group-sm mb-3" asp-controller="Workout" asp-action="Remove" asp-route-id="@workout.WorkoutId" onsubmit="return confirm('Are you sure you want to delete this workout?')">
                                 <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
                             </form>
                         </div>

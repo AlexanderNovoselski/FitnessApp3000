@@ -47,7 +47,7 @@
                             <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Edit" asp-route-id="@diet.DietId">
                                 <input type="submit" value="Edit" class="btn btn-warning btn-sm w-100" />
                             </form>
-                            <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Remove" asp-route-id="@diet.DietId">
+                            <form class="input-group-sm mb-3" asp-controller="Diet" asp-action="Remove" asp-route-id="@diet.DietId" onsubmit="return confirm('Are you sure you want to delete this diet?')">
                                 <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
                             </form>
                         </div>

@@ -22,7 +22,6 @@
                 <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
                 <label asp-for="Input.Password" class="form-label"></label>
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
-                <i class="visible-password-button fa fa-eye-slash"></i>
             </div>
             <div>
                 <div class="checkbox">
@@ -46,20 +45,4 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-    <script>
-        const passwordInput = document.querySelector('input[type="password"]');
-        const visiblePasswordButton = document.querySelector('.visible-password-button');
-
-        visiblePasswordButton.addEventListener('click', function () {
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                visiblePasswordButton.classList.remove('fa-eye-slash');
-                visiblePasswordButton.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                visiblePasswordButton.classList.remove('fa-eye');
-                visiblePasswordButton.classList.add('fa-eye-slash');
-            }
-        });
-    </script>
 }

@@ -130,3 +130,7 @@ footer {
     display: none;
     margin: 10px auto;
 }
+
+.btn-group:hover #notifications-dropdown {
+    display: block;
+}

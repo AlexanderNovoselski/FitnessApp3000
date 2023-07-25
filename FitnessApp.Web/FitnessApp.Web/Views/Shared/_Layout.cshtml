@@ -3,6 +3,7 @@
 @inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
 @inject IGoalService goalService
 @{
+    bool isAuthenticated = User.Identity.IsAuthenticated;
     string id = string.Empty;
 
     if (User != null)
@@ -44,7 +45,7 @@
                                 {
                                     <a id="addDietOption" class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetCreateModel">Add Diet</a>
                                 }
-                                @if (User.Identity.IsAuthenticated)
+                                @if (isAuthenticated)
                                 {
                                     <a class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetMyDiets">My Diets</a>
                                 }
@@ -83,7 +84,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="exerciseDropdown">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Goal" asp-action="GetAll">My Goals</a>
-                                @if (User.Identity.IsAuthenticated)
+                                @if (isAuthenticated)
                                 {
                                     <a id="addExerciseOption" class="dropdown-item" asp-area="" asp-controller="Goal" asp-action="GetCreateModel">Add Goal</a>
                                 }
@@ -100,13 +101,13 @@
                         </ul>
                     }
 
-                    @if (User.Identity.IsAuthenticated)
+                    @if (isAuthenticated)
                     {
                         <div class="btn-group">
-                            <button id="notifications-button" type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button id="notifications-button" type="button" class="btn btn-sm dropdown-toggle text-dark" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Notifications <span class="badge bg-danger">@goals.Count()</span>
                             </button>
-                            <div id="notifications-dropdown" class="dropdown-menu">
+                            <div id="notifications-dropdown" class="dropdown-menu" aria-labelledby="notifications-button">
                                 @if (goals.Any())
                                 {
                                     <h6 class="dropdown-header">Goals within Three Days</h6>
@@ -126,7 +127,6 @@
                                 {
                                     <h6 class="dropdown-header">No Goals within Three Days</h6>
                                 }
-                               
                             </div>
                         </div>
                     }
@@ -193,7 +193,20 @@
                 dropdown.style.display = 'none';
             }
         });
+        var notificationsDropdown = document.getElementById('notifications-dropdown');
 
+        // Hide notifications dropdown initially
+        notificationsDropdown.style.display = 'none';
+
+        // Show notifications dropdown on hover
+        document.getElementById('notifications-button').addEventListener('mouseenter', function () {
+            notificationsDropdown.style.display = 'block';
+        });
+
+        // Hide notifications dropdown when mouse leaves the dropdown area
+        notificationsDropdown.addEventListener('mouseleave', function () {
+            notificationsDropdown.style.display = 'none';
+        });
     </script>
 </body>
 </html>

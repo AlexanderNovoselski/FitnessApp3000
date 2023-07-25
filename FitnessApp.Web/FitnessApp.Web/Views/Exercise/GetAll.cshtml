@@ -37,18 +37,15 @@
                                 </form>
                             }
                         }
-
-
                     </td>
 
                     <td>
                         @if (User.IsInRole("Admin"))
                         {
-                            <form class="input-group-sm mb-3" asp-controller="Exercise" asp-action="Remove" asp-route-id="@exercise.Id">
+                            <form class="input-group-sm mb-3" asp-controller="Exercise" asp-action="Remove" asp-route-id="@exercise.Id" onsubmit="return confirm('Are you sure you want to delete this exercise?')">
                                 <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
                             </form>
                         }
-
                     </td>
                 </tr>
             }
