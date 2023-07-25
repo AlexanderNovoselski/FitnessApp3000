@@ -38,25 +38,44 @@ namespace FitnessApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> AddToCollection(int Id)
         {
-            await dietService.AddToCollection(Id, GetUserId());
-
-            return RedirectToAction(nameof(GetAll));
+            try
+            {
+                await dietService.AddToCollection(Id, GetUserId());
+                return RedirectToAction(nameof(GetAll));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(GetAll));
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> RemoveFromCollection(int Id)
         {
-            await dietService.RemoveFromCollection(Id, GetUserId());
-
-            return RedirectToAction(nameof(GetAll));
+            try
+            {
+                await dietService.RemoveFromCollection(Id, GetUserId());
+                return RedirectToAction(nameof(GetAll));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(GetAll));
+            }
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int Id)
         {
-            await dietService.Remove(Id);
-            return RedirectToAction(nameof(GetAll));
+            try
+            {
+                await dietService.Remove(Id);
+                return RedirectToAction(nameof(GetAll));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(GetAll));
+            }
         }
 
         [HttpPost]

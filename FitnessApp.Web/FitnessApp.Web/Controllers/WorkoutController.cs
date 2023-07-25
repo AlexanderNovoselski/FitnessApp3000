@@ -1,4 +1,5 @@
-﻿using FitnessApp.Services.Contracts;
+﻿using FitnessApp.Services;
+using FitnessApp.Services.Contracts;
 using FitnessApp.Web.ViewModels.Models.Workout;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -28,8 +29,15 @@ namespace FitnessApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Remove(int Id)
         {
-            await workoutService.Remove(Id);
-            return RedirectToAction(nameof(GetAll));
+            try
+            {
+                await workoutService.Remove(Id);
+                return RedirectToAction(nameof(GetAll));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(GetAll));
+            }
         }
 
         [HttpPost]

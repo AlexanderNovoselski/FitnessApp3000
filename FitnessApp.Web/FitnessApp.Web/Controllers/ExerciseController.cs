@@ -20,19 +20,19 @@ namespace FitnessApp.Web.Controllers
 
         public async Task<IActionResult> GetAll(int workoutId, int page = 1, int pageSize = 10)
         {
-			var model = await exerciseService.GetAll(workoutId);
-			var pagedModel = model.ToPagedList(page, pageSize);
+            var model = await exerciseService.GetAll(workoutId);
+            var pagedModel = model.ToPagedList(page, pageSize);
             ViewBag.WorkoutId = workoutId;
 
             return View(nameof(GetAll), pagedModel);
         }
 
-		[HttpGet]
-		[Authorize(Roles = "Admin")]
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("Exercise/GetRemove")]
         public async Task<IActionResult> GetAllRemove(int workoutId)
         {
-			var model = await exerciseService.GetAllRemove(workoutId);
+            var model = await exerciseService.GetAllRemove(workoutId);
             ViewBag.WorkoutId = workoutId;
             return View(nameof(GetAllRemove), model);
         }
@@ -41,52 +41,65 @@ namespace FitnessApp.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> RemoveFromWorkout(int workoutId, int id)
         {
-            await exerciseService.RemoveExerciseFromWorkout(workoutId, id);
-            return RedirectToAction(nameof(GetAll), "Workout");
+            try
+            {
+                await exerciseService.RemoveExerciseFromWorkout(workoutId, id);
+                return RedirectToAction(nameof(GetAll), "Workout");
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(GetAll), "Workout");
+            }
         }
 
         [HttpPost]
-		[Authorize(Roles = "Admin")]
-		public async Task<IActionResult> AddToWorkout(int id, int workoutId)
-		{
-			var exercise = await exerciseService.AddToWorkout(id, workoutId);
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddToWorkout(int id, int workoutId)
+        {
+            var exercise = await exerciseService.AddToWorkout(id, workoutId);
 
-			// Redirect to the GetAll action with the workoutId parameter
-			return RedirectToAction(nameof(GetAll), "Exercise", new { workoutId });
-		}
+            // Redirect to the GetAll action with the workoutId parameter
+            return RedirectToAction(nameof(GetAll), "Exercise", new { workoutId });
+        }
 
-		[HttpPost]
+        [HttpPost]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int id)
         {
-            await exerciseService.Remove(id);
-
-            return RedirectToAction(nameof(GetAll));
+            try
+            {
+                await exerciseService.Remove(id);
+                return RedirectToAction(nameof(GetAll));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(GetAll));
+            }
         }
 
-		[HttpGet]
-		[Authorize(Roles = "Admin")]
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         [Route("Exercise/Add")]
 
         public async Task<IActionResult> GetCreateModel()
-		{
-			var model = await exerciseService.GetAddModel();
+        {
+            var model = await exerciseService.GetAddModel();
 
-			return View("Add", model);
-		}
+            return View("Add", model);
+        }
 
-		[HttpPost]
-		[Authorize(Roles = "Admin")]
-		public async Task<IActionResult> Create(AddExerciseViewModel model)
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Create(AddExerciseViewModel model)
 
-		{
-			if (ModelState.IsValid == false)
-			{
-				return View("Add", model);
-			}
-			await exerciseService.CreateAsync(model);
+        {
+            if (ModelState.IsValid == false)
+            {
+                return View("Add", model);
+            }
+            await exerciseService.CreateAsync(model);
 
-			return RedirectToAction(nameof(GetAll));
-		}
-	}
+            return RedirectToAction(nameof(GetAll));
+        }
+    }
 }

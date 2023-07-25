@@ -1,4 +1,5 @@
-﻿using FitnessApp.Services.Contracts;
+﻿using FitnessApp.Services;
+using FitnessApp.Services.Contracts;
 using FitnessApp.Web.ViewModels.Models.Goal;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,12 +34,16 @@ namespace FitnessApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoveGoal(int Id)
         {
-            await goalService.Remove(Id);
-
-            return RedirectToAction(nameof(GetAll));
+            try
+            {
+                await goalService.Remove(Id);
+                return RedirectToAction(nameof(GetAll));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(GetAll));
+            }
         }
-
-
 
         [HttpPost]
         public async Task<IActionResult> Edit(int Id)
