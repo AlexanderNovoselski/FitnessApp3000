@@ -1,12 +1,11 @@
 ﻿using FitnessApp.Data;
 using FitnessApp.Services.Contracts;
-using FitnessApp.Web.ViewModels.Models.Diet;
 using FitnessApp.Web.ViewModels.Models.Goal;
 using Microsoft.EntityFrameworkCore;
 
 namespace FitnessApp.Services
 {
-	public class GoalService : IGoalService
+    public class GoalService : IGoalService
 	{
 
 		public readonly ApplicationDbContext dbContext;
@@ -14,9 +13,25 @@ namespace FitnessApp.Services
 		{
 			this.dbContext = dbContext;
 		}
+        public async Task<IEnumerable<GoalTargetDateViewModel>> GetGoalsWithinThreeDays(string userId)
+        {
+            DateTime now = DateTime.Now;
+            DateTime threeDaysFromNow = now.AddDays(3);
 
-		
-		public async Task CreateAsync(AddGoalViewModel model, string userId)
+            var goalsWithinThreeDays = await dbContext.Goals
+                .Where(g => g.UserId == userId && ((!g.isCompleted && g.TargetDate.Date >= now.Date && g.TargetDate.Date <= threeDaysFromNow.Date) || (!g.isCompleted && g.TargetDate.Date == now.Date)))
+                .Select(g => new GoalTargetDateViewModel
+                {
+                    GoalId = g.GoalId,
+                    GoalType = g.GoalType,
+                    TargetDate = g.TargetDate,
+                    isCompleted = g.isCompleted
+                })
+                .ToListAsync();
+
+            return goalsWithinThreeDays;
+        }
+        public async Task CreateAsync(AddGoalViewModel model, string userId)
 		{
 			var goal = new Goal
 			{

@@ -15,5 +15,15 @@ namespace FitnessApp.Web.ViewModels.Models.Goal
 		public bool isCompleted { get; set; } = false;
 
 		public DateTime TargetDate { get; set; }
-	}
+
+        public int RemainingDaysToTarget
+        {
+            get
+            {
+                if (TargetDate < DateTime.Now)
+                    return 0;
+                return (int)(TargetDate - DateTime.Now).TotalDays;
+            }
+        }
+    }
 }

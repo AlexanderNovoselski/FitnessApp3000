@@ -57,6 +57,10 @@
 
 <div id="workoutDetailsContainer" style="display: none;">
     <div id="exerciseInfoContainer">
+
+    </div>
+    <div class="text-center mt-4">
+        <button id="btnBackClosePartial" class="btn btn-primary" onclick="goBackClosePartial()">Back</button>
     </div>
 </div>
 
@@ -91,12 +95,14 @@
         var workoutDetailsContainer = document.getElementById('workoutDetailsContainer');
         var exerciseInfoContainer = document.getElementById('exerciseInfoContainer');
         var workouts = document.getElementsByClassName('workout-card');
+        var btnBackClosePartial = document.getElementById('btnBackClosePartial');
 
         for (var i = 0; i < workouts.length; i++) {
             workouts[i].style.display = 'none';
         }
 
         workoutDetailsContainer.style.display = 'block';
+        btnBackClosePartial.style.display = 'block'; // Show the back button
 
         // Hide the main view's heading
         var mainViewHeading = document.getElementById('mainViewHeading');
@@ -109,22 +115,24 @@
                 exerciseInfoContainer.innerHTML = data;
             });
     }
-
-    function goBack() {
+    function goBackClosePartial() {
         var workoutDetailsContainer = document.getElementById('workoutDetailsContainer');
         var exerciseInfoContainer = document.getElementById('exerciseInfoContainer');
         var workouts = document.getElementsByClassName('workout-card');
+        var btnBackClosePartial = document.getElementById('btnBackClosePartial');
+        var mainViewHeading = document.getElementById('mainViewHeading');
 
+        // Show the main view again by displaying workout cards and hiding the workout details container
+        workoutDetailsContainer.style.display = 'none';
         for (var i = 0; i < workouts.length; i++) {
             workouts[i].style.display = 'block';
         }
 
-        workoutDetailsContainer.style.display = 'none';
+        // Hide the back button and exercise details container
+        btnBackClosePartial.style.display = 'none';
+        exerciseInfoContainer.innerHTML = '';
 
         // Show the main view's heading again
-        var mainViewHeading = document.getElementById('mainViewHeading');
         mainViewHeading.style.display = 'block';
-
-        exerciseInfoContainer.innerHTML = '';
     }
 </script>

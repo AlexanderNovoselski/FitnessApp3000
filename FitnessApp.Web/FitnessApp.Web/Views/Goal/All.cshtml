@@ -52,78 +52,88 @@
 </div>
 
 <div class="text-center">
-    <button id="btnBack" class="btn btn-secondary mt-4">Back</button>
+    <button id="btnCompletedGoals" class="btn btn-primary mt-4">Get Completed Goals</button>
+</div>
+<div id="completedGoalsContainer" class="mt-4">
 </div>
 
-<div id="completedGoalsContainer" class="mt-4"></div>
+<div class="text-center">
+    <button id="btnBack" class="btn btn-primary mt-4" style="display: none;">Back</button>
+</div>
 
 @section scripts {
     <script>
-        $(document).ready(function () {
-            var mainView = $("#mainView");
-            var completedGoalsContainer = $("#completedGoalsContainer");
-            var btnCompletedGoals = $("#btnCompletedGoals");
-            var btnBack = $("#btnBack");
+        var mainView = $("#mainView");
+        var completedGoalsContainer = $("#completedGoalsContainer");
+        var btnCompletedGoals = $("#btnCompletedGoals");
+        var btnBack = $("#btnBack");
 
-            function showMainView() {
-                mainView.show();
-                completedGoalsContainer.hide();
-                btnCompletedGoals.show();
-                btnBack.hide();
-            }
+        function showMainView() {
+            mainView.show();
+            completedGoalsContainer.hide();
+            btnCompletedGoals.show();
+            btnBack.hide();
+            $(".input-group").show(); // Show the search bar
+        }
 
-            function showCompletedGoals() {
-                mainView.hide();
-                completedGoalsContainer.show();
-                btnCompletedGoals.hide();
-                btnBack.show();
-            }
+        function showCompletedGoals() {
+            mainView.hide();
+            completedGoalsContainer.show();
+            btnCompletedGoals.hide();
+            btnBack.show();
+            $(".input-group").hide(); // Hide the search bar
+        }
 
-            btnBack.on("click", function () {
-                showMainView();
-            });
-
-            btnCompletedGoals.on("click", function () {
-                $(".input-group").hide();
-                showCompletedGoals();
-            });
-
-            $("#searchButton").on("click", function () {
-                executeSearch();
-            });
-
-            $("#searchInput").on("keypress", function (event) {
-                if (event.which === 13) { // Enter key
-                    executeSearch();
-                }
-            });
-
-            function executeSearch() {
-                var searchWords = $("#searchInput").val().trim().toLowerCase();
-
-                if (searchWords === "") {
-                    return;
-                }
-
-                $.ajax({
-                    url: "@Url.Action("SearchGoals")",
-                    type: "GET",
-                    data: { searchWords: searchWords },
-                    success: function (data) {
-                        console.log("Search success:", data);
-                        mainView.hide();
-                        completedGoalsContainer.html(data);
-                        completedGoalsContainer.show();
-                        btnCompletedGoals.hide();
-                        btnBack.show();
-                    },
-                    error: function (xhr, status, error) {
-                        console.log("Search error:", error);
-                    }
-                });
-            }
-
+        btnBack.on("click", function () {
             showMainView();
         });
+
+        btnCompletedGoals.on("click", function () {
+            $.ajax({
+                url: "@Url.Action("CompletedGoals", "Goal")",
+                type: "GET",
+                success: function (data) {
+                    console.log("Completed Goals success:", data);
+                    showCompletedGoals();
+                    completedGoalsContainer.html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Completed Goals error:", error);
+                }
+            });
+        });
+
+        $("#searchButton").on("click", function () {
+            executeSearch();
+        });
+
+        $("#searchInput").on("keypress", function (event) {
+            if (event.which === 13) { // Enter key
+                executeSearch();
+            }
+        });
+
+        function executeSearch() {
+            var searchWords = $("#searchInput").val().trim().toLowerCase();
+
+            if (searchWords === "") {
+                return;
+            }
+
+            $.ajax({
+                url: "@Url.Action("SearchGoals")",
+                type: "GET",
+                data: { searchWords: searchWords },
+                success: function (data) {
+                    console.log("Search success:", data);
+                    mainView.html(data);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Search error:", error);
+                }
+            });
+        }
+
+        showMainView();
     </script>
 }

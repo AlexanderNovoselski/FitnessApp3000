@@ -9,20 +9,20 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddCors(setup =>
-//    {
-//        setup.AddPolicy("FitnessApp", policyBuilder =>
-//        {
-//            policyBuilder.WithOrigins("")
-//        });
-//});
+builder.Services.AddMemoryCache();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.Cookie.HttpOnly = true; 
+});
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-    
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddScoped<IDietService, DietService>();
@@ -69,13 +69,10 @@ builder.Services.ConfigureApplicationCookie(options =>
 	};
 });
 
-
 builder.Services.AddControllersWithViews(options =>
 {
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
-
-
 
 var app = builder.Build();
 
@@ -83,7 +80,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
-    //app.UseDeveloperExceptionPage(); 
+    app.UseDeveloperExceptionPage();
 }
 else
 {
@@ -96,7 +93,10 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+
 app.UseRouting();
+
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -6,7 +6,9 @@ namespace FitnessApp.Services.Contracts
 	{
 		public Task<IEnumerable<GoalsViewModel>> GetMyAsync(string userId, string searchWords = null);
 
-		public Task Remove(int id);
+		public Task<IEnumerable<GoalTargetDateViewModel>> GetGoalsWithinThreeDays(string userId);
+
+        public Task Remove(int id);
 
 		public Task<UpdateGoalViewModel> GetGoalEdit(int GoalId);
 

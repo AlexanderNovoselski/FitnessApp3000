@@ -1,5 +1,16 @@
-﻿@inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
+﻿@using FitnessApp.Services.Contracts;
+@using System.Security.Claims;
+@inject Microsoft.AspNetCore.Identity.UserManager<User> UserManager
+@inject IGoalService goalService
+@{
+    string id = string.Empty;
 
+    if (User != null)
+    {
+        id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+    }
+    var goals = await goalService.GetGoalsWithinThreeDays(id);
+}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +99,39 @@
                             </li>
                         </ul>
                     }
-         
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div class="btn-group">
+                            <button id="notifications-button" type="button" class="btn btn-sm dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Notifications <span class="badge bg-danger">@goals.Count()</span>
+                            </button>
+                            <div id="notifications-dropdown" class="dropdown-menu">
+                                @if (goals.Any())
+                                {
+                                    <h6 class="dropdown-header">Goals within Three Days</h6>
+
+                                    @foreach (var goal in goals)
+                                    {
+                                        <a class="dropdown-item" href="/Goal/GetAll"><small>Goal Type:</small> @goal.GoalType</a>
+                                        <a class="dropdown-item" href="/Goal/GetAll"><small>Target Date:</small> @goal.TargetDate.ToShortDateString()</a>
+
+                                        <form class="d-flex justify-content-center" asp-controller="Goal" asp-action="Complete" asp-route-id="@goal.GoalId">
+                                            <input type="submit" value="Complete" class="btn btn-success btn-sm" />
+                                        </form>
+                                        <div class="dropdown-divider"></div>
+                                    }
+                                }
+                                else
+                                {
+                                    <h6 class="dropdown-header">No Goals within Three Days</h6>
+                                }
+                               
+                            </div>
+                        </div>
+                    }
+
+
                     <partial name="_LoginPartial" />
                 </div>
             </div>
@@ -137,6 +180,20 @@
         function goBack() {
             window.history.back();
         }
+
+        // Hide notifications dropdown initially
+        document.getElementById('notifications-dropdown').style.display = 'none';
+
+        // Toggle the visibility of the notifications dropdown on click
+        document.getElementById('notifications-button').addEventListener('click', function () {
+            var dropdown = document.getElementById('notifications-dropdown');
+            if (dropdown.style.display === 'none') {
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        });
+
     </script>
 </body>
 </html>
