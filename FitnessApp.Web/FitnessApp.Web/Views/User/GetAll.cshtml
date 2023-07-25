@@ -25,7 +25,9 @@
                 <td>
                     @if (user.Email != "admin@admin.com")
                     {
-                        <button onclick="deleteUser('@user.Email')">Delete</button>
+                        <form asp-action="Remove" asp-route-email="@user.Email" method="post" onsubmit="return confirm('Are you sure you want to delete this user?')">
+                            <button type="submit">Delete</button>
+                        </form>
                     }
                 </td>
             </tr>
@@ -60,28 +62,28 @@
 }
 
 <script>
-    function deleteUser(email) {
+    async function deleteUser(email) {
         if (confirm("Are you sure you want to delete this user?")) {
-            fetch(`/User/Remove?email=${email}`, {
-                method: 'POST' // or 'DELETE' depending on your server-side configuration
-            })
-                .then(response => {
-                    if (response.ok) {
-                        console.log('User deleted successfully');
-                        // Remove the user from the UI
-                        const userRow = document.querySelector(`tr[data-email="${email}"]`);
-                        if (userRow) {
-                            userRow.remove();
-                        }
-                    } else {
-                        console.log('Error deleting user');
-                        // Handle the error case if needed
-                    }
-                })
-                .catch(error => {
-                    console.log('Error:', error);
-                    // Handle the error case if needed
+            try {
+                const response = await fetch(`/User/Remove?email=${email}`, {
+                    method: 'POST'
                 });
+
+                if (response.ok) {
+                    console.log('User deleted successfully');
+                    // Remove the user from the UI
+                    const userRow = document.querySelector(`tr[data-email="${email}"]`);
+                    if (userRow) {
+                        userRow.remove();
+                    }
+                } else {
+                    console.log('Error deleting user');
+                    // Handle the error case if needed
+                }
+            } catch (error) {
+                console.log('Error:', error);
+                // Handle the error case if needed
+            }
         }
     }
 </script>

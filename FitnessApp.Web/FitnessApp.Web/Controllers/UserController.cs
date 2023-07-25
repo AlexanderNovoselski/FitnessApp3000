@@ -26,10 +26,19 @@ namespace FitnessApp.Web.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        [HttpPost]
         public async Task<IActionResult> Remove(string email)
         {
-            await userService.Remove(email);
-            return RedirectToAction(nameof(GetAll));
+            try
+            {
+                await userService.Remove(email);
+                return RedirectToAction(nameof(GetAll));
+            }
+            catch (Exception ex)
+            {
+                // Log the error for debugging purposes
+                return StatusCode(500); // Return an HTTP 500 Internal Server Error
+            }
         }
     }
 }
