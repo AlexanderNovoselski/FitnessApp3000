@@ -1,6 +1,8 @@
 using FitnessApp.Data;
 using FitnessApp.Services;
 using FitnessApp.Services.Contracts;
+using FitnessApp.Web.Hubs;
+using FitnessApp.Web.Sessions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddMemoryCache();
-
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(15);
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IWorkoutService, WorkoutService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
+builder.Services.AddSignalR();
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
@@ -99,6 +101,8 @@ app.UseRouting();
 
 app.UseSession();
 
+app.UseMiddleware<IdleTimeoutMiddleware>();
+
 app.UseAuthentication();
 app.UseAuthorization();
 
@@ -107,6 +111,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+app.MapHub<DietHub>("/DietHub");
 
 // Creating role Admin
 using (var scope = app.Services.CreateScope())

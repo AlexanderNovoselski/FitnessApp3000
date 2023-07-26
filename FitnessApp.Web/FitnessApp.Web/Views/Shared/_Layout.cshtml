@@ -114,8 +114,9 @@
 
                                     @foreach (var goal in goals)
                                     {
-                                        <a class="dropdown-item" href="/Goal/GetAll"><small>Goal Type:</small> @goal.GoalType</a>
-                                        <a class="dropdown-item" href="/Goal/GetAll"><small>Target Date:</small> @goal.TargetDate.ToShortDateString()</a>
+                                        var textColor = goal.TargetDate.Date < DateTime.Today ? "text-danger" : "text-green";
+                                        <a class="dropdown-item" href="/Goal/GetAll"><small class="@textColor">Goal Type:</small> @goal.GoalType</a>
+                                        <a class="dropdown-item" href="/Goal/GetAll"><small class="@textColor">Target Date:</small> @goal.TargetDate.ToShortDateString()</a>
 
                                         <form class="d-flex justify-content-center" asp-controller="Goal" asp-action="Complete" asp-route-id="@goal.GoalId">
                                             <input type="submit" value="Complete" class="btn btn-success btn-sm" />

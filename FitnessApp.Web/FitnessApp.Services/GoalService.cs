@@ -19,7 +19,10 @@ namespace FitnessApp.Services
             DateTime threeDaysFromNow = now.AddDays(3);
 
             var goalsWithinThreeDays = await dbContext.Goals
-                .Where(g => g.UserId == userId && ((!g.isCompleted && g.TargetDate.Date >= now.Date && g.TargetDate.Date <= threeDaysFromNow.Date) || (!g.isCompleted && g.TargetDate.Date == now.Date)))
+                .Where(g => g.UserId == userId &&
+                    ((!g.isCompleted && g.TargetDate.Date >= now.Date && g.TargetDate.Date <= threeDaysFromNow.Date) ||
+                    (!g.isCompleted && g.TargetDate.Date == now.Date) ||
+                    (!g.isCompleted && g.TargetDate.Date < now.Date)))
                 .Select(g => new GoalTargetDateViewModel
                 {
                     GoalId = g.GoalId,
@@ -31,6 +34,7 @@ namespace FitnessApp.Services
 
             return goalsWithinThreeDays;
         }
+
         public async Task CreateAsync(AddGoalViewModel model, string userId)
 		{
 			var goal = new Goal

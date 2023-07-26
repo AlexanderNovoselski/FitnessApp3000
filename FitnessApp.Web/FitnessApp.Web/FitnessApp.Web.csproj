@@ -31,4 +31,12 @@
     <ProjectReference Include="..\FitnessApp.Web.ViewModels\FitnessApp.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\Boyana Georgieva\Desktop\examsf\FitnessApp.Web\FitnessApp.Web\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\Boyana Georgieva\Desktop\examsf\FitnessApp.Web\FitnessApp.Web\.editorconfig" />
+  </ItemGroup>
+
 </Project>
