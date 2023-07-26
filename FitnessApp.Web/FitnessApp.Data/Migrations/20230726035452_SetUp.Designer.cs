@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FitnessApp.DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230718165455_InitSetUp")]
-    partial class InitSetUp
+    [Migration("20230726035452_SetUp")]
+    partial class SetUp
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,7 +59,7 @@ namespace FitnessApp.DataLayer.Migrations
                         {
                             DietId = 1,
                             CaloriesIntake = 2000,
-                            CreationDate = new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6516),
+                            CreationDate = new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7078),
                             Description = "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.",
                             ImageUrl = "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png",
                             Name = "Ketogenic diet"
@@ -68,7 +68,7 @@ namespace FitnessApp.DataLayer.Migrations
                         {
                             DietId = 2,
                             CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6518),
+                            CreationDate = new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7088),
                             Description = "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods",
                             ImageUrl = "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg",
                             Name = "Vegan Diet"
@@ -77,7 +77,7 @@ namespace FitnessApp.DataLayer.Migrations
                         {
                             DietId = 3,
                             CaloriesIntake = 2300,
-                            CreationDate = new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6520),
+                            CreationDate = new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7094),
                             Description = "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.",
                             ImageUrl = "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png",
                             Name = "Carnivore diet"
@@ -251,7 +251,7 @@ namespace FitnessApp.DataLayer.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Gaining muscle for 30 days",
                             GoalType = 2,
-                            TargetDate = new DateTime(2023, 8, 17, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6554),
+                            TargetDate = new DateTime(2023, 8, 24, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7384),
                             TargetWeight = 80,
                             UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
@@ -262,7 +262,7 @@ namespace FitnessApp.DataLayer.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Losing weight for the summer",
                             GoalType = 0,
-                            TargetDate = new DateTime(2023, 9, 1, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6562),
+                            TargetDate = new DateTime(2023, 9, 8, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7396),
                             TargetWeight = 80,
                             UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
@@ -273,7 +273,7 @@ namespace FitnessApp.DataLayer.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Building muscle endurance and stamina",
                             GoalType = 3,
-                            TargetDate = new DateTime(2023, 9, 1, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6564),
+                            TargetDate = new DateTime(2023, 9, 8, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7400),
                             TargetWeight = 80,
                             UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
@@ -498,6 +498,7 @@ namespace FitnessApp.DataLayer.Migrations
                             Id = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             AccessFailedCount = 0,
                             Age = 30,
+                            ConcurrencyStamp = "57907398-f663-4c78-87c1-8c7319e1272c",
                             Email = "testuser@abv.com",
                             EmailConfirmed = false,
                             Gender = 0,
@@ -506,8 +507,10 @@ namespace FitnessApp.DataLayer.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTUSER@ABV.COM",
                             NormalizedUserName = "TESTUSER@ABV.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOJxxYw1u0w+3p1p2F8ubJsB3XvdxpeCiMiKzqsTaiyUaAmneMOmtVFxmLOYboQgTQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECtcOTDZ9VCMCMCp6jNgOtTrkk1ZSL6/kK1zT/8+hRhLLu2bfcvEjfylNDJImHPMhA==",
+                            PhoneNumber = "0988766888",
                             PhoneNumberConfirmed = false,
+                            SecurityStamp = "91f2798c-476a-4bb0-9352-061b7c0300d4",
                             TwoFactorEnabled = false,
                             UserName = "testuser@abv.com",
                             Weight = 70.0
@@ -590,7 +593,7 @@ namespace FitnessApp.DataLayer.Migrations
                         {
                             WorkoutId = 2,
                             CaloriesBurned = 250.0,
-                            Description = "“Push” workouts train the chest, shoulders, and triceps, while “pull” workouts train the back, biceps, and forearms.",
+                            Description = "In the “pull” workout you train all the upper body pulling muscles, i.e. the back and biceps.",
                             Duration = 60,
                             ImageUrl = "https://i.pinimg.com/originals/a3/2a/79/a32a795d8ff0811e9d3e840a88437f03.jpg",
                             Name = "Pull Workout"
@@ -602,7 +605,7 @@ namespace FitnessApp.DataLayer.Migrations
                             Description = "Leg day is the commonly used term for any day that you exercise, and your workout focuses on lower body moves instead of upper body ones.",
                             Duration = 60,
                             ImageUrl = "https://i.pinimg.com/originals/ae/e6/e0/aee6e07be64c900166a750ed850d430f.jpg",
-                            Name = "Workout 3"
+                            Name = "Leg Workout"
                         });
                 });
 

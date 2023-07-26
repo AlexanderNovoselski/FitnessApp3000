@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FitnessApp.DataLayer.Migrations
 {
-    public partial class InitSetUp : Migration
+    public partial class SetUp : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -310,16 +310,16 @@ namespace FitnessApp.DataLayer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "HeightInCentimeters", "HeightInMeters", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Weight" },
-                values: new object[] { "b35ad7b1-5004-4f8e-8bed-99660a297608", 0, 30, null, "testuser@abv.com", false, 0, 80, 1, true, null, "TESTUSER@ABV.COM", "TESTUSER@ABV.COM", "AQAAAAEAACcQAAAAEOJxxYw1u0w+3p1p2F8ubJsB3XvdxpeCiMiKzqsTaiyUaAmneMOmtVFxmLOYboQgTQ==", null, false, null, false, "testuser@abv.com", 70.0 });
+                values: new object[] { "b35ad7b1-5004-4f8e-8bed-99660a297608", 0, 30, "57907398-f663-4c78-87c1-8c7319e1272c", "testuser@abv.com", false, 0, 80, 1, true, null, "TESTUSER@ABV.COM", "TESTUSER@ABV.COM", "AQAAAAEAACcQAAAAECtcOTDZ9VCMCMCp6jNgOtTrkk1ZSL6/kK1zT/8+hRhLLu2bfcvEjfylNDJImHPMhA==", "0988766888", false, "91f2798c-476a-4bb0-9352-061b7c0300d4", false, "testuser@abv.com", 70.0 });
 
             migrationBuilder.InsertData(
                 table: "Diets",
                 columns: new[] { "DietId", "CaloriesIntake", "CreationDate", "Description", "ImageUrl", "Name" },
                 values: new object[,]
                 {
-                    { 1, 2000, new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6516), "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.", "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png", "Ketogenic diet" },
-                    { 2, 1800, new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6518), "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods", "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg", "Vegan Diet" },
-                    { 3, 2300, new DateTime(2023, 7, 18, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6520), "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.", "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png", "Carnivore diet" }
+                    { 1, 2000, new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7078), "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.", "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png", "Ketogenic diet" },
+                    { 2, 1800, new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7088), "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods", "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg", "Vegan Diet" },
+                    { 3, 2300, new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7094), "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.", "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png", "Carnivore diet" }
                 });
 
             migrationBuilder.InsertData(
@@ -338,8 +338,8 @@ namespace FitnessApp.DataLayer.Migrations
                 values: new object[,]
                 {
                     { 1, 300.0, "n the “push” workout you train all the upper body pushing muscles, i.e. the chest, shoulders and triceps.", 60, "https://weighteasyloss.com/wp-content/uploads/2018/01/4-13.jpg", "Push Workout" },
-                    { 2, 250.0, "“Push” workouts train the chest, shoulders, and triceps, while “pull” workouts train the back, biceps, and forearms.", 60, "https://i.pinimg.com/originals/a3/2a/79/a32a795d8ff0811e9d3e840a88437f03.jpg", "Pull Workout" },
-                    { 3, 350.0, "Leg day is the commonly used term for any day that you exercise, and your workout focuses on lower body moves instead of upper body ones.", 60, "https://i.pinimg.com/originals/ae/e6/e0/aee6e07be64c900166a750ed850d430f.jpg", "Workout 3" }
+                    { 2, 250.0, "In the “pull” workout you train all the upper body pulling muscles, i.e. the back and biceps.", 60, "https://i.pinimg.com/originals/a3/2a/79/a32a795d8ff0811e9d3e840a88437f03.jpg", "Pull Workout" },
+                    { 3, 350.0, "Leg day is the commonly used term for any day that you exercise, and your workout focuses on lower body moves instead of upper body ones.", 60, "https://i.pinimg.com/originals/ae/e6/e0/aee6e07be64c900166a750ed850d430f.jpg", "Leg Workout" }
                 });
 
             migrationBuilder.InsertData(
@@ -357,9 +357,9 @@ namespace FitnessApp.DataLayer.Migrations
                 columns: new[] { "GoalId", "CompletedDate", "Description", "GoalType", "TargetDate", "TargetWeight", "UserId", "isCompleted" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gaining muscle for 30 days", 2, new DateTime(2023, 8, 17, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6554), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Losing weight for the summer", 0, new DateTime(2023, 9, 1, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6562), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Building muscle endurance and stamina", 3, new DateTime(2023, 9, 1, 8, 54, 54, 743, DateTimeKind.Local).AddTicks(6564), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false }
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gaining muscle for 30 days", 2, new DateTime(2023, 8, 24, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7384), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Losing weight for the summer", 0, new DateTime(2023, 9, 8, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7396), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Building muscle endurance and stamina", 3, new DateTime(2023, 9, 8, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7400), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false }
                 });
 
             migrationBuilder.InsertData(

@@ -57,7 +57,7 @@ namespace FitnessApp.DataLayer.Migrations
                         {
                             DietId = 1,
                             CaloriesIntake = 2000,
-                            CreationDate = new DateTime(2023, 7, 19, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8477),
+                            CreationDate = new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7078),
                             Description = "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.",
                             ImageUrl = "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png",
                             Name = "Ketogenic diet"
@@ -66,7 +66,7 @@ namespace FitnessApp.DataLayer.Migrations
                         {
                             DietId = 2,
                             CaloriesIntake = 1800,
-                            CreationDate = new DateTime(2023, 7, 19, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8486),
+                            CreationDate = new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7088),
                             Description = "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods",
                             ImageUrl = "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg",
                             Name = "Vegan Diet"
@@ -75,7 +75,7 @@ namespace FitnessApp.DataLayer.Migrations
                         {
                             DietId = 3,
                             CaloriesIntake = 2300,
-                            CreationDate = new DateTime(2023, 7, 19, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8488),
+                            CreationDate = new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7094),
                             Description = "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.",
                             ImageUrl = "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png",
                             Name = "Carnivore diet"
@@ -249,7 +249,7 @@ namespace FitnessApp.DataLayer.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Gaining muscle for 30 days",
                             GoalType = 2,
-                            TargetDate = new DateTime(2023, 8, 18, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8534),
+                            TargetDate = new DateTime(2023, 8, 24, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7384),
                             TargetWeight = 80,
                             UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
@@ -260,7 +260,7 @@ namespace FitnessApp.DataLayer.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Losing weight for the summer",
                             GoalType = 0,
-                            TargetDate = new DateTime(2023, 9, 2, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8545),
+                            TargetDate = new DateTime(2023, 9, 8, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7396),
                             TargetWeight = 80,
                             UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
@@ -271,7 +271,7 @@ namespace FitnessApp.DataLayer.Migrations
                             CompletedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Description = "Building muscle endurance and stamina",
                             GoalType = 3,
-                            TargetDate = new DateTime(2023, 9, 2, 18, 54, 11, 850, DateTimeKind.Local).AddTicks(8547),
+                            TargetDate = new DateTime(2023, 9, 8, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7400),
                             TargetWeight = 80,
                             UserId = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             isCompleted = false
@@ -496,7 +496,7 @@ namespace FitnessApp.DataLayer.Migrations
                             Id = "b35ad7b1-5004-4f8e-8bed-99660a297608",
                             AccessFailedCount = 0,
                             Age = 30,
-                            ConcurrencyStamp = "e76526dc-e6c4-4733-9536-cedee66599d0",
+                            ConcurrencyStamp = "57907398-f663-4c78-87c1-8c7319e1272c",
                             Email = "testuser@abv.com",
                             EmailConfirmed = false,
                             Gender = 0,
@@ -505,10 +505,10 @@ namespace FitnessApp.DataLayer.Migrations
                             LockoutEnabled = true,
                             NormalizedEmail = "TESTUSER@ABV.COM",
                             NormalizedUserName = "TESTUSER@ABV.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAyh4Uf0R2kqpA1zXYjsPuBB9votaaFWBOTLgqmfyUl9soRVg77uKr+lFWUZXEwrbw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECtcOTDZ9VCMCMCp6jNgOtTrkk1ZSL6/kK1zT/8+hRhLLu2bfcvEjfylNDJImHPMhA==",
                             PhoneNumber = "0988766888",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2f2a3659-8621-442a-8866-09334a764599",
+                            SecurityStamp = "91f2798c-476a-4bb0-9352-061b7c0300d4",
                             TwoFactorEnabled = false,
                             UserName = "testuser@abv.com",
                             Weight = 70.0
