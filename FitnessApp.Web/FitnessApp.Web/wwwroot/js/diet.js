@@ -32,10 +32,6 @@ function fetchDietsAndHandlePagination(page, sortingType) {
     });
 }
 
-// Function to handle pagination
-function handlePagination() {
-    // Your existing handlePagination function here...
-}
 
 // Start the SignalR connection
 connection.start().then(function () {
