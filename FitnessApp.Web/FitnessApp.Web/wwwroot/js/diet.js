@@ -1,23 +1,41 @@
 // Create a connection to the SignalR hub
 var connection = new signalR.HubConnectionBuilder().withUrl("/DietHub").build();
 
-// Define the ReceiveMessage event to handle the incoming message from the hub
 connection.on("ReceiveMessage", function (diet) {
     // Update the view with the new diet details
     var li = document.createElement("li");
-    li.textContent = "New diet added: " + diet.name; // Customize this message according to your needs
+    li.textContent = "New diet added: " + diet.name;
     document.getElementById("messagesList").appendChild(li);
-    console.log("TestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTestTesTestTestadd");
 });
 
 // Define the RemoveDiet event to handle the removed diet
 connection.on("RemoveDiet", function (dietId) {
-    // Update the view to remove the deleted diet
-    var dietElement = document.getElementById(`diet_${dietId}`);
-    if (dietElement) {
-        dietElement.remove();
-    }
+    // Fetch the current page's content with AJAX to update the view
+    var currentPage = $('.pagination .page-item.active .page-link').text();
+    var sortingType = $('#SortingType').val();
+    fetchDietsAndHandlePagination(currentPage, sortingType);
 });
+
+// Function to fetch diets for the current page and handle pagination
+function fetchDietsAndHandlePagination(page, sortingType) {
+    var url = `/Diet/GetAll?page=${page}&sortingType=${sortingType}`;
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function (data) {
+            $('#dietsContainer').html($(data).find('#dietsContainer').html());
+            handlePagination();
+        },
+        error: function (xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
+
+// Function to handle pagination
+function handlePagination() {
+    // Your existing handlePagination function here...
+}
 
 // Start the SignalR connection
 connection.start().then(function () {
@@ -27,3 +45,35 @@ connection.start().then(function () {
     // Connection failed
     console.error(err.toString());
 });
+function handlePagination() {
+    var totalPages = parseInt($('#totalPages').val());
+    if (currentPage <= 0) {
+        currentPage = 1;
+    } else if (currentPage > totalPages) {
+        currentPage = totalPages;
+    }
+
+    $('.pagination li').removeClass('active');
+    $(`.pagination li a[data-page="${currentPage}"]`).parent().addClass('active');
+
+    // Hide or show previous/next buttons based on current page
+    if (currentPage === 1) {
+        $('.pagination li:first-child').addClass('disabled');
+    } else {
+        $('.pagination li:first-child').removeClass('disabled');
+    }
+
+    if (currentPage === totalPages) {
+        $('.pagination li:last-child').addClass('disabled');
+    } else {
+        $('.pagination li:last-child').removeClass('disabled');
+    }
+
+    // Hide the last page if it's empty
+    var lastPageIsEmpty = $('#dietsContainer .card').length === 0;
+    if (lastPageIsEmpty && currentPage === totalPages) {
+        $('.pagination li:last-child').hide();
+    } else {
+        $('.pagination li:last-child').show();
+    }
+}

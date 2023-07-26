@@ -71,29 +71,18 @@ namespace FitnessApp.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int Id)
         {
-                try
-    {
-        // Remove the diet from the database (or wherever it's being stored)
-        await dietService.Remove(Id);
+            try
+            {
+                await dietService.Remove(Id);
 
-        // Send a SignalR message to all connected clients with the removed diet's Id
-        await hubContext.Clients.All.SendAsync("RemoveDiet", Id);
+                await hubContext.Clients.All.SendAsync("RemoveDiet", Id);
 
-        return RedirectToAction(nameof(GetAll));
-    }
-    catch (Exception ex)
-    {
-        return RedirectToAction(nameof(GetAll));
-    }
-            //try
-            //{
-            //    await dietService.Remove(Id);
-            //    return RedirectToAction(nameof(GetAll));
-            //}
-            //catch (Exception ex)
-            //{
-            //    return RedirectToAction(nameof(GetAll));
-            //}
+                return RedirectToAction(nameof(GetAll));
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction(nameof(GetAll));
+            }
         }
 
         [HttpPost]
