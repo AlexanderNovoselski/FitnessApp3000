@@ -19,7 +19,6 @@ namespace FitnessApp.Web.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            SessionAction();
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("GetAll", "Diet");

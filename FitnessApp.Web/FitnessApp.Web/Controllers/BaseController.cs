@@ -8,10 +8,7 @@ namespace FitnessApp.Web.Controllers
     [Authorize]
     public class BaseController : Controller
     {
-        public IActionResult SessionAction()
-        {
-            return View();
-        }
+   
         protected string GetUserId()
         {
             string id = string.Empty;
