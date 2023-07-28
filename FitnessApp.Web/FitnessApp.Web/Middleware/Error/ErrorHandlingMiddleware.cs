@@ -22,12 +22,10 @@ public class ErrorHandlingMiddleware
     {
         try
         {
-            // Call the next middleware in the pipeline
             await _next(context);
         }
         catch (Exception ex)
         {
-            // Handle the exception here and respond with an appropriate error message
             await HandleExceptionAsync(context, ex.Message);
         }
     }
