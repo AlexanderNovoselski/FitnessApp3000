@@ -10,16 +10,20 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div class="text-start mb-3">
-    <div class="d-inline-block" style="width: 30%;">
-        <label for="SortingType" style="display: block;">Sort by:</label>
-        <select id="SortingType" class="form-select" style="width: 100%;" onchange="handleSortingChange(this)">
-            <option value="Default">Default</option>
-            <option value="Newest">Newest</option>
-            <option value="Oldest">Oldest</option>
-        </select>
+@if(Model.Any())
+{
+    <div class="text-start mb-3">
+        <div class="d-inline-block" style="width: 30%;">
+            <label for="SortingType" style="display: block;">Sort by:</label>
+            <select id="SortingType" class="form-select" style="width: 100%;" onchange="handleSortingChange(this)">
+                <option value="Default">Default</option>
+                <option value="Newest">Newest</option>
+                <option value="Oldest">Oldest</option>
+            </select>
+        </div>
     </div>
-</div>
+}
+
 
 <div id="dietsContainer" class="text-center row" data-sorting-type="@ViewBag.SortingType">
     @if (Model.Any())

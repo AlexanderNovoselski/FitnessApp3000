@@ -6,12 +6,15 @@
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
-<div class="text-center">
-    <div class="input-group mb-3">
-        <input type="text" id="searchInput" class="form-control" placeholder="Search goals">
-        <button id="searchButton" class="btn btn-primary" type="button">Search</button>
+@if(Model.Any())
+{
+    <div class="text-center">
+        <div class="input-group mb-3">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search goals">
+            <button id="searchButton" class="btn btn-primary" type="button">Search</button>
+        </div>
     </div>
-</div>
+}
 
 <div class="text-center row" id="mainView">
     @if (Model.Any())

@@ -28,7 +28,7 @@
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="CaloriesIntake">Calories Intake</label>
         <input type="number" class="form-control" asp-for="CaloriesIntake" />
         <span asp-validation-for="CaloriesIntake" class="text-danger"></span>
@@ -36,7 +36,6 @@
 
     <div class="mb-3">
         <input class="btn btn-primary" type="submit" value="Save" asp-action="Update" asp-route-id="@Model.DietId" />
-
         <input class="btn btn-secondary btn-block" type="button" value="Back" onclick="goBack()" />
     </div> 
 
