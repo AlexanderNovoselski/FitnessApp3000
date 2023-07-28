@@ -121,6 +121,7 @@ app.UseAuthorization();
 app.UseSession();
 
 app.UseMiddleware<IdleTimeoutMiddleware>();
+app.UseMiddleware<ErrorHandlingMiddleware>();
 
 app.MapControllerRoute(
     name: "default",
