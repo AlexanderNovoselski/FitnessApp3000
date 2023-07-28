@@ -10,6 +10,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowDeployedWebsite", builder =>
+    {
+        builder.WithOrigins("https://www.example.com")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession(options =>
@@ -100,6 +110,8 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+app.UseCors("AllowDeployedWebsite");
 
 app.UseRouting();
 

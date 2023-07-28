@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FitnessApp.DataLayer.Migrations
 {
-    public partial class SetUp : Migration
+    public partial class InitSetup : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -310,16 +310,16 @@ namespace FitnessApp.DataLayer.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "Age", "ConcurrencyStamp", "Email", "EmailConfirmed", "Gender", "HeightInCentimeters", "HeightInMeters", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "Weight" },
-                values: new object[] { "b35ad7b1-5004-4f8e-8bed-99660a297608", 0, 30, "57907398-f663-4c78-87c1-8c7319e1272c", "testuser@abv.com", false, 0, 80, 1, true, null, "TESTUSER@ABV.COM", "TESTUSER@ABV.COM", "AQAAAAEAACcQAAAAECtcOTDZ9VCMCMCp6jNgOtTrkk1ZSL6/kK1zT/8+hRhLLu2bfcvEjfylNDJImHPMhA==", "0988766888", false, "91f2798c-476a-4bb0-9352-061b7c0300d4", false, "testuser@abv.com", 70.0 });
+                values: new object[] { "b35ad7b1-5004-4f8e-8bed-99660a297608", 0, 30, "47aa9bf2-faf5-406e-8c12-40a37d6bba91", "testuser@abv.com", false, 0, 80, 1, true, null, "TESTUSER@ABV.COM", "TESTUSER@ABV.COM", "AQAAAAEAACcQAAAAEI2hT/i2tLyXFHrPhyM7UtD1WEwzsHD3JzbsdHNHoWNXl38yX764ZrjmUThmjoIYwA==", "0988766888", false, "c689d6cf-da87-4279-8012-43623987e38b", false, "testuser@abv.com", 70.0 });
 
             migrationBuilder.InsertData(
                 table: "Diets",
                 columns: new[] { "DietId", "CaloriesIntake", "CreationDate", "Description", "ImageUrl", "Name" },
                 values: new object[,]
                 {
-                    { 1, 2000, new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7078), "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.", "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png", "Ketogenic diet" },
-                    { 2, 1800, new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7088), "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods", "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg", "Vegan Diet" },
-                    { 3, 2300, new DateTime(2023, 7, 25, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7094), "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.", "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png", "Carnivore diet" }
+                    { 1, 2000, new DateTime(2023, 7, 28, 13, 22, 22, 98, DateTimeKind.Local).AddTicks(2565), "The ketogenic diet is a high-fat, adequate-protein, low-carbohydrate dietary therapy that in conventional medicine is used mainly to treat hard-to-control epilepsy in children.", "https://ro.co/health-guide/wp-content/uploads/sites/5/2021/06/HG-Keto-Diet.png", "Ketogenic diet" },
+                    { 2, 1800, new DateTime(2023, 7, 28, 13, 22, 22, 98, DateTimeKind.Local).AddTicks(2577), "Vegan diets are made up of only plant-based foods. This type of diet includes fruits, vegetables, soy, legumes, nuts and nut butters, plant-based dairy alternatives, sprouted or fermented plant foods and whole grains. Vegan diets don't include animal foods", "https://cdn-prod.medicalnewstoday.com/content/images/articles/324/324343/plant-meal.jpg", "Vegan Diet" },
+                    { 3, 2300, new DateTime(2023, 7, 28, 13, 22, 22, 98, DateTimeKind.Local).AddTicks(2581), "The Carnivore diet is a fad diet in which only animal products such as meat, eggs, and dairy are consumed. The carnivore diet is associated with pseudoscientific health claims.", "https://i.pinimg.com/originals/0c/aa/d3/0caad3ab82c32c3ad719a03dec4d46d0.png", "Carnivore diet" }
                 });
 
             migrationBuilder.InsertData(
@@ -357,9 +357,9 @@ namespace FitnessApp.DataLayer.Migrations
                 columns: new[] { "GoalId", "CompletedDate", "Description", "GoalType", "TargetDate", "TargetWeight", "UserId", "isCompleted" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gaining muscle for 30 days", 2, new DateTime(2023, 8, 24, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7384), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false },
-                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Losing weight for the summer", 0, new DateTime(2023, 9, 8, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7396), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false },
-                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Building muscle endurance and stamina", 3, new DateTime(2023, 9, 8, 19, 54, 51, 652, DateTimeKind.Local).AddTicks(7400), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false }
+                    { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gaining muscle for 30 days", 2, new DateTime(2023, 7, 30, 13, 22, 22, 98, DateTimeKind.Local).AddTicks(2619), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false },
+                    { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Losing weight for the summer", 0, new DateTime(2023, 9, 11, 13, 22, 22, 98, DateTimeKind.Local).AddTicks(2622), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false },
+                    { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Building muscle endurance and stamina", 3, new DateTime(2023, 9, 11, 13, 22, 22, 98, DateTimeKind.Local).AddTicks(2624), 80, "b35ad7b1-5004-4f8e-8bed-99660a297608", false }
                 });
 
             migrationBuilder.InsertData(

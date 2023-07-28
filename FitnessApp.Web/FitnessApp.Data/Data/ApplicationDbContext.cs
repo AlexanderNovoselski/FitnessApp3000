@@ -176,7 +176,7 @@ namespace FitnessApp.Data
                     GoalType = GoalType.MuscleGain,
                     TargetWeight = 80,
                     isCompleted = false,
-                    TargetDate = DateTime.Now.AddDays(30),
+                    TargetDate = DateTime.Now.AddDays(2),
                 },
                 new Goal
                 {
