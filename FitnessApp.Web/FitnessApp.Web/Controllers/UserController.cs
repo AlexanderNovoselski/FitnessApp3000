@@ -6,7 +6,7 @@ using PagedList;
 
 namespace FitnessApp.Web.Controllers
 {
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserService userService;
 

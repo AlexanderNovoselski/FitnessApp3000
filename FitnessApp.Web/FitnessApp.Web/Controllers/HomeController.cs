@@ -15,9 +15,11 @@ namespace FitnessApp.Web.Controllers
         {
             _userManager = userManager;
         }
+
         [AllowAnonymous]
         public IActionResult Index()
         {
+            SessionAction();
             if (User?.Identity?.IsAuthenticated ?? false)
             {
                 return RedirectToAction("GetAll", "Diet");

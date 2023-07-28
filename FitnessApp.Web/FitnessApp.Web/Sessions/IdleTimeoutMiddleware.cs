@@ -1,7 +1,13 @@
-﻿namespace FitnessApp.Web.Sessions;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
 public class IdleTimeoutMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly TimeSpan _idleTimeout = TimeSpan.FromMinutes(15);
 
     public IdleTimeoutMiddleware(RequestDelegate next)
     {
@@ -10,28 +16,32 @@ public class IdleTimeoutMiddleware
 
     public async Task Invoke(HttpContext context)
     {
-        var lastActivity = context.Session.GetString("LastActivity");
-
-        if (!string.IsNullOrEmpty(lastActivity))
+        if (context?.User.Identity.IsAuthenticated == true)
         {
-            var lastActivityTime = DateTime.Parse(lastActivity);
-            var idleTime = DateTime.Now - lastActivityTime;
-
-            // If the idle time exceeds the configured timeout, log the user out
-            if (idleTime.TotalMinutes >= 5)
+            var lastActivityString = context.Session.GetString("LastActivity");
+            if (DateTime.TryParse(lastActivityString, out var lastActivity))
             {
-                // Perform logout or session expiration logic here.
-                // For example:
-                // context.SignOutAsync();
-                // If using authentication
-                
-                // Clear the session
-                context.Session.Clear();
-                context.Response.Redirect("/Account/Logout"); // Redirect to logout page or login page
-                return;
+                var idleTime = DateTime.UtcNow - lastActivity;
+
+                if (idleTime >= _idleTimeout)
+                {
+                    context.Session.Clear();
+                    await LogoutAndRedirect(context);
+                    return;
+                }
             }
+
+            // Update the LastActivity in the session with the current time on each request
+            context.Session.SetString("LastActivity", DateTime.UtcNow.ToString());
         }
 
         await _next(context);
+    }
+
+    private async Task LogoutAndRedirect(HttpContext context)
+    {
+        var signInManager = context.RequestServices.GetRequiredService<SignInManager<User>>();
+        await signInManager.SignOutAsync();
+        context.Response.Redirect("/Identity/Account/Login");
     }
 }

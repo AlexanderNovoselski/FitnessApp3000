@@ -10,11 +10,6 @@ namespace FitnessApp.Web.Controllers
     {
         public IActionResult SessionAction()
         {
-            // Your action logic...
-
-            // Update the session's "last activity" timestamp
-            HttpContext.Session.SetString("LastActivity", DateTime.Now.ToString());
-
             return View();
         }
         protected string GetUserId()

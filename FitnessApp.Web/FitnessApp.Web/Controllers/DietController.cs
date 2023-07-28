@@ -24,6 +24,7 @@ namespace FitnessApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll(SortType sortingType = SortType.Default, int page = 1, int pageSize = 3)
         {
+            SessionAction();
             var model = await dietService.GetAllDietsAsync(sortingType);
             var pagedModel = model.ToPagedList(page, pageSize);
             ViewBag.SortingType = sortingType;
@@ -56,6 +57,7 @@ namespace FitnessApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoveFromCollection(int Id)
         {
+
             try
             {
                 await dietService.RemoveFromCollection(Id, GetUserId());
@@ -71,6 +73,7 @@ namespace FitnessApp.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Remove(int Id)
         {
+
             try
             {
                 await dietService.Remove(Id);
@@ -89,6 +92,7 @@ namespace FitnessApp.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int Id)
         {
+
             UpdateDietViewModel diet = await dietService.GetEditDiet(Id);
 
             if (diet == null)
@@ -119,6 +123,7 @@ namespace FitnessApp.Web.Controllers
         [Route("Diet/Add")]
         public async Task<IActionResult> GetCreateModel()
         {
+
             var model = await dietService.GetAddModel();
 
             return View("Add", model);
@@ -128,6 +133,7 @@ namespace FitnessApp.Web.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(AddDietViewModel model)
         {
+
             if (ModelState.IsValid == false)
             {
                 return View("Add", model);

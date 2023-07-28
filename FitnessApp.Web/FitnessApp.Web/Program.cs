@@ -2,7 +2,6 @@ using FitnessApp.Data;
 using FitnessApp.Services;
 using FitnessApp.Services.Contracts;
 using FitnessApp.Web.Hubs;
-using FitnessApp.Web.Sessions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -11,13 +10,16 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(15);
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
+
+builder.Services.AddHttpContextAccessor();
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -33,11 +35,12 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IExerciseService, ExerciseService>();
 builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddSignalR();
+
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
     options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false; 
+    options.Password.RequireLowercase = false;
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.Password.RequiredLength = 6;
@@ -50,26 +53,28 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     .AddDefaultUI()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
+builder.Services.AddScoped<UserManager<User>>();
+builder.Services.AddScoped<SignInManager<User>>();
 
 builder.Services.AddRazorPages();
 builder.Services.ConfigureApplicationCookie(options =>
 {
-	options.Events = new CookieAuthenticationEvents
-	{
-		OnRedirectToLogin = context =>
-		{
-			// Check if the request is for an API endpoint
-			bool isApiEndpoint = context.Request.Path.StartsWithSegments("/api");
+    options.Events = new CookieAuthenticationEvents
+    {
+        OnRedirectToLogin = context =>
+        {
+            // Check if the request is for an API endpoint
+            bool isApiEndpoint = context.Request.Path.StartsWithSegments("/api");
 
-			// Redirect to login page for non-API requests
-			if (!isApiEndpoint)
-			{
-				context.Response.Redirect("/Identity/Account/Login");
-			}
+            // Redirect to login page for non-API requests
+            if (!isApiEndpoint)
+            {
+                context.Response.Redirect("/Identity/Account/Login");
+            }
 
-			return Task.CompletedTask;
-		}
-	};
+            return Task.CompletedTask;
+        }
+    };
 });
 
 builder.Services.AddControllersWithViews(options =>
@@ -96,24 +101,23 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseSession();
 
 app.UseMiddleware<IdleTimeoutMiddleware>();
 
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllerRoute( 
+app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 app.MapHub<DietHub>("/DietHub");
 
-// Creating role Admin
+//Creating role Admin
 using (var scope = app.Services.CreateScope())
 {
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
