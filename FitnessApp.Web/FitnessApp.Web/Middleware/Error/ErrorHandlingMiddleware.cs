@@ -38,19 +38,7 @@ public class ErrorHandlingMiddleware
         // Log the error
         _logger.LogError(ex, "An error occurred in the application.");
 
-        // Prepare the JSON error response
-        var errorResponse = new
-        {
-            error = "An error occurred in the application."
-        };
-
-        // Set the response content type and status code
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-        // Write the error response as JSON
-        await context.Response.WriteAsync(JsonConvert.SerializeObject(errorResponse));
-
-    
+        // Perform the redirect to Home/Error
+        context.Response.Redirect("/Home/Error");
     }
-
 }

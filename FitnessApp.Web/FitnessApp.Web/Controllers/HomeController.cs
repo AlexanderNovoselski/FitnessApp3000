@@ -29,12 +29,9 @@ namespace FitnessApp.Web.Controllers
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-		public IActionResult Error(int statusCode)
+		public IActionResult Error()
 		{
-            if (statusCode == 400 || statusCode == 404 )
-            {
-                return View("Error404");
-            }
+
 			return View("Error");
 		}
 	}
