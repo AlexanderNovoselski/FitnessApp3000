@@ -16,13 +16,13 @@ namespace FitnessApp.Web.Controllers
             _userManager = userManager;
         }
 
-        [AllowAnonymous]
+        //[AllowAnonymous]
         public IActionResult Index()
         {
-            if (User?.Identity?.IsAuthenticated ?? false)
-            {
-                return RedirectToAction("GetAll", "Diet");
-            }
+            //if (User?.Identity?.IsAuthenticated ?? false)
+            //{
+            //    return RedirectToAction("GetAll", "Diet");
+            //}
 
             return RedirectToAction("GetAll", "Diet");
         }
