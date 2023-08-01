@@ -21,7 +21,7 @@ namespace FitnessApp.Web.Controllers
             this.hubContext = hubContext;
         }
 
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetAll(SortType sortingType = SortType.Default, int page = 1, int pageSize = 3)
         {
