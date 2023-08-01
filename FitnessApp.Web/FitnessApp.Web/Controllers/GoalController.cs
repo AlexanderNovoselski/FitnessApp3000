@@ -18,7 +18,7 @@ namespace FitnessApp.Web.Controllers
         public async Task<IActionResult> GetAll(string searchWords = null)
         {
             var model = await goalService.GetMyAsync(GetUserId(), searchWords);
-
+            
             return View("All", model);
         }
 
