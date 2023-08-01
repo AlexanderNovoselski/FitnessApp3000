@@ -128,7 +128,7 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 app.MapHub<DietHub>("/DietHub");
- 
+  
 //Creating role Admin
 //using (var scope = app.Services.CreateScope())
 //{
