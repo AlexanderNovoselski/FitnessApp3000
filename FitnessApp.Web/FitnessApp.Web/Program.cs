@@ -134,42 +134,42 @@ app.MapControllerRoute(
 
 app.MapRazorPages();
 app.MapHub<DietHub>("/DietHub");
-  
+
 //Creating role Admin
-//using (var scope = app.Services.CreateScope())
-//{
-//    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-//    var roles = new[] { "Admin" };
+    var roles = new[] { "Admin" };
 
-//    foreach (var role in roles)
-//    {
-//        if (!await roleManager.RoleExistsAsync(role))
-//            await roleManager.CreateAsync(new IdentityRole(role));
-//    }
-//}
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+}
 
-//using (var scope = app.Services.CreateScope())
-//{
-//    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
-//    //This admin user is auto generated. Use this email and password to have admin access
-//    var email = "admin@admin.com";
-//    var password = "Admin123.";
-//    if (await userManager.FindByEmailAsync(email) == null)
-//    {
-//        var user = new User();
+    //This admin user is auto generated. Use this email and password to have admin access
+    var email = "admin@admin.com";
+    var password = "Admin123.";
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var user = new User();
 
-//        user.Id = "4f115243-ce00-43f3-a0e8-85df5d8d28cf";
-//        user.UserName = email;
-//        user.Email = email;
+        user.Id = "4f115243-ce00-43f3-a0e8-85df5d8d28cf";
+        user.UserName = email;
+        user.Email = email;
 
-//        await userManager.CreateAsync(user, password);
+        await userManager.CreateAsync(user, password);
 
-//        await userManager.AddToRoleAsync(user, "Admin");
+        await userManager.AddToRoleAsync(user, "Admin");
 
 
-//    }
-//}
+    }
+}
 
 app.Run();

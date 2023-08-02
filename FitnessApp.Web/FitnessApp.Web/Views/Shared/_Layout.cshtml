@@ -40,7 +40,7 @@
                                 Diet
                             </a>
                             <div class="dropdown-menu" aria-labelledby="dietDropdown">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetAll">Diets</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Diet" asp-action="GetAll">All Diets</a>
                                 @if (User.IsInRole("Admin"))
                                 {
                                     <a id="addDietOption" class="dropdown-item" asp-area="" asp-controller="Diet" asp-action="GetCreateModel">Add Diet</a>
@@ -83,7 +83,7 @@
                                 Goal
                             </a>
                             <div class="dropdown-menu" aria-labelledby="exerciseDropdown">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Goal" asp-action="GetAll">My Goals</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Goal" asp-action="GetAll">Goals</a>
                                 @if (isAuthenticated)
                                 {
                                     <a id="addExerciseOption" class="dropdown-item" asp-area="" asp-controller="Goal" asp-action="GetCreateModel">Add Goal</a>

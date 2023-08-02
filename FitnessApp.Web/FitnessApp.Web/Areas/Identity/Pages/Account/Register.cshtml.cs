@@ -121,10 +121,19 @@ namespace FitnessApp.Web.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                // If the user is authenticated and returnUrl is empty or null, redirect to the home index page
+                if (string.IsNullOrEmpty(returnUrl))
+                {
+                    return RedirectToPage("/Index");
+                }
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

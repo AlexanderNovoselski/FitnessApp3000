@@ -84,8 +84,17 @@ namespace FitnessApp.Web.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
-        public async Task OnGetAsync(string returnUrl = null)
+        public async Task<IActionResult> OnGetAsync(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                // If the user is authenticated and returnUrl is empty or null, redirect to the home index page
+                if (string.IsNullOrEmpty(returnUrl))
+                {
+                    return RedirectToPage("/Index");
+                }
+            }
+       
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
@@ -99,6 +108,9 @@ namespace FitnessApp.Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             ReturnUrl = returnUrl;
+
+            // If the user is not authenticated or there's a returnUrl, render the current page
+            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)

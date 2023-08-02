@@ -32,7 +32,6 @@ namespace FitnessApp.Web.Controllers
         [AllowAnonymous]
 		public IActionResult Error()
 		{
-
 			return View("Error");
 		}
 	}

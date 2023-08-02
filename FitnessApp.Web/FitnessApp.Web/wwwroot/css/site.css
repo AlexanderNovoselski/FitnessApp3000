@@ -134,3 +134,10 @@ footer {
 .btn-group:hover #notifications-dropdown {
     display: block;
 }
+
+/* Create space between the cards */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Adjust this value to set the desired space between the cards */
+}
