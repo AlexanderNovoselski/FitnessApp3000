@@ -107,6 +107,9 @@ else
     app.UseHsts();
 }
 
+var context = app.Services.GetRequiredService<ApplicationDbContext>();
+context.Database.Migrate();
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
