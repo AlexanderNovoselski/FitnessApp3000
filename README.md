@@ -5,3 +5,8 @@ Web application based on ASP.NET Core 6.0. Fitness App 3000 allows looking into 
 
 Used technologies: C#, ASP.NET Core 6.0, Entity Framework Core 6.0, Microsoft AspNetCore Identity, Azure, SQL Server, UI, REST, Razor Pages, Middleware JavaScript, TypeScript, SignalR, Ajax, Bootstrap, CSS, HTML, 
 Team members: Aleksandar Novoselski
+
+
+Azure - https://fitnessapp3000.azurewebsites.net/Diet/GetAll
+
+Admin logins and user logins sent to you through the survey

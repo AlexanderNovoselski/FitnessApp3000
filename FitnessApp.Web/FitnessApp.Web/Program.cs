@@ -2,7 +2,6 @@ using FitnessApp.Data;
 using FitnessApp.Services;
 using FitnessApp.Services.Contracts;
 using FitnessApp.Web.Hubs;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,15 +9,15 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.Services.AddCors(options =>
-//{
-//    options.AddPolicy("AllowDeployedWebsite", builder =>
-//    {
-//        builder.WithOrigins("https://www.example.com")
-//               .AllowAnyHeader()
-//               .AllowAnyMethod();
-//    });
-//});
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowDeployedWebsite", builder =>
+    {
+        builder.WithOrigins("https://fitnessapp3000.azurewebsites.net")
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMemoryCache();
@@ -67,25 +66,6 @@ builder.Services.AddScoped<UserManager<User>>();
 builder.Services.AddScoped<SignInManager<User>>();
 
 builder.Services.AddRazorPages();
-//builder.Services.ConfigureApplicationCookie(options =>
-//{
-//    options.Events = new CookieAuthenticationEvents
-//    {
-//        OnRedirectToLogin = context =>
-//        {
-//            // Check if the request is for an API endpoint
-//            bool isApiEndpoint = context.Request.Path.StartsWithSegments("/api");
-
-//            // Redirect to login page for non-API requests
-//            if (!isApiEndpoint)
-//            {
-//                context.Response.Redirect("/Identity/Account/Login");
-//            }
-
-//            return Task.CompletedTask;
-//        }
-//    };
-//});
 
 builder.Services.AddControllersWithViews(options =>
 {
@@ -116,7 +96,7 @@ using(var scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-//app.UseCors("AllowDeployedWebsite");
+app.UseCors("AllowDeployedWebsite");
 
 app.UseRouting();
 
