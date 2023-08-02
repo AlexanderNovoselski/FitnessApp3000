@@ -217,7 +217,7 @@ namespace FitnessApp.Data
                     WorkoutId = 1,
                     Name = "Push Workout",
                     ImageUrl = "https://weighteasyloss.com/wp-content/uploads/2018/01/4-13.jpg",
-                    Description = "n the “push” workout you train all the upper body pushing muscles, i.e. the chest, shoulders and triceps.",
+                    Description = "In the “push” workout you train all the upper body pushing muscles, i.e. the chest, shoulders and triceps.",
                     Duration = 60,
                     CaloriesBurned = 300,
                     ExerciseWorkouts = new List<ExerciseWorkout>(),

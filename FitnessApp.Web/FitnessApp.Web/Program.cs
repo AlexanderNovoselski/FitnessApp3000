@@ -67,25 +67,25 @@ builder.Services.AddScoped<UserManager<User>>();
 builder.Services.AddScoped<SignInManager<User>>();
 
 builder.Services.AddRazorPages();
-builder.Services.ConfigureApplicationCookie(options =>
-{
-    options.Events = new CookieAuthenticationEvents
-    {
-        OnRedirectToLogin = context =>
-        {
-            // Check if the request is for an API endpoint
-            bool isApiEndpoint = context.Request.Path.StartsWithSegments("/api");
+//builder.Services.ConfigureApplicationCookie(options =>
+//{
+//    options.Events = new CookieAuthenticationEvents
+//    {
+//        OnRedirectToLogin = context =>
+//        {
+//            // Check if the request is for an API endpoint
+//            bool isApiEndpoint = context.Request.Path.StartsWithSegments("/api");
 
-            // Redirect to login page for non-API requests
-            if (!isApiEndpoint)
-            {
-                context.Response.Redirect("/Identity/Account/Login");
-            }
+//            // Redirect to login page for non-API requests
+//            if (!isApiEndpoint)
+//            {
+//                context.Response.Redirect("/Identity/Account/Login");
+//            }
 
-            return Task.CompletedTask;
-        }
-    };
-});
+//            return Task.CompletedTask;
+//        }
+//    };
+//});
 
 builder.Services.AddControllersWithViews(options =>
 {
