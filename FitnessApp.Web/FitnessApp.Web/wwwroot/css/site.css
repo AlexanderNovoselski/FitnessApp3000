@@ -142,9 +142,14 @@ footer {
     gap: 15px; /* Adjust this value to set the desired space between the cards */
 }
 
-.card-body img {
-    height: 200px; /* Set the desired fixed height for the images */
+.card-body  {
+    height: 250px; /* Set the desired fixed height for the images */
     width: 100%; /* Maintain aspect ratio and fit the image within the div */
     object-fit: cover; /* Preserve the image aspect ratio and cover the entire div */
 }
 
+
+.card-image img {
+    height: 500px;
+    object-fit: cover; /* Preserve the image aspect ratio and cover the entire div */
+}
