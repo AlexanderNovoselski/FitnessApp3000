@@ -107,8 +107,11 @@ else
     app.UseHsts();
 }
 
-var context = app.Services.GetRequiredService<ApplicationDbContext>();
-context.Database.Migrate();
+using(var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    context.Database.Migrate();
+}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
