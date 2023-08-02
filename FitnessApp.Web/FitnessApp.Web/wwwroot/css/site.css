@@ -143,7 +143,7 @@ footer {
 }
 
 .card-body  {
-    height: 250px; /* Set the desired fixed height for the images */
+    height: 260px; /* Set the desired fixed height for the images */
     width: 100%; /* Maintain aspect ratio and fit the image within the div */
     object-fit: cover; /* Preserve the image aspect ratio and cover the entire div */
 }
