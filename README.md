@@ -9,4 +9,4 @@ Team members: Aleksandar Novoselski
 
 Azure - https://fitnessapp3000.azurewebsites.net/Diet/GetAll
 
-Admin logins and user logins sent to you through the survey
+Pre seeded Admin logins and user logins sent to you through the survey
