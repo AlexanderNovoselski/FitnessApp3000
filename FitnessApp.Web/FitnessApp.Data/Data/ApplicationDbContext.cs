@@ -239,7 +239,7 @@ namespace FitnessApp.Data
                     WorkoutId = 3,
                     Name = "Leg Workout",
                     ImageUrl = "https://i.pinimg.com/originals/ae/e6/e0/aee6e07be64c900166a750ed850d430f.jpg",
-                    Description = "Leg day is the commonly used term for any day that you exercise, and your workout focuses on lower body moves instead of upper body ones.",
+                    Description = "Leg day is the commonly used term for any day that you exercise, and your workout focuses on lower body.",
                     Duration = 60,
                     CaloriesBurned = 350,
                     ExerciseWorkouts = new List<ExerciseWorkout>(),
