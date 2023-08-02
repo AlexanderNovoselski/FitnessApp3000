@@ -13,7 +13,9 @@
         @foreach (var workout in Model)
         {
             <div class="card col-4 mb-3 workout-card" style="width: 30%;">
-                <img class="card-img-top img-fluid" src="@workout.ImageUrl" alt="Workout Image" style="height: 200px; object-fit: cover;">
+                <div class="card-image">
+                    <img class="img-fluid" src="@workout.ImageUrl" alt="Workout Image">
+                </div>
                 <div class="card-body">
                     <p hidden>Id: @workout.WorkoutId</p>
                     <h5 class="card-title mt-1">@workout.Name</h5>

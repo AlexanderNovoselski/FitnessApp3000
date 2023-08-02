@@ -30,8 +30,10 @@
     {
         @foreach (var diet in Model)
         {
-            <div id="diet_@diet.DietId" class="card col-4 mb-3" style="width: 30%;">
-                <img class="card-img-top img-fluid" src="@diet.ImageUrl" alt="Diet Image" style="height: 200px; object-fit: cover;">
+            <div id="diet_@diet.DietId" class="card col-4 mb-3">
+                <div class="card-image">
+                    <img class="img-fluid" src="@diet.ImageUrl" alt="Diet Image">
+                </div>
                 <div class="card-body">
                     <p hidden>Id: @diet.DietId</p>
                     <h5 class="card-title mt-1">@diet.Name</h5>
