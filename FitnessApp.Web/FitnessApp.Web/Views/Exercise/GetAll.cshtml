@@ -4,31 +4,31 @@
 
 
 
-@if (Model.Any())
-{
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Sets</th>
-                <th>Reps</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var exercise in Model)
-            {
+<div class="table-responsive">
+    @if (Model.Any())
+    {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td hidden>@exercise.Id</td>
-                    <td>@exercise.Name</td>
-                    <td>@exercise.Description</td>
-                    <td>@exercise.Sets</td>
-                    <td>@exercise.Reps</td>
-                    <td>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            @if (ViewBag.WorkoutId != 0)
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th class="d-none d-md-table-cell">Sets</th>
+                    <th class="d-none d-md-table-cell">Reps</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var exercise in Model)
+                {
+                    <tr>
+                        <td hidden>@exercise.Id</td>
+                        <td>@exercise.Name</td>
+                        <td>@exercise.Description</td>
+                        <td class="d-none d-md-table-cell">@exercise.Sets</td>
+                        <td class="d-none d-md-table-cell">@exercise.Reps</td>
+                        <td>
+                            @if (User.IsInRole("Admin") && ViewBag.WorkoutId != 0)
                             {
                                 <form class="input-group-sm mb-3" method="post" asp-controller="Exercise" asp-action="AddToWorkout">
                                     <input type="hidden" name="id" value="@exercise.Id" />
@@ -36,22 +36,20 @@
                                     <input type="submit" value="Add to workout" class="btn btn-success btn-sm w-100" />
                                 </form>
                             }
-                        }
-                    </td>
-
-                    <td>
-                        @if (User.IsInRole("Admin"))
-                        {
-                            <form class="input-group-sm mb-3" asp-controller="Exercise" asp-action="Remove" asp-route-id="@exercise.Id" onsubmit="return confirm('Are you sure you want to delete this exercise?')">
-                                <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
-                            </form>
-                        }
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+                        </td>
+                        <td>
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <form class="input-group-sm mb-3" asp-controller="Exercise" asp-action="Remove" asp-route-id="@exercise.Id" onsubmit="return confirm('Are you sure you want to delete this exercise?')">
+                                    <input type="submit" value="Remove" class="btn btn-danger btn-sm w-100" />
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 else
 {
     <p>No exercises available.</p>
@@ -82,3 +80,4 @@ else
         </ul>
     </div>
 }
+</div>
