@@ -139,7 +139,7 @@ footer {
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px; /* Adjust this value to set the desired space between the cards */
+    gap: 0px; /* Adjust this value to set the desired space between the cards */
 }
 
 .card-body  {

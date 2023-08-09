@@ -4,7 +4,7 @@
     ViewBag.Title = "All Workouts";
 }
 
-<h2 id="mainViewHeading" class="text-center">Here you can choose a workout plan to follow</h2>
+<h2 id="mainViewHeading" class="text-center">Here you can select a workout plan to follow</h2>
 <hr />
 
 <div class="text-center row card-container">
@@ -94,47 +94,41 @@
 
 <script>
     function showWorkoutDetails(workoutId) {
-        var workoutDetailsContainer = document.getElementById('workoutDetailsContainer');
-        var exerciseInfoContainer = document.getElementById('exerciseInfoContainer');
-        var workouts = document.getElementsByClassName('workout-card');
-        var btnBackClosePartial = document.getElementById('btnBackClosePartial');
+        const workoutDetailsContainer = document.getElementById('workoutDetailsContainer');
+        const exerciseInfoContainer = document.getElementById('exerciseInfoContainer');
+        const workouts = document.querySelectorAll('.card');
+        const btnBackClosePartial = document.getElementById('btnBackClosePartial');
+        const mainViewHeading = document.getElementById('mainViewHeading');
 
-        for (var i = 0; i < workouts.length; i++) {
-            workouts[i].style.display = 'none';
-        }
+        workouts.forEach(workout => {
+            workout.style.display = 'none';
+        });
 
         workoutDetailsContainer.style.display = 'block';
-        btnBackClosePartial.style.display = 'block'; // Show the back button
-
-        // Hide the main view's heading
-        var mainViewHeading = document.getElementById('mainViewHeading');
+        btnBackClosePartial.style.display = 'block';
         mainViewHeading.style.display = 'none';
 
         fetch('/Workout/GetDetails?id=' + workoutId)
             .then(response => response.text())
             .then(data => {
-                exerciseInfoContainer.innerHTML = '';
                 exerciseInfoContainer.innerHTML = data;
             });
     }
+
     function goBackClosePartial() {
-        var workoutDetailsContainer = document.getElementById('workoutDetailsContainer');
-        var exerciseInfoContainer = document.getElementById('exerciseInfoContainer');
-        var workouts = document.getElementsByClassName('workout-card');
-        var btnBackClosePartial = document.getElementById('btnBackClosePartial');
-        var mainViewHeading = document.getElementById('mainViewHeading');
+        const workoutDetailsContainer = document.getElementById('workoutDetailsContainer');
+        const exerciseInfoContainer = document.getElementById('exerciseInfoContainer');
+        const workouts = document.querySelectorAll('.card');
+        const btnBackClosePartial = document.getElementById('btnBackClosePartial');
+        const mainViewHeading = document.getElementById('mainViewHeading');
 
-        // Show the main view again by displaying workout cards and hiding the workout details container
         workoutDetailsContainer.style.display = 'none';
-        for (var i = 0; i < workouts.length; i++) {
-            workouts[i].style.display = 'block';
-        }
+        workouts.forEach(workout => {
+            workout.style.display = 'block';
+        });
 
-        // Hide the back button and exercise details container
         btnBackClosePartial.style.display = 'none';
         exerciseInfoContainer.innerHTML = '';
-
-        // Show the main view's heading again
         mainViewHeading.style.display = 'block';
     }
 </script>

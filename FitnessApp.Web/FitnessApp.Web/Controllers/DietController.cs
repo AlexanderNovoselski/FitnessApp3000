@@ -46,7 +46,7 @@ namespace FitnessApp.Web.Controllers
             try
             {
                 await dietService.AddToCollection(Id, GetUserId());
-                return RedirectToAction(nameof(GetAll));
+                return RedirectToAction(nameof(GetMyDiets));
             }
             catch (Exception ex)
             {
